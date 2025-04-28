@@ -156,7 +156,6 @@ Second, if you want to deposit ETH from Sepolia to address `0x7CaD994FC1c0d94ef2
 ```
 node scripts/eth_bridge.js depositEth 0x7CaD994FC1c0d94ef232FBe3b45B685018Ee59B6 27000000 7000000 37000000  
 ```
-
 | Parameter  | Value  | Description  |
 |---|---|---|
 | `to`  | 0x7CaD994FC1c0d94ef232FBe3b45B685018Ee59B6  | deposit target address on Jovay  |
@@ -185,7 +184,7 @@ node script/eth_bridge.js withdrawEth 0x7CaD994FC1c0d94ef232FBe3b45B685018Ee59B6
 |---|---|---|
 | `batch_index`  | 568  | the batch index of withdraw tx hash. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100).  |
 |`tx_hash`  | the withdraw tx hash; this script will get the parameters `nonce` and msg of L2 `Msg` automatically.  |
-|`proof`   | 0x0000000000000000000000000000000000000000000000000000000000000000AD3228B676F7D3CD4284A5443F17F1962B36E491B30A40B2405849E597BA5FB549907CABA6026FC29793BCD2643CC473EA1961E750D21D0CA0681B6BC47036F721DDB9A356815C3FAC1026B6DEC5DF3124AFBADB485C9BA5A3E3398A04B7BA8508C69FA8494A232D4152ED4E9804888ACB9736E5B573A91C7C8286C8BD94FCDF11D320ECF7A95981F47E88A7E45E7D3BF3EFE42A3725F02F8E529B85A0F2D10480C2EB2A1D9ED30415BAC4EDBE840944AC03B0EE4EA8EA564ECE94177EA3CADC  | the spv proof of L2 msg. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) after batch is finalized.</br> <image src="./Images/Access/jovay%20explorer.png"> |
+|`proof`   | 0x0000000000000000000000000000000000000000000000000000000000000000AD3228B676F7D3CD4284A5443F17F1962B36E491B30A40B2405849E597BA5FB549907CABA6026FC29793BCD2643CC473EA1961E750D21D0CA0681B6BC47036F721DDB9A356815C3FAC1026B6DEC5DF3124AFBADB485C9BA5A3E3398A04B7BA8508C69FA8494A232D4152ED4E9804888ACB9736E5B573A91C7C8286C8BD94FCDF11D320ECF7A95981F47E88A7E45E7D3BF3EFE42A3725F02F8E529B85A0F2D10480C2EB2A1D9ED30415BAC4EDBE840944AC03B0EE4EA8EA564ECE94177EA3CADC  | the spv proof of L2 msg. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) after batch is finalized.</br> ![jovay explorer](./Images/Access/jovay%20explorer.png)|
 
 ## Jovay API
 Jovay is fully compatible with the Ethereum ecosystem, offering native support for standard Ethereum JSON-RPC interfaces. Developers can seamlessly integrate using popular tools and libraries such as Web3j, Web3.js, or ethers.js, without the need for custom adaptations. This enables existing Ethereum applications to migrate or expand to the Jovay with minimal effort, reducing integration costs and accelerating development.
@@ -217,7 +216,7 @@ table2: Jovay JSON-RPC List
 | eth_getBlockTransactionCountByHash | ✅ |  |
 | eth_getBlockTransactionCountByNumber | ✅ |  |
 | eth_getUncleCountByBlockHash | ⚠️ | Returns `0` due to the L2 chain having no uncle blocks |
-| eth_getUncleCountByBlockNumber |⚠️  | Returns 0 due to the L2 chain having no uncle blocks |
+| eth_getUncleCountByBlockNumber |⚠️  | Returns `0` due to the L2 chain having no uncle blocks |
 |eth_getCode  | ✅ |  |
 | eth_sign | ❌ |not provided due to wallet functionality  unimplemented  |
 | eth_signTransaction | ❌ | not provided due to wallet functionality  unimplemented |
@@ -233,12 +232,12 @@ table2: Jovay JSON-RPC List
 | eth_getTransactionReceipt |✅  |  |
 | eth_getUncleByBlockHashAndIndex | ⚠️ | Returns `null` due to the L2 chain having no uncle blocks |
 | eth_getUncleByBlockNumberAndIndex | ⚠️ | Returns `null` due to the L2 chain having no uncle blocks |
-| eth_newFilter |❌  | not provided due to filter functionality  unimplemented |
-| eth_newBlockFilter | ❌ |not provided due to filter functionality  unimplemented  |
-| eth_newPendingTransactionFilter | ❌ |not provided due to filter functionality  unimplemented  |
-| eth_uninstallFilter | ❌ | not provided due to filter functionality  unimplemented |
-| eth_getFilterChanges |❌  | not provided due to filter functionality  unimplemented |
-| eth_getFilterLogs | ❌ | not provided due to filter functionality  unimplemented |
-| eth_getLogs | ✅ |  |
-| eth_maxPriorityFeePerGas |⚠️  |Returns 0 due to the absence of priority-fee scheduling  |
-| eth_getAccount | ✅ |  |
+| eth_newFilter |❌  | not provided due to filter functionality unimplemented |
+| eth_newBlockFilter | ❌ |not provided due to filter functionality unimplemented |
+| eth_newPendingTransactionFilter | ❌ |not provided due to filter functionality unimplemented |
+| eth_uninstallFilter | ❌ | not provided due to filter functionality unimplemented |
+|eth_getFilterChanges|❌|not provided due to filter functionality unimplemented|
+|eth_getFilterLogs|❌|not provided due to filter functionality unimplemented  |
+|eth_getLogs|✅| |
+|eth_maxPriorityFeePerGas|⚠️|Returns 0 due to the absence of priority-fee scheduling|
+|eth_getAccount|✅| |
