@@ -1,8 +1,9 @@
-# DTVM
-## Smart Contract Overview
+# Learn about Jovay
+## DTVM
+### Smart Contract Overview
 Jovay adopts the [DTVM virtual machine](https://github.com/DTVMStack/DTVM) as the execution engine for smart contracts. At its core, it is a WebAssembly JIT virtual machine, but it provides compatibility with the EVM contract ecosystem, including the ability to use the same contract ABI as EVM for contract deployment and invocation, and support for common SDKs and clients such as web3js, web3j, and MetaMask. For contract developers, it supports Solidity-compatible contract syntax and common contract frameworks like Foundry for contract development and compilation. Additionally, it supports other traditional programming languages such as C++ (currently available), Rust, Java, Go, and AssemblyScript (TypeScript subset) (being gradually introduced) for smart contract development. These contracts can interoperate with Solidity contracts and can be called using common SDKs and clients like web3 and MetaMask.
 
-## DTVM Introduction
+### DTVM Introduction
 DTVM (DeTerministic Virtual Machine) is a next-generation blockchain virtual machine that addresses critical performance, determinism, and ecosystem compatibility challenges in blockchain networks. Building upon WebAssembly (Wasm) while maintaining full Ethereum Virtual Machine (EVM) ABI compatibility.
 <p align="center">
   <img src="./Images/DTVM/DTVM%20Introduction.png">
@@ -42,7 +43,7 @@ processing time by 11.8∼40.5%, with cross-architecture deterministic execution
 
 4). Intelligent Coding and High-precision Security Auditing: DTVM’s integrated SmartCogent delivers an 81% accuracy rate in vulnerability detection and an 86% success rate in automated repair, significantly surpassing other baseline models and specialized tools. These extensive experimental results highlight the DTVM Stack as an efficient and secure infrastructure execution framework for high-performance blockchain applications, providing optimized computational throughput with deterministic execution guarantees.
 
-## DTVM SDK
+### DTVM SDK
 DTVM’s adaptation layer supports multi-language contract development, providing frontend design capabilities for contracts written in Solidity, C++, Rust, Go, Java, AssemblyScript, and more. It includes SDKs with diverse template libraries to streamline development. The core objective is to offer developers a high-efficiency, user-friendly, and multi-language environment that seamlessly integrates with the underlying DTVM engine. By providing language-specific SDKs, developers can select the most suitable language based on project requirements, team expertise, or language advantages (e.g., Rust’s security, C++’s performance, or Solidity’s Ethereum compatibility), thereby lowering barriers to entry for the DTVM ecosystem and enabling the creation of complex, high-performance decentralized applications.
 
 Key features include:
@@ -66,12 +67,12 @@ interface specifications, ensuring seamless communication between contracts.
 
 This approach ensures that developers have all the necessary resources at their disposal to efficiently develop, test, and deploy applications on the DTVM platform.
 
-## DTVM Compatibility with EVM
+### DTVM Compatibility with EVM
 DTVM currently supports the EVM ecosystem through EVM ABI compatibility, Solidity 0.8 syntax compatibility, and SDK and client compatibility. Developers can use the original Solidity syntax and Foundry framework to develop smart contracts, use DTVM's contract language SDK to compile to Wasm bytecode, and then use Ethereum community's web3 sdk to deploy to the blockchain and call contracts. This provides a compatible experience for both developers and users.
 
 For contract developers, in addition to facilitating the migration of existing contracts and the use of existing contract libraries through Solidity syntax compatibility, for computation-intensive smart contracts such as cryptography or those requiring calls to existing C++, Rust, Java, and other language code, developers can use these Web3 programming languages to develop contracts. They can compile to Wasm contract bytecode using DTVM's SDK and deploy to the blockchain. Users can call these contracts just like Solidity contracts, and they can even be called by other Solidity contracts. While maintaining compatibility in user experience and ecosystem, this provides developers with more options.
 
-### DTVM Solidity Language Support
+#### DTVM Solidity Language Support
 DTVM's first contract language support is for Solidity, with its open-source repository available on GitHub at https://github.com/DTVMStack/DTVM_SolSDK.
 
 DTVM_SolSDK serves as a valuable tool for compiling Ethereum Solidity smart contracts into WebAssembly (Wasm), thereby facilitating their deployment on Wasm-based blockchains.
@@ -79,7 +80,7 @@ Currently, DTVM_SolSDK supports Solidity 0.8 syntax and integrates with the Foun
 
 To ensure compatibility with the EVM, DTVM_SolSDK employs a process where Solidity contracts are first compiled into Yul assembly language using a Solidity compiler, and then these Yul contracts are transcompiled into Wasm bytecode.
 
-### DTVM C++ Language Support
+#### DTVM C++ Language Support
 DTVM offers support for writing WebAssembly contracts using C++/C, while maintaining compatibility with the EVM ABI.
 
 The DTVM C++ contract SDK is open-sourced and available on GitHub at https://github.com/DTVMStack/DTVM_CppSDK.

@@ -8,10 +8,10 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /guide/intro
+      link: /guide/about-jovay
     - theme: alt
       text: Learn More
-      link: /guide/intro
+      link: /guide/about-jovay
 
 features:
   - icon: 📚
