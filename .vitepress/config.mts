@@ -25,7 +25,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/ZanTeam/bulgari-docs' }
+      { icon: 'github', link: 'https://github.com/ZanTeam/jovay-docs' }
     ]
   },
 })
