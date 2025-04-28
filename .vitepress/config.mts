@@ -16,9 +16,9 @@ export default defineConfig({
 //        text: 'Guide',
 //        items: [
           { text: 'About Jovay', link: '/guide/about-jovay' },
-          { text: 'Whitepaper', link: '/guide/whitepaper' },
+          { text: 'Jovay Layer2 Whitepaper', link: '/guide/jovay-layer2-whitepaper' },
           { text: 'Learn about Jovay', link: '/guide/learn-about-jovay' },
-          { text: 'SmartCogent', link: '/guide/smartcogent' },
+          { text: 'SmartCogent Introduction', link: '/guide/smartCogent-introduction' },
           { text: 'How to access the devnet', link: '/guide/how-to-access-the-devnet' }
 //        ]
 //      }
