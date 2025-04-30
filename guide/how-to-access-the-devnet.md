@@ -22,7 +22,7 @@ Applying for early access to Jovay is quick and straightforward:
     curl --request POST --url YourJovayChainEndpointURL --header 'accept: application/json' --header 'content-type: application/json' --data '{"id": 1, "jsonrpc": "2.0", "method": "eth_chainId"}'
     ```
     The expected output is shown in the figure below: 
-    ![Jovay_Explorer](./Images/Access/Jovay_Explorer.png)
+    ![Jovay_Explorer](./Images/Access/expected%20output.png)
 
 ## Contract Deployment Tutorial
 We encourage developers to deploy and test smart contracts on Jovay. This section will introduce how to deploy and invoke smart contracts compiled by DTVM-SDKs ([DTVM_SolSDK](https://github.com/DTVMStack/DTVM_SolSDK), [DTVM_CppSDK](https://github.com/DTVMStack/DTVM_CppSDK), etc.) on Jovay. All operators below are demonstrated on  **Ubuntu 22.04**.
@@ -152,7 +152,7 @@ contract JovayExample {
 }
 ```
 
-The example contract above can be found `injovay-guide.tar.gz`. And our following operations are based on this script package.
+The example contract above can be found in `jovay-guide.tar.gz`. And our following operations are based on this script package.
 
 First, compile the Solidity smart contract into Wasm bytecode:
 ```
@@ -185,7 +185,7 @@ Replace the parameter `contract_address` from the below-here command with your d
 |Parameter|Description|Example|
 |--|--|--|
 |`contract_address`|The address of the contract on Jovay that you want to invoke.|`0x3b87b43889bbe72b9d6175c7c7f91c54814c6134`|
-|`abi`|The abi file of contract; You can get this file by adding the `--abi` parameter to the solc command.|4conf/abi/JovayExample.abi|
+|`abi`|The abi file of contract; You can get this file by adding the `--abi` parameter to the solc command.|conf/abi/JovayExample.abi|
 |`method_parameter`|The method parameter of `SetContent`.|"hello jovay"|
 |`gas_price`|Max fee of per gas on Jovay; It is recommended to set it to a value greater than 1.|4|
 
@@ -256,7 +256,7 @@ If successful, you will see output similar to the following:
 By running the above command, you transferred 11,000,000,000 wei to the Sepolia ETH Bridge Contract. Of this amount, 10,007,000,000 wei was successfully transferred to Jovay, and the remainder was refunded to your wallet account. Within the transferred amount, 10,000,000,000 wei was deposited to your account on Jovay, while 7,000,000 wei was collected as the bridge fee.
 You can check on [Jovay Explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) whether the L1 `deposit` transaction has been delivered to Jovay; this process may take up to 25 minutes. Once the `deposit` is confirmed on Jovay, an L2 transaction hash will be displayed instead of a pending claim.
 
-![Jovay Explorer](./Images/Access/Jovay%20Explorer%20Tx.png)
+![Jovay Explorer](./Images/Access/pending%20claim.png)
 
 ### WithDraw from Jovay to Sepolia
 To withdraw ETH from Jovay to Sepolia, you need to invoke `withdraw` on the ETH Bridge Contract on Jovay, and then invoke `relayMsgWithProof` on the ETH Bridge Contract on Sepolia.
@@ -303,7 +303,7 @@ If successful, you will see output similar to the following:
 ✅✅ Transaction hash : 0x620629487a0497afd77c838637fa4a57e9c4cdf72cd9993ea35c9e3bff6a3e7a
 🎉🎉 Send transaction success.
 ```
-After sending thewithdrawtransaction on Jovay, wait for the next batch (~20 minutes) to roll up to Sepolia. Searchwithdrawtransaction hash on Jovay Explorer to view the details.
+After sending the `withdraw` transaction on Jovay, wait for the next batch (~20 minutes) to roll up to Sepolia. Search `withdraw` transaction hash on Jovay Explorer to view the details.
 ![withdraw transaction](./Images/Access/withdraw%20transaction.png)
 
 Once the batch is verified on L1, the Proof field will display a hex value. At that point, you can proceed to execute `finalizeWithdraw`.
@@ -313,7 +313,7 @@ Once the batch is verified on L1, the Proof field will display a hex value. At t
 #### finalizeWithdraw
 Finalizing a withdrawal on Sepolia triggers the Bridge contract to transfer ETH to the target address, based on the L2 message produced by the Jovay `withdraw` transaction.
 
-The following commands can only be executed after the Jovay `withdraw` transaction has been finalized on Sepolia. Enter thewithdrawtransaction hash on the [Jovay Explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) to navigate to the transaction details page, where the finalization status will be displayed. Then you can find the proof we descriped and assume that you already have the proof from the transaction detail page.
+The following commands can only be executed after the Jovay `withdraw` transaction has been finalized on Sepolia. Enter the `withdraw` transaction hash on the [Jovay Explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) to navigate to the transaction details page, where the finalization status will be displayed. Then you can find the proof we descriped and assume that you already have the proof from the transaction detail page.
 
 Please prepare the script parameters as listed in the table below before executing the following command.
 
