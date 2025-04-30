@@ -1,9 +1,7 @@
 ---
 outline: deep
 ---
-# Disclaimer Wording for Jovay
-
-## Disclaimer
+# Disclaimer
 This website is a demonstration site created solely for informational purposes. All content, features and functionalities displayed herein are intended to showcase potential designs, capabilities, and user experiences.
 
 This website provides an interface of Jovay, a Layer2 solution which is compatible with the Ethereum ecosystem. The owner of this website is not a counterparty of any transaction displayed on this website. All information, data, white paper and other materials concerning a particular transaction is prepared solely by its organizer, and such person is solely responsible for the accuracy of all statements. There is no guarantee that information on these matters is true, correct, or precise.

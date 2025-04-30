@@ -37,10 +37,10 @@ Before that, you need :
 
     a. Update the system environment.
 
-        ```
-        apt update
-        apt install wget curl vim -y     
-        ```
+    ```
+    apt update
+    apt install wget curl vim -y     
+    ```
 
     b. Install nodejs and npm in the recommanded way by [nodejs.org](https://nodejs.org/en/download/).
 
@@ -59,7 +59,7 @@ Before that, you need :
     ```
 
 2. Prepare DTVM_SolSDK to complie Solidity into Wasm bytecode. You could download DTVM_SolSDK from [here](https://github.com/DTVMStack/DTVM_SolSDK/releases/tag/v0.1.0), we use [DTVM_SolSDK-0.1.0-Linux-ubuntu22.04.tar.gz](https://github.com/DTVMStack/DTVM_SolSDK/releases/download/v0.1.0/DTVM_SolSDK-0.1.0-Linux-ubuntu22.04.tar.gz)  for demo purpose.
-    
+
     > sha256sum DTVM_SolSDK-0.1.0-Linux-ubuntu22.04.tar.gz
     > a291264971b0a1708795bf45b731fe6958c864bcbcd6cdb2f9aed1db45c11424  DTVM_SolSDK-0.1.0-Linux-ubuntu22.04.tar.gz
 
@@ -70,12 +70,12 @@ Before that, you need :
     tar -zxvf DTVM_SolSDK-0.1.0-Linux-ubuntu22.04.tar.gz -C dtvm
     export PATH=$PATH:$(pwd)/dtvm/DTVM_SolSDK-7861fb3-Linux
     ```
-3. Since **Jovay uses ETH from Sepolia for gas fees**, you need to deposit ETH into your Jovay account by calling Deposit in the [Bridge between Sepolia and Jovay](https://yuque.antfin.com/antchain/updgmy/mlt9hfkv63tof1yu#kztmm). This operation transfers ETH from Sepolia to Jovay and is necessary to facilitate subsequent transactions. **Notice: this step will transfer your ETH from Sepolia to Jovay**.
+3. Since **Jovay uses ETH from Sepolia for gas fees**, you need to deposit ETH into your Jovay account by calling Deposit in the [Bridge ETH between Sepolia and Jovay](#bridge-eth-between-sepolia-and-jovay). This operation transfers ETH from Sepolia to Jovay and is necessary to facilitate subsequent transactions. **Notice: this step will transfer your ETH from Sepolia to Jovay**.
 
 4. For simplicity, we provide example scripts: [jovay-guide.tar.gz](https://static.zan.top/static/Jovay/jovay-guide.tar.gz) for deploying and calling contract by web3js. And you can also use web3js to interact with the Jovay yourself without this example.
 
     > sha256sum jovay-guide.tar.gz
-    > 2a059dd6cf0444e71dfd7396369b78eacd6c61722327a0e411f506598d1cc295  jovay-guide.tar.gz
+    > 7d9330811914429aa7c6df7765b30b8071822924b8969e8927804ab6c4be1181  jovay-guide.tar.gz
     ```
     cd ~
     wget https://static.zan.top/static/Jovay/jovay-guide.tar.gz
@@ -114,13 +114,15 @@ Before that, you need :
     RPC_URL="url of Sepolia"
     L2_RPC_URL="url of Jovay"
 
-    # the address and private key of your account on Sepolia
-    L1_OWNER_ADDR=foo
-    L1_PRIVATE_KEY=foo
+    # the address of your acoount on Sepolia
+    L1_OWNER_ADDR=bar
+    # the address of your acoount on Jovay
+    L2_OWNER_ADDR=foo
 
-    # the address and private key of your account on Jovay
-    L2_OWNER_ADDR=bar
-    L2_PRIVATE_KEY=bar
+    # the private key of your account on Sepolia
+    L1_PRIVATE_KEY=bar
+    # the private key of your account on Jovay
+    L2_PRIVATE_KEY=foo
 
     # ETH Bridge Contract on Sepolia
     L1_ETH_BRIDGE_ADDR=0x10Ec05757Af363080443110BFd2e86C4406E4732
@@ -128,7 +130,7 @@ Before that, you need :
     L2_ETH_BRIDGE_ADDR=0x38675d92813338953b0f67e9cc36be59282b77e3
 
     L1_ETH_BRIDGE_ABI=conf/abi/L1ETHBridge.abi
-    L2_ETH_BRIDGE_ABI=conf/abi/L2ETHBridge.abi
+    L2_ETH_BRIDGE_ABI=conf/abi/L2ETHBridge.abi    
     ```
 
 Now, let's work with the simple example contract:
@@ -169,7 +171,7 @@ Second, deploy Wasm bytecode by `scripts/interact_with_contract.js`. Specify Was
 |`wasm_bytecode`|The Wasm bytecode will be deployed to the Jovay chain.|jovay_example.cbin.hex|
 |`gas_price`|The max fee per gas on Jovay. A value greater than 1 is recommended.|4|
 ```
-node scripts/interact_with_contract.js deploy $wasm_bytecode $gas_price
+node scripts/interact_with_contract.js deploy jovay_example.cbin.hex $gas_price
 ```
 You can find your deployed contract address under the `contractAddress` field of the json format transaction receipt, e.g. shown below:
 ```
@@ -179,26 +181,34 @@ You can find your deployed contract address under the `contractAddress` field of
 And then, you can invoke your contract on Jovay.
 
 Replace the parameter `contract_address` from the below-here command with your deployed contract address. And run the below script to invoke `SetContent` method.
+
 |Parameter|Description|Example|
 |--|--|--|
 |`contract_address`|The address of the contract on Jovay that you want to invoke.|`0x3b87b43889bbe72b9d6175c7c7f91c54814c6134`|
 |`abi`|The abi file of contract; You can get this file by adding the `--abi` parameter to the solc command.|4conf/abi/JovayExample.abi|
 |`method_parameter`|The method parameter of `SetContent`.|"hello jovay"|
 |`gas_price`|Max fee of per gas on Jovay; It is recommended to set it to a value greater than 1.|4|
+
 ```
-node scripts/interact_with_contract.js call_SetContent $contract_address $abi $method_parameter $gas_price 
+node scripts/interact_with_contract.js call_SetContent $contract_address conf/abi/JovayExample.abi $method_parameter $gas_price 
 ```
 Replace the parameter of the below command, then execute the command below to invoke `GetContent` of contract.
+
+|Parameter|Description|Example|
 |--|--|--|
 |`contract_address`|The address of the contract on Jovay that you want to invoke.|`0x3b87b43889bbe72b9d6175c7c7f91c54814c6134`|
 |`abi`|The abi file of contract. You can get this file by adding the `--abi` parameter to the solc command.|conf/abi/JovayExample.abi|
+
 ```
-node scripts/interact_with_contract.js call_GetContent $contract_address $abi 
+node scripts/interact_with_contract.js call_GetContent $contract_address conf/abi/JovayExample.abi 
 ```
-You would get the following output: 
+If the call succeeds, you will see:
 ```
 🎉🎉 content:  hello jovay
 ```
+> Note:
+> ⌛ The result may take about 10 seconds to appear, please be patient.
+Any subsequent contract invocations on either Sepolia or Jovay may also take roughly 10 seconds to complete.
 
 
 ## Bridge ETH between Sepolia and Jovay
@@ -244,7 +254,7 @@ If successful, you will see output similar to the following:
 🎉🎉 Send transaction success.
 ```
 By running the above command, you transferred 11,000,000,000 wei to the Sepolia ETH Bridge Contract. Of this amount, 10,007,000,000 wei was successfully transferred to Jovay, and the remainder was refunded to your wallet account. Within the transferred amount, 10,000,000,000 wei was deposited to your account on Jovay, while 7,000,000 wei was collected as the bridge fee.
-You can check on Jovay Explorer whether the L1 `deposit` transaction has been delivered to Jovay; this process may take up to 25 minutes. Once the `deposit` is confirmed on Jovay, an L2 transaction hash will be displayed instead of a pending claim.
+You can check on [Jovay Explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) whether the L1 `deposit` transaction has been delivered to Jovay; this process may take up to 25 minutes. Once the `deposit` is confirmed on Jovay, an L2 transaction hash will be displayed instead of a pending claim.
 
 ![Jovay Explorer](./Images/Access/Jovay%20Explorer%20Tx.png)
 
@@ -309,7 +319,7 @@ Please prepare the script parameters as listed in the table below before executi
 
 | Parameter  |  Description  | Value  |
 |---|---|---|
-| `batch_index`  | the batch index of `withdraw` hash. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100).</br><ol><li>Searchwithdrawtx hash.</br>![jovay explorer-1](./Images/Access/jovay%20explorer-1.png)</li><li>Click the Block Number.</br>![jovay explorer-2](./Images/Access/jovay%20explorer-2.png)</li></ol>  | 122  | 
+| `batch_index`  | the batch index of `withdraw` hash. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100).</br><ol><li>Search `withdraw` tx hash.</br>![jovay explorer-1](./Images/Access/jovay%20explorer-1.png)</li><li>Click the Block Number.</br>![jovay explorer-2](./Images/Access/jovay%20explorer-2.png)</li></ol>  | 122  | 
 |`tx_hash`  |The `withdraw` transaction was sent on Jovay. The script automatically retrieves the `nonce` and `msg` from the L2 message.  | `0x620629487a0497afd77c838637fa4a57e9c4cdf72cd9993ea35c9e3bff6a3e7a` |
 |`proof`   |  The spv proof of L2 withdrawmsg. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) after batch is **finalized**.</br>Search withdraw tx hash and check the status is finalized</br>![jovay explorer](./Images/Access/jovay%20explorer.png)| 0000000000000000000000000000000000000000000000000000000000000000ad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5b4c11951957c6f8f642c4af61cd6b24640fec6dc7fc607ee8206a99e92410d3021ddb9a356815c3fac1026b6dec5df3124afbadb485c9ba5a3e3398a04b7ba8524540cfcbc067229a7d700b686a7f626a5362b21e569dcdb84d3e9c1dde6895c  |
 |`gas_price` | Max fee per gas on Sepolia. It is recommended to set this value based on the base fee of the current Sepolia block.  | 40630943068  |

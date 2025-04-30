@@ -42,7 +42,8 @@ export default defineConfig({
           },
           { text: 'Jovay Layer 2 Whitepaper', link: '/guide/whitepaper' },
           { text: 'SmartCogent Introduction', link: '/guide/smartcogent' },
-          { text: 'How to access the devnet', link: '/guide/how-to-access-the-devnet' }
+          { text: 'How to access the devnet', link: '/guide/how-to-access-the-devnet' },
+          { text: 'Disclaimer', link: '/guide/disclaimer' }
 //        ]
 //      }
     ],
