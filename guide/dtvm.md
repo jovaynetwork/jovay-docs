@@ -7,10 +7,7 @@ Jovay adopts the [DTVM virtual machine](https://github.com/DTVMStack/DTVM) as th
 
 ## DTVM Introduction
 DTVM (DeTerministic Virtual Machine) is a next-generation blockchain virtual machine that addresses critical performance, determinism, and ecosystem compatibility challenges in blockchain networks. Building upon WebAssembly (Wasm) while maintaining full Ethereum Virtual Machine (EVM) ABI compatibility.
-<p align="center">
-  <img src="./Images/DTVM/DTVM%20Introduction.png">
-  <br>
-</p>
+![DTVM Introduction](/Images/DTVM/DTVM%20Introduction.png)
 
 You can read the DTVM technical paper for more details: https://arxiv.org/abs/2504.16552
 

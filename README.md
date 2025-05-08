@@ -10,3 +10,6 @@ The documentation is built with [VitePress](https://vitepress.dev/guide/getting-
 npm install
 npm start
 ```
+
+# use debug
+  localStorage.debug = 'jovay:*'

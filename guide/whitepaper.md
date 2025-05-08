@@ -44,9 +44,8 @@ Simultaneously, Jovay employs a heterogeneous dual-prover architecture, combinin
 
 ### 3.2.Three-Stage Confirmation Mechanism
 
+![Comfirmation Merchanism](/Images/Whitepaper/Three-Stage%20Comfirmation%20Merchanism.png)
 <p align="center">
-  <img src="./Images/Whitepaper/Three-Stage%20Comfirmation%20Merchanism.png">
-  <br>
   <span style="font-size: 14px;">Figure 1: Three-Stage Confirmation Mechanism</span>
 </p>
 
@@ -69,9 +68,8 @@ Notably, Jovay enables elastic scalability, allowing sequencer, tracer, and prov
 
 ### 3.4.Full-Cycle Transaction Processing
 
+![Transaction Processing](/Images/Whitepaper/Transaction%20Process.png)
 <p align="center">
-  <img src="./Images/Whitepaper/Transaction%20Process.png">
-  <br>
   <span style="font-size: 14px;">Figure 2: Transaction Processing</span>
 </p>
 
@@ -93,18 +91,16 @@ To address the above challenges, VEPT (Verifiable, Extensible, Pluggable, Truste
 3. **Pluggable:** The plug-in pattern enables seamless and efficient migration of web3 AI agents, promoting third-party integration and ensuring ecosystem compatibility across diverse domains, including L1/L2 blockchain networks, agent frameworks, decentralized applications (DApps), and multi-agent systems.
 4. **Trusted:** From the hardware layer to the foundational service layer and subsequently to the application layer, a hierarchical verification mechanism is implemented across modules to establish an end-to-end chain of trust. 
 
+![VEPT Architecture](/Images/Whitepaper/VEPT%20Architecture.png)
 <p align="center">
-  <img src="./Images/Whitepaper/VEPT%20Architecture.png">
-  <br>
   <span style="font-size: 14px;">Figure 3: VEPT Architecture</span>
 </p>
 
 ### 4.2.AI Extended Application
 Within the VEPT paradigm, trusted and verifiable computational capabilities are built in Jovay's Layer 2 network. By implementing a set of trusted interoperability protocols, the virtual machine deployed on the Sequencer extends a suite of secure Host APIs, which enable smart contracts to comprehensively encapsulate and manage critical logic such as agent invocation (see Figure 4). This architecture ultimately facilitates the deployment of B-Agent on the blockchain. Throughout its execution, all on-chain and off-chain interactions ranging from chain-of-thought reasoning to memory management are captured as verifiable traces. These traces are subsequently replayed and validated within the proving system to ensure the integrity and correctness of the execution process. By harnessing Jovay's native functionalities, the agent's operational framework supports multiple modes of interaction, delivering tailored and precise services across diverse application scenarios.
 
+![AI Extension Architecture Based on VEPT](/Images/Whitepaper/AI%20Extension%20Architecture%20Based%20on%20VEPT.png)
 <p align="center">
-  <img src="./Images/Whitepaper/AI%20Extension%20Architecture%20Based%20on%20VEPT.png">
-  <br>
   <span style="font-size: 14px;">Figure 4: AI Extension Architecture Based on VEPT</span>
 </p>
 

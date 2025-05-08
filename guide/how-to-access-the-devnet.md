@@ -16,13 +16,13 @@ Applying for early access to Jovay is quick and straightforward:
     - Dedicated Jovay Chain Endpoint URL
     - Integration Instructions
 
-    ![submission](./Images/Access/submission.png)
+    ![submission](/Images/Access/submission.png)
 3. Verify that `yourJovay Chain Endpoint URL` is available. Replace the `YourJovayChainEndpointURL` with `your Jovay Chain Endpoint URL` obtained above. For curl installation, please refer to [Contract Deployment Tutorial](#contract-deployment-tutorial).
     ```
     curl --request POST --url YourJovayChainEndpointURL --header 'accept: application/json' --header 'content-type: application/json' --data '{"id": 1, "jsonrpc": "2.0", "method": "eth_chainId"}'
     ```
     The expected output is shown in the figure below: 
-    ![Jovay_Explorer](./Images/Access/expected%20output.png)
+    ![Jovay_Explorer](/Images/Access/expected%20output.png)
 
 ## Contract Deployment Tutorial
 We encourage developers to deploy and test smart contracts on Jovay. This section will introduce how to deploy and invoke smart contracts compiled by DTVM-SDKs ([DTVM_SolSDK](https://github.com/DTVMStack/DTVM_SolSDK), [DTVM_CppSDK](https://github.com/DTVMStack/DTVM_CppSDK), etc.) on Jovay. All operators below are demonstrated on  **Ubuntu 22.04**.
@@ -184,7 +184,7 @@ Replace the parameter `contract_address` from the below-here command with your d
 
 |Parameter|Description|Example|
 |--|--|--|
-|`contract_address`|The address of the contract on Jovay that you want to invoke.|`0x3b87b43889bbe72b9d6175c7c7f91c54814c6134`|
+|`contract_address`|The address of the contract on Jovay that you want to invoke.| <div style="word-wrap: break-word; word-break:break-all;">`0x3b87b43889bbe72b9d6175c7c7f91c54814c6134`</div>|
 |`abi`|The abi file of contract; You can get this file by adding the `--abi` parameter to the solc command.|conf/abi/JovayExample.abi|
 |`method_parameter`|The method parameter of `SetContent`.|"hello jovay"|
 |`gas_price`|Max fee of per gas on Jovay; It is recommended to set it to a value greater than 1.|4|
@@ -196,7 +196,7 @@ Replace the parameter of the below command, then execute the command below to in
 
 |Parameter|Description|Example|
 |--|--|--|
-|`contract_address`|The address of the contract on Jovay that you want to invoke.|`0x3b87b43889bbe72b9d6175c7c7f91c54814c6134`|
+|`contract_address`|The address of the contract on Jovay that you want to invoke.|<div style="word-wrap: break-word; word-break:break-all;">`0x3b87b43889bbe72b9d6175c7c7f91c54814c6134`</div>|
 |`abi`|The abi file of contract. You can get this file by adding the `--abi` parameter to the solc command.|conf/abi/JovayExample.abi|
 
 ```
@@ -256,7 +256,7 @@ If successful, you will see output similar to the following:
 By running the above command, you transferred 11,000,000,000 wei to the Sepolia ETH Bridge Contract. Of this amount, 10,007,000,000 wei was successfully transferred to Jovay, and the remainder was refunded to your wallet account. Within the transferred amount, 10,000,000,000 wei was deposited to your account on Jovay, while 7,000,000 wei was collected as the bridge fee.
 You can check on [Jovay Explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) whether the L1 `deposit` transaction has been delivered to Jovay; this process may take up to 25 minutes. Once the `deposit` is confirmed on Jovay, an L2 transaction hash will be displayed instead of a pending claim.
 
-![Jovay Explorer](./Images/Access/pending%20claim.png)
+![Jovay Explorer](/Images/Access/pending%20claim.png)
 
 ### WithDraw from Jovay to Sepolia
 To withdraw ETH from Jovay to Sepolia, you need to invoke `withdraw` on the ETH Bridge Contract on Jovay, and then invoke `relayMsgWithProof` on the ETH Bridge Contract on Sepolia.
@@ -304,10 +304,10 @@ If successful, you will see output similar to the following:
 🎉🎉 Send transaction success.
 ```
 After sending the `withdraw` transaction on Jovay, wait for the next batch (~20 minutes) to roll up to Sepolia. Search `withdraw` transaction hash on Jovay Explorer to view the details.
-![withdraw transaction](./Images/Access/withdraw%20transaction.png)
+![withdraw transaction](/Images/Access/withdraw%20transaction.png)
 
 Once the batch is verified on L1, the Proof field will display a hex value. At that point, you can proceed to execute `finalizeWithdraw`.
-![Proof](./Images/Access/Proof.png)
+![Proof](/Images/Access/Proof.png)
 
 
 #### finalizeWithdraw
@@ -319,9 +319,9 @@ Please prepare the script parameters as listed in the table below before executi
 
 | Parameter  |  Description  | Value  |
 |---|---|---|
-| `batch_index`  | the batch index of `withdraw` hash. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100).</br><ol><li>Search `withdraw` tx hash.</br><div style="width: 100px; height: 100px;"><img src="./Images/Access/jovay%20explorer-1.png" alt="jovay explorer-1" style="max-width: 100%; height: auto; cursor: zoom-in;" onclick="this.style.width = this.style.width === '100px' ? '400px' : '100px';"></div></li><li>Click the Block Number.</br><div style="width: 100px; height: 100px;"><img src="./Images/Access/jovay%20explorer-2.png" alt="jovay explorer-2" style="max-width: 100%; height: auto; cursor: zoom-in;" onclick="this.style.width = this.style.width === '100px' ? '400px' : '100px';"></div></li></ol>  | 122  | 
+| `batch_index`  | the batch index of `withdraw` hash. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100).</br><ol><li>Search `withdraw` tx hash.</br>![explorer-1](/Images/Access/jovay%20explorer-1.png)</li><li>Click the Block Number.</br>![explorer-2](/Images/Access/jovay%20explorer-2.png)</li></ol>  | 122  | 
 |`tx_hash`  |The `withdraw` transaction was sent on Jovay. The script automatically retrieves the `nonce` and `msg` from the L2 message.  | <div style="word-wrap: break-word; word-break:break-all;"> 0x620629487a0497afd77c838637fa4a57e9c4cdf72cd9993ea35c9e3bff6a3e7a</div> |
-|`proof`   |  The spv proof of L2 withdrawmsg. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) after batch is **finalized**.</br>Search withdraw tx hash and check the status is finalized</br><div style="width: 100px; height: 100px;"><img src="./Images/Access/jovay%20explorer.png" alt="jovay explorer" style="max-width: 100%; height: auto; cursor: zoom-in;" onclick="this.style.width = this.style.width === '100px' ? '400px' : '100px';"></div>| <div style="word-wrap: break-word; word-break:break-all;">0000000000000000000000000000000000000000000000000000000000000000ad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5b4c11951957c6f8f642c4af61cd6b24640fec6dc7fc607ee8206a99e92410d3021ddb9a356815c3fac1026b6dec5df3124afbadb485c9ba5a3e3398a04b7ba8524540cfcbc067229a7d700b686a7f626a5362b21e569dcdb84d3e9c1dde6895c</div>  |
+|`proof`   |  The spv proof of L2 withdrawmsg. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) after batch is **finalized**.</br>Search withdraw tx hash and check the status is finalized</br>![explorer-2](/Images/Access/jovay%20explorer.png)| <div style="word-wrap: break-word; word-break:break-all;">0000000000000000000000000000000000000000000000000000000000000000ad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5b4c11951957c6f8f642c4af61cd6b24640fec6dc7fc607ee8206a99e92410d3021ddb9a356815c3fac1026b6dec5df3124afbadb485c9ba5a3e3398a04b7ba8524540cfcbc067229a7d700b686a7f626a5362b21e569dcdb84d3e9c1dde6895c</div>  |
 |`gas_price` | Max fee per gas on Sepolia. It is recommended to set this value based on the base fee of the current Sepolia block.  | 40630943068  |
 ```
 node scripts/eth_bridge.js finalizeWithdraw $batch_index $tx_hash $proof $gas_price

@@ -4,11 +4,10 @@ outline: deep
 # Blockchain Explorer
 ## Blockchain Explorer Overview
 **Jovay** delivers a user-friendly, fully customizable blockchain explorer tailored for **Layer 2 ecosystems**, offering multi-dimensional visualization capabilities to enhance transparency and traceability.
+
+![Blockchain Explorer Overview](/Images/DTVM/Blockchain%20Explorer%20Overview.png)
+![Blockchain Explorer Overview 1](/Images/DTVM/Blockchain%20Transaction%20Overview.png)
 <p align="center">
-  <img src="./Images/DTVM/Blockchain%20Explorer%20Overview.png">
-  <br>
-  <img src="./Images/DTVM/Blockchain%20Transaction%20Overview.png">
-  <br>
   <span style="font-size: 14px;">Figure 1: Blockchain Explorer Overview</span>
 </p>
 
@@ -25,9 +24,8 @@ outline: deep
 ## Observable System
 Jovay observation system allows end users and developers to view transactions, prove system latency, and service call throughput in a visual way. The query capability supports observing and understanding the calling relationships and link duration of Layer2 system components, assisting developers in analyzing software performance and transaction behavior, and viewing the application and operation of the Layer2 network in a more three-dimensional way.
 
+![Observable System](/Images/DTVM/Observable%20System.png)
 <p align="center">
-  <img src="./Images/DTVM/Observable%20System.png">
-  <br>
   <span style="font-size: 14px;">Figure 2: Observable System</span>
 </p>
 
@@ -37,8 +35,7 @@ Based on the link observation provided by the original Open Telemetry (OTEL), th
 3. **Statistics dashboard:** Based on link query, the observation system provides a statistical dashboard of call relationships, number statistics, and maximum/minimum/average call delays between components in the Layer2 system.
 4. **Expanded link delay statistics:** The observation system filters specific information based on the observation system based on customized meta information filtering components, and calculates statistical data. The current observation system is aimed at the TEE/ZK dual proof system, and can provide Layer2 proof generation delay and Layer1 confirmation delay query interface in the three dimensions of transaction/block/Batch; it provides the average time delay of Layer2 proof generation within a specific time range.
 
+![Observable System Architecture](/Images/DTVM/Observable%20System%20Architecture.png)
 <p align="center">
-  <img src="./Images/DTVM/Observable%20System%20Architecture.png">
-  <br>
   <span style="font-size: 14px;">Figure 3: Observable System Architecture</span>
 </p>

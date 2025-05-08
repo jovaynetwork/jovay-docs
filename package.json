@@ -1,12 +1,17 @@
 {
   "scripts": {
-    "start": "vitepress dev",
-    "dev": "vitepress dev",
-    "docs:dev": "vitepress dev",
+    "start": "export DEBUG=jovay:* && vitepress dev",
+    "dev": "export DEBUG=jovay:* && vitepress dev",
+    "docs:dev": "export DEBUG=jovay:* && vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
+    "@types/node": "^22.15.15",
+    "cross-env": "^7.0.3",
+    "debug": "^4.3.4",
+    "markdown-it-imsize": "^2.0.1",
     "vitepress": "^2.0.0-alpha.4"
-  }
+  },
+  "repository": "git@github.com:li-jianli/jovay-docs.git"
 }
