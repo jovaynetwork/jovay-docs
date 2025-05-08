@@ -68,7 +68,7 @@ Notably, Jovay enables elastic scalability, allowing sequencer, tracer, and prov
 
 ### 3.4.Full-Cycle Transaction Processing
 
-![Transaction Processing](/Images/Whitepaper/Transaction%20Process.png)
+![Transaction Processing](/Images/Whitepaper/Transaction-Process.png)
 <p align="center">
   <span style="font-size: 14px;">Figure 2: Transaction Processing</span>
 </p>
