@@ -1,11 +1,11 @@
 <template>
-  <div class="custom-image-wrapper">
+  <span class="custom-image-wrapper">
     <img :src="src" :alt="alt" class="custom-image" @click="handleClick" @error="handleError"
       :class="{ 'image-error': hasError }" />
-    <div v-if="hasError" class="error-message">
+    <span v-if="hasError" class="error-message">
       图片加载失败
-    </div>
-  </div>
+    </span>
+  </span>
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,4 @@
 import { defineConfig } from "vitepress";
-import markdownItImsize from "markdown-it-imsize";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -9,7 +8,6 @@ export default defineConfig({
 
   markdown: {
     config: (md) => {
-      md.use(markdownItImsize);
       md.renderer.rules.image = (tokens, idx, options, env, self) => {
         const token = tokens[idx];
         const src = token.attrGet("src");
