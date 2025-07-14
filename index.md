@@ -10,8 +10,8 @@ hero:
       text: Get Started
       link: /guide/about-jovay
     - theme: alt
-      text: Visit Whitepaper
-      link: /guide/whitepaper
+      text: Visit Jovay
+      link: https://alpha.jovay.io/
 
 features:
   - icon: 📚
