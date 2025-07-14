@@ -32,11 +32,9 @@ Here we will use Ethereum testnet Sepolia and Jovay testnet.
 
 **Add Jovay**
 
-First, go to zan.top to apply for an API key, please check the [document](https://docs.zan.top/docs/quick-start-guide).
-
-Then, add the Jovay testnet to your MetaMask. Refer to the [MetaMask help document](https://support.metamask.io/configure/networks/how-to-add-a-custom-network-rpc/#adding-a-network-manually). The network information is as follows, replace `{{apiKey}}` with yours.
+Add the Jovay testnet to your MetaMask. Refer to the [MetaMask help document](https://support.metamask.io/configure/networks/how-to-add-a-custom-network-rpc/#adding-a-network-manually). The network information is as follows.
 ```
-RPC URL: https://api.zan.top/node/v1/jovay/testnet/{{apiKey}}
+RPC URL: https://api.zan.top/public/jovay-testnet
 Chain ID: 2019775
 ```
 > 💡Tips: No need to setup the "Block explorer URL" part when you add network to metamask.
@@ -48,7 +46,7 @@ Chain ID: 2019775
 </p>
 
 **Add Sepolia**
-Finally，add the Sepolia to your MetaMask. MetaMask presets the network Sepolia. You can find Sepolia in the test networks on the network selection page.
+Add the Sepolia to your MetaMask. MetaMask presets the network Sepolia. You can find Sepolia in the test networks on the network selection page.
 
 <div align="center">
   <img src="/Images/developer-quickstart/preset-network.png" >
@@ -60,7 +58,7 @@ Finally，add the Sepolia to your MetaMask. MetaMask presets the network Sepolia
 ### Drips from faucets🚰
 Go to [zan.top](https://zan.top/faucet/ethereum) to get your Sepolia testnet tokens. After completing this step, you can see your account balance on MetaMask.
 
-There are other faucets if you can't receive tokens from zan.top faucet.
+There are some other faucets if you can't receive tokens from zan.top faucet.
 - [Infura](https://www.infura.io/faucet/linea)
 - [GetBlock](https://getblock.io/faucet/eth-sepolia/)
 - [hainstack](https://faucet.chainstack.com/sepolia-testnet-faucet)
@@ -187,6 +185,13 @@ You need to send a transaction for calling the Token Bridge on Sepolia to trigge
 
     Back to Remix "`Deploy & run transactions`", Fill in the Token Bridge address into the input box next to "`At address`", then click "`At address`". And you can see that the contract has been added under "`Deployed Contracts`".
 
+    <div align="center">
+        <img src="/Images/developer-quickstart/attach-to-tokenbridge-contract-on-sepolia.png" >
+    </div>
+    <p align="center">
+        <span style="font-size: 14px;">Figure 3: Attach to TokenBridge Contract on Sepolia</span>
+    </p>
+
 4. **Call function deposit**
 
     Like below, input the parameters and click the transact. 
@@ -195,7 +200,7 @@ You need to send a transaction for calling the Token Bridge on Sepolia to trigge
         <img src="/Images/developer-quickstart/deposit-function.png" >
     </div>
     <p align="center">
-        <span style="font-size: 14px;">Figure 3: Dposit Function</span>
+        <span style="font-size: 14px;">Figure 4: Dposit Function</span>
     </p>
 
     Parameters describe here:
@@ -208,7 +213,7 @@ You need to send a transaction for calling the Token Bridge on Sepolia to trigge
 
     - **data**: Message delivered with this deposit from Ethereum to Jovay. But here just input `0x`.
 
-    - **value in transaction**: The deposit ether value in transaction must cover the cost of the crosschain gas limit and the transfer amount. Now the price in Token Bridge is `0.01gwei`, if your gasLimit is `1200000` and your amount is `x`, the your value with transaction should greater or equal to value `x + 1200000 * 1e7`. For example `x` is *`0.001 ether` (`1000000000000000 wei`)* and value can be *`10012000000000000 wei`*.<br>
+    - **value in transaction**: The deposit ether value in transaction must cover the cost of the crosschain gas limit and the transfer amount. Now the price in Token Bridge is `0.01gwei`, if your gasLimit is `1200000` and your amount is `x`, the your value with transaction should greater or equal to value `x + 1200000 * 1e7`. For example `x` is *`0.001 ether` (`1000000000000000 wei`)* and value can be *`1012000000000000 wei`*.<br>
 
         Fill in your value into the input box above the function area, such as the one shown in the picture below:
 
@@ -216,7 +221,7 @@ You need to send a transaction for calling the Token Bridge on Sepolia to trigge
             <img src="/Images/developer-quickstart/value-for-transation.png" >
         </div>
         <p align="center">
-            <span style="font-size: 14px;">Figure 4: Value for Transation</span>
+            <span style="font-size: 14px;">Figure 5: Value for Transation</span>
         </p>
 
         Click the <span style="color: red;"><B>transact</B></span> button and MetaMask would sign and send your transaction to Sepolia.
@@ -226,7 +231,7 @@ You need to send a transaction for calling the Token Bridge on Sepolia to trigge
         ![Deposit Transaction on Sepolia](/Images/developer-quickstart/deposit-transaction-on-sepolia.png)
 
         <p align="center">
-            <span style="font-size: 14px;">Figure 5: Deposit Transaction on Sepolia</span>
+            <span style="font-size: 14px;">Figure 6: Deposit Transaction on Sepolia</span>
         </p>
 
         After Sepolia transaction finalized, your deposit would be relayed to Jovay testnet. This process may take up to 13~20 minutes. Once the deposit is confirmed on Jovay, an Jovay transaction hash will be displayed instead of a pending claim.
@@ -234,7 +239,7 @@ You need to send a transaction for calling the Token Bridge on Sepolia to trigge
         ![Finalize Deposit Transaction on Jovay](/Images/developer-quickstart/finalize-deposit-transaction-on-jovay.png)
 
         <p align="center">
-            <span style="font-size: 14px;">Figure 6: Finalize Deposit Transaction on Jovay</span>
+            <span style="font-size: 14px;">Figure 7: Finalize Deposit Transaction on Jovay</span>
         </p>
 
 5. **Check your balance on Jovay**
@@ -243,11 +248,14 @@ You need to send a transaction for calling the Token Bridge on Sepolia to trigge
     <div align="center">
         <img src="/Images/developer-quickstart/check-your-balance-on-jovay.png" >
     </div>
+    <p align="center">
+        <span style="font-size: 14px;">Figure 8: Balance on Jovay</span>
+    </p>
 
 ## 🧪 Smart Contract on Jovay
 We encourage developers to deploy and test smart contracts on Jovay. This section will introduce how to deploy and invoke smart contracts compiled as native EVM bytecode on Jovay.
 
-We gonna to use remix to deploy a solidity demo smart contract and call it. And you can also use common development tools, such as foundry and hardhat, etc. Jovay is totally compatible with ethereum json rpc and its other standards.
+We're going to use remix to deploy a solidity demo smart contract and call it. And you can also use common development tools, such as foundry and hardhat, etc. Jovay is totally compatible with ethereum json rpc and its other standards.
  
 ### Deploy contract
 
@@ -263,24 +271,24 @@ After deployment, you can find your deployed contract like below. You can search
   <img src="/Images/developer-quickstart/a-deployed-demo-contract.png">
 </div>
 <p align="center">
-    <span style="font-size: 14px;">Figure 7: A Deployed Demo Contract</span>
+    <span style="font-size: 14px;">Figure 9: A Deployed Demo Contract</span>
 </p>
 
 ### Interacting with deployed contract
-Set the some string value in the input box. And click button  transact  to request the wallet to sign and send a transaction to Jovay testnet.
+Set the some string value in the input box. And click button <span style="color: red;">**transact**</span> to request the wallet to sign and send a transaction to Jovay testnet.
 
 <div align="center">
   <img src="/Images/developer-quickstart/call-and-send-tx.png" >
 </div>
 <p align="center">
-    <span style="font-size: 14px;">Figure 8: Call and Send Tx</span>
+    <span style="font-size: 14px;">Figure 10: Call and Send Tx 🏎️</span>
 </p>
 
-Copy the transaction hash which you can find it from Remix console like below. Then search transaction hash on [Jovay explorer](https://sepolia-explorer.jovay.io/l2) and you can have more details. The transaction gonna to be confirmed in seconds.
+Copy the transaction hash which you can find it from Remix console like below. Then search transaction hash on [Jovay explorer](https://sepolia-explorer.jovay.io/l2) and you can have more details. The transaction is going to be confirmed in seconds.
 
 ![Transaction Just Sent](/Images/developer-quickstart/transaction-just-sent.png)
 <p align="center">
-    <span style="font-size: 14px;">Figure 9: Transaction Just Sent</span>
+    <span style="font-size: 14px;">Figure 11: Transaction Just Sent</span>
 </p>
 
 After confirmation, your account balance will be reduced to pay the transaction fee. Checkout your MetaMask to see it. You will find Jovay is fast⚡️ and cheap💸.
@@ -291,13 +299,13 @@ Then call the GetContent function to check the content value. You should get the
   <img src="/Images/developer-quickstart/new-content.png" >
 </div>
 <p align="center">
-    <span style="font-size: 14px;">Figure 10: New Content</span>
+    <span style="font-size: 14px;">Figure 12: New Content</span>
 </p>
 
 Now you understand that the smart contract development on Jovay is same as on Ethereum, and more smooth on Jovay☄️. 
 
 ## 🔙 How to Withdraw
-The ETH token you hold on Jovay can be withdraw back to Ethereum. In this section, we gonna to describe how.
+The ETH token you hold on Jovay can be withdrawn back to Ethereum. In this section, we are going to describe it now.
 
 To withdraw ETH from Jovay testnet to Sepolia, you need to invoke withdraw on the ETH Bridge contract on Jovay, and then invoke `relayMsgWithProof` on the ETH Bridge contract on Sepolia.
 
@@ -306,20 +314,20 @@ We provide the code IL2ETHBridge.sol of Token Bridge contract interface on Jovay
 
 Before you start, switch your MetaMask to Jovay testnet and the Remix environment to MetaMask. Then on Remix, compile the contract interface `IL2ETHBridge` and attach the bridge address. The ETH bridge address on Jovay testnet is `0xD278bC7189d2ed65c005c345A0e8a387f15b7a3A`.
 
-Change MetaMask connect to Jovay. After attached, you can find a ETH bridge contract instance like below.
+After attached, you can find a ETH bridge contract instance like below.
 
 <div align="center">
   <img src="/Images/developer-quickstart/withdraw-function-of-l2ethbridge.png" >
 </div>
 <p align="center">
-    <span style="font-size: 14px;">Figure 11: Withdraw Function of L2ETHBridge.png</span>
+    <span style="font-size: 14px;">Figure 13: Withdraw Function of L2ETHBridge.png</span>
 </p>
 
 According to the following parameter definition, call the function withdraw with your own parameters.
 - **to_**: The address to receive the withdrawn ETH on Sepolia. 
 - **amount_**: The amount of ETH to transfer to the withdrawal target address. Please ensure that sufficient balance remains to cover both the gas cost of this withdrawal transaction and the associated L1 transaction on Sepolia. For example *`0.0001 ether` (`100000000000000 wei`)* . 
 - **gasLimit_**: The gas limit for the L1 transfer transaction associated with the L2 withdrawal. For example `1130000`.
-- **data_**: Message delivered with this withdraw from Jovay to Ethereum. But here just input 0x.
+- **data_**: Message delivered with this withdraw from Jovay to Ethereum. Just input 0x.
 - **value in transaction**: The withdraw ether value in transaction must cover the cost of the crosschain gas limit and the transfer amount. Now the price in Token Bridge is `0.01gwei`, if your gasLimit is 1130000 and your amount is `x`, the your value with transaction should greater or equal to value `x + 1130000 * 1e7`. For example `x` is *`0.0001 ether` (`100000000000000 wei`)* and value can be *`111300000000000 wei`*.
 
     Fill in your value into the input box above the function area, such as the one shown in the picture below:
@@ -328,21 +336,23 @@ According to the following parameter definition, call the function withdraw with
         <img src="/Images/developer-quickstart/value-for-transation-1113.png" >
     </div>
     <p align="center">
-        <span style="font-size: 14px;">Figure 12: Value for Transation</span>
+        <span style="font-size: 14px;">Figure 14: Value for Transation</span>
     </p>
 
-After sending the withdraw transaction on Jovay, wait for the next batch (~1 hours) to rollup to Sepolia. Search withdraw transaction hash on [Jovay explorer](https://sepolia-explorer.jovay.io/l2) to view the details.
+After sending the withdraw transaction on Jovay, wait for the next batch (less than 1 hour) to rollup to Sepolia. Search withdraw transaction hash on [Jovay explorer](https://sepolia-explorer.jovay.io/l2) to view the details.
 
 ![Withdraw Transaction on Jovay](/Images/developer-quickstart/withdraw-transaction-on-jovay.png)
 <p align="center">
-    <span style="font-size: 14px;">Figure 13: Withdraw Transaction on Jovay</span>
+    <span style="font-size: 14px;">Figure 15: Withdraw Transaction on Jovay</span>
 </p>
 
-Once the rollup batch is verified on L1, the Proof field will display a hex value. At that point, you can proceed to finalize the withdraw on Sepolia.
+Once the rollup batch is finalized on L1, the Proof field will display a hex value. At that point, you can proceed to finalize the withdraw on Sepolia.
+
+The proof mentioned here is generated by the merkle tree of the cross-chain messages, which is different from the proof provided by the prover during the rollup process.
 
 ![Proof of Your Withdraw](/Images/developer-quickstart/proof-of-your-withdraw.png)
 <p align="center">
-    <span style="font-size: 14px;">Figure 14: Proof of Your Withdraw</span>
+    <span style="font-size: 14px;">Figure 16: Proof of Your Withdraw</span>
 </p>
 
 ### Finalize the withdraw on Ethereum
@@ -360,7 +370,7 @@ After attached, you can find a ETH bridge contract instance like below.
   <img src="/Images/developer-quickstart/the-parameter-of-finalize-withdraw-transaction.png" >
 </div>
 <p align="center">
-    <span style="font-size: 14px;">Figure 15: The Parameter of Finalize Withdraw Transaction</span>
+    <span style="font-size: 14px;">Figure 17: The Parameter of Finalize Withdraw Transaction</span>
 </p>
 
 According to the following parameter definition, call the function relayMsgWithProof with your own parameters.
@@ -369,14 +379,14 @@ According to the following parameter definition, call the function relayMsgWithP
 
     ![Nonce for withdraw Msg](/Images/developer-quickstart/nonce-for-withdraw-msg.png)
     <p align="center">
-        <span style="font-size: 14px;">Figure 16: Nonce for withdraw Msg</span>
+        <span style="font-size: 14px;">Figure 18: Nonce for withdraw Msg</span>
     </p>
 
 - **msg_**: the L2Msg generated by your withdrawal transaction. On the transaction details page of the Jovay explorer, click `Message Logs` to find the second event `SentMsg`. The original message can be found in the `msg` field of `Event Params`. The message content on the browser page is in Base64 format. You need to convert it to Hex format for easy use in calling the contract. Don't forget the prefix `0x`.
 
     ![The content of Withdraw Msg](/Images/developer-quickstart/the-content-of-withdraw-msg.png)
     <p align="center">
-        <span style="font-size: 14px;">Figure 17: The content of Withdraw Msg</span>
+        <span style="font-size: 14px;">Figure 19: The content of Withdraw Msg</span>
     </p>
 
 - **proof_**: A solidity struct and contains two fields described below. Note that this parameter must be passed in as a tuple using square brackets. The first element is `batchIndex` and the second is `merkleProof`. For example, `[25,"0xbafd...a5be"]`, replace `0xbafd...a5be` with your real merkleProof.
@@ -385,18 +395,18 @@ According to the following parameter definition, call the function relayMsgWithP
 
         ![The Block of Withdraw Transaction](/Images/developer-quickstart/the-block-of-withdraw-transaction.png)
         <p align="center">
-            <span style="font-size: 14px;">Figure 18: The Block of Withdraw Transaction</span>
+            <span style="font-size: 14px;">Figure 20: The Block of Withdraw Transaction</span>
         </p>
         
         ![The Batch Index of Withdraw Transaction](/Images/developer-quickstart/the-batch-index-of-withdraw-transaction.png)
         <p align="center">
-            <span style="font-size: 14px;">Figure 19: The Batch Index of Withdraw Transaction</span>
+            <span style="font-size: 14px;">Figure 21: The Batch Index of Withdraw Transaction</span>
         </p>
-    - **merkleProof**: The SPV proof corresponding to the Layer 2 message generated by the withdrawal transaction. You can also retrieve it from the withdrawal transaction's details page in [Jovay Explorer](https://sepolia-explorer.jovay.io/l2), as shown in the figure above. 
+    - **merkleProof**: The SPV proof corresponding to the Layer 2 message generated by the withdrawal transaction. You can also retrieve it from the withdrawal transaction's details page in [Jovay Explorer](https://sepolia-explorer.jovay.io/l2), as shown in the figure above. Don't forget the prefix `0x`.
 
         ![Proof Is Ready](/Images/developer-quickstart/proof-is-ready.png)
         <p align="center">
-            <span style="font-size: 14px;">Figure 20: Proof Is Ready</span>
+            <span style="font-size: 14px;">Figure 22: Proof Is Ready</span>
         </p>
 Get parameters ready, change MetaMask connect to Sepolia and then click button <span style="color: red;">transact</span> to request the wallet to sign and send a transaction to call the contract.
 
@@ -404,14 +414,14 @@ Get parameters ready, change MetaMask connect to Sepolia and then click button <
   <img src="/Images/developer-quickstart/an-example-of-finalize-withdraw-parameter.png" >
 </div>
 <p align="center">
-    <span style="font-size: 14px;">Figure 21: An Example of Finalize Withdraw Parameter</span>
+    <span style="font-size: 14px;">Figure 23: An Example of Finalize Withdraw Parameter</span>
 </p>
 
 Wait the transaction confirmed on Sepolia, you can search the transaction on [etherscan.io](https://sepolia.etherscan.io/).
 
 ![The Ether Amount Withdrawal](/Images/developer-quickstart/the-ether-amount-withdrawal.png)
 <p align="center">
-    <span style="font-size: 14px;">Figure 22: The Ether Amount Withdrawal</span>
+    <span style="font-size: 14px;">Figure 24: The Ether Amount Withdrawal</span>
 </p>
 
 By sending this transaction to Sepolia, the `relayMsgWithProof` method on the Sepolia ETH Bridge Contract is invoked to complete withdrawal proof validation, resulting in the specified ETH amount being successfully withdrawn to your account. Check your Sepolia account balance on MetaMask.
