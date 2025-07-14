@@ -414,4 +414,4 @@ Wait the transaction confirmed on Sepolia, you can search the transaction on [et
     <span style="font-size: 14px;">Figure 22: The Ether Amount Withdrawal</span>
 </p>
 
-By sending this transaction to Sepolia, the `relayMsgWithProof` method on the Sepolia ETH Bridge Contract is invoked to complete withdrawal proof validation, resulting in the specified ETH amount being successfully withdrawn to your account. Check your Sepolia account balance on MetaMask.
+By sending this transaction to Sepolia, the `relayMsgWithProof` method on the Sepolia ETH Bridge Contract is invoked to complete withdrawal proof validation, resulting in the specified ETH amount being successfully withdrawn to your account. Check your Sepolia account balance on MetaMask. 
