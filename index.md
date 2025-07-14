@@ -11,7 +11,7 @@ hero:
       link: /guide/about-jovay
     - theme: alt
       text: Visit Jovay
-      link: https://alpha.jovay.io/
+      link: https://jovay.io/
 
 features:
   - icon: 📚
