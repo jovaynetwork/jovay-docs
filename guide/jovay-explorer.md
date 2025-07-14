@@ -5,8 +5,9 @@ outline: deep
 ## Blockchain Explorer Overview
 **Jovay** delivers a user-friendly, fully customizable blockchain explorer tailored for **Layer 2 ecosystems**, offering multi-dimensional visualization capabilities to enhance transparency and traceability.
 
-![Blockchain Explorer Overview](/Images/DTVM/Blockchain%20Explorer%20Overview.png)
-![Blockchain Explorer Overview 1](/Images/DTVM/Blockchain%20Transaction%20Overview.png)
+![Blockchain Explorer Overview](/Images/DTVM/blockchain-explorer-overview.png)
+
+![Blockchain Transaction Overview](/Images/DTVM/blockchain-transaction-overview.png)
 <p align="center">
   <span style="font-size: 14px;">Figure 1: Blockchain Explorer Overview</span>
 </p>
@@ -24,7 +25,7 @@ outline: deep
 ## Observable System
 Jovay observation system allows end users and developers to view transactions, prove system latency, and service call throughput in a visual way. The query capability supports observing and understanding the calling relationships and link duration of Layer2 system components, assisting developers in analyzing software performance and transaction behavior, and viewing the application and operation of the Layer2 network in a more three-dimensional way.
 
-![Observable System](/Images/DTVM/Observable%20System.png)
+![Observable System](/Images/DTVM/observable-system.png)
 <p align="center">
   <span style="font-size: 14px;">Figure 2: Observable System</span>
 </p>

@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "start": "export DEBUG=jovay:* && vitepress dev",
-    "dev": "export DEBUG=jovay:* && vitepress dev",
-    "docs:dev": "export DEBUG=jovay:* && vitepress dev",
+    "start": "cross-env DEBUG=jovay:* && vitepress dev",
+    "dev": "cross-env DEBUG=jovay:* && vitepress dev",
+    "docs:dev": "cross-env DEBUG=jovay:* && vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"
   },
@@ -12,5 +12,8 @@
     "debug": "^4.3.4",
     "vitepress": "^2.0.0-alpha.4"
   },
-  "repository": "git@github.com:li-jianli/jovay-docs.git"
+  "repository": "git@github.com:li-jianli/jovay-docs.git",
+  "dependencies": {
+    "vitepress-plugin-codeblocks-fold": "1.2.35"
+  }
 }

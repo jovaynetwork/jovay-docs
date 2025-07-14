@@ -44,7 +44,7 @@ Simultaneously, Jovay employs a heterogeneous dual-prover architecture, combinin
 
 ### 3.2.Three-Stage Confirmation Mechanism
 
-![Comfirmation Merchanism](/Images/Whitepaper/Three-Stage%20Comfirmation%20Merchanism.png)
+![Comfirmation Merchanism](/Images/Whitepaper/comfirmation-merchanism.png)
 <p align="center">
   <span style="font-size: 14px;">Figure 1: Three-Stage Confirmation Mechanism</span>
 </p>

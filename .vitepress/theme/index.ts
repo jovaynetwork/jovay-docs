@@ -1,7 +1,11 @@
-import { h, ref } from "vue";
+import { h } from "vue";
 import DefaultTheme from "vitepress/theme";
+import { useData, useRoute } from "vitepress";
+import codeblocksFold from "vitepress-plugin-codeblocks-fold";
+import "vitepress-plugin-codeblocks-fold/style/index.css";
 import ImagePreview from "./components/ImagePreview.vue";
 import CustomImage from "./components/CustomImage.vue";
+import EnhancedCollapsibleCodeBlock from "./components/EnhancedCollapsibleCodeBlock.vue";
 
 // 创建一个简单的事件总线
 const eventBus = {
@@ -30,6 +34,14 @@ export default {
     app.component("CustomImage", CustomImage);
     app.provide("imagePreview", imagePreviewService);
     app.provide("eventBus", eventBus);
+    app.component("EnhancedCollapsibleCodeBlock", EnhancedCollapsibleCodeBlock);
+  },
+  setup() {
+    // get frontmatter and route
+    const { frontmatter } = useData();
+    const route = useRoute();
+    // basic use - 默认展开所有代码块，不自动折叠
+    codeblocksFold({ route, frontmatter }, false, 400);
   },
   Layout() {
     return h(DefaultTheme.Layout, null, {
