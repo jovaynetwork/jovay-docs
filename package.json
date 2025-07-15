@@ -10,6 +10,7 @@
     "@types/node": "^22.15.15",
     "cross-env": "^7.0.3",
     "debug": "^4.3.4",
+    "prismjs": "^1.30.0",
     "vitepress": "^2.0.0-alpha.4"
   },
   "repository": "git@github.com:li-jianli/jovay-docs.git",

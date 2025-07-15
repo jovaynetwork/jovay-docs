@@ -19,7 +19,7 @@ Before starting, make sure you have:
 
 ## Step 1: Set Up Your Project
 1. Clone the example repository:
-    ```Plain Text
+    ```bash
     wget 'https://web3-static-prod.oss-ap-southeast-1.aliyuncs.com/static/Jovay/JovayExamples.tar.bz'
     tar -xvzf JovayExamples.tar.gz
     cd JovayExamples/foundry/StakingExample/
@@ -28,18 +28,18 @@ Before starting, make sure you have:
 
     Foundry uses forge to manage dependencies. Install OpenZeppelin contracts:
 
-    ```Plain Text
+    ```bash
     forge install OpenZeppelin/openzeppelin-contracts --no-git
     ```
 
 ## Step 2: Write the Token Contract
 1. Create a New Solidity File:
-    ```Plain Text
+    ```bash
     touch src/MyToken.sol
     ```
 
 2. Paste the following code into `src/MyToken.sol`:
-    ```Plain Text
+    ```solidity
     // SPDX-License-Identifier: MIT
     pragma solidity ^0.8.0;
 
@@ -57,16 +57,16 @@ Before starting, make sure you have:
     ```
 
 3. Compile the Smart Contract:
-    ```Plain Text
+    ```bash
     forge build
     ```
 4. Test the Smart Contract (optional but recommended):
-    ```Plain Text
+    ```bash
     touch test/MyToken.t.sol
     ```
 
 5. Paste the following code into `test/MyToken.t.sol`:
-    ```Plain Text
+    ```solidity
     // SPDX-License-Identifier: MIT
     pragma solidity ^0.8.0;
 
@@ -126,17 +126,17 @@ Before starting, make sure you have:
     ```
 
 6. Test it:
-    ```Plain Text
+    ```bash
     forge test
     ```
 
 ## Step 3: Deploy the Token Contract
 1. Create a Deployment Script:
-    ```Plain Text
+    ```bash
     touch script/DeployToken.s.sol
     ```
 2. Paste the following code into `script/DeployToken.s.sol`:
-    ```Plain Text
+    ```solidity
     // SPDX-License-Identifier: MIT
     pragma solidity ^0.8.20;
 
@@ -158,12 +158,12 @@ Before starting, make sure you have:
     ```
 
 3. Set your wallet’s private key:
-    ```Plain Text
+    ```bash
     export PRIVATE_KEY=<your private key>
     ```
 
 4. Deploy the contract:
-    ```Plain Text
+    ```bash
     forge script script/DeployMyToken.s.sol --rpc-url <JOVAY_RPC_URL> --broadcast
     ```
     If your script's execution succeeds, your terminal should resemble the output below:
@@ -172,12 +172,12 @@ Before starting, make sure you have:
 
 ## Step 4: Write the Staking Contract
 1. Create a New Solidity File:
-    ```Plain Text
+    ```bash
     touch src/SimpleStaking.sol
     ```
 
 2. Paste the following code into `src/SimpleStaking.sol`:
-    ```Plain Text
+    ```solidity
     // SPDX-License-Identifier: MIT
     pragma solidity ^0.8.0;
 
@@ -259,17 +259,17 @@ Before starting, make sure you have:
     ```
 
 3. Compile the Smart Contract:
-    ```Plain Text
+    ```bash
     forge build
     ```
 
 4. Test the Smart Contract (optional but recommended):
-    ```Plain Text
+    ```bash
     touch test/SimpleStaking.t.sol
     ```
 
 5. Paste the following code into `test/SimpleStaking.t.sol`:
-    ```Plain Text
+    ```solidity
     // SPDX-License-Identifier: MIT
     pragma solidity ^0.8.20;
 
@@ -334,18 +334,18 @@ Before starting, make sure you have:
     ```
 
 6. Test it:
-    ```Plain Text
+    ```bash
     forge test
     ```
 
 ## Step 5: Deploy the Staking Contract
 1. Create a Deployment Script:
-    ```Plain Text
+    ```bash
     touch script/DeploySimpleStaking.s.sol
     ```
 
 2. Paste the following code into `script/DeploySimpleStaking.s.sol`:
-    ```Plain Text
+    ```solidity
     // SPDX-License-Identifier: MIT
     pragma solidity ^0.8.20;
 
@@ -369,13 +369,13 @@ Before starting, make sure you have:
     ```
 
 3. Set your wallet’s private key and token address:
-    ```Plain Text
+    ```bash
     export PRIVATE_KEY=<your private key>
     export TOKEN_ADDRESS=<your token address>
     ```
 
 4. Deploy the contract:
-    ```Plain Text
+    ```bash
     forge script script/DeploySimpleStaking.s.sol --rpc-url <JOVAY_RPC_URL> --broadcast
     ```
     If your script's execution succeeds, your terminal should resemble the output below:
@@ -384,12 +384,12 @@ Before starting, make sure you have:
 
 ## Step 6: Interact with the Staking Contract
 1. Create a scipt:
-    ```Plain Text
+    ```bash
     touch script/InteractSimpleStaking.s.sol
     ```
 
 2. Paste the following code into `script/InteractSimpleStaking.s.sol`:
-    ```Plain Text
+    ```solidity
     // SPDX-License-Identifier: MIT
     pragma solidity ^0.8.20;
 
@@ -435,14 +435,14 @@ Before starting, make sure you have:
     }
     ```
 3. Set your wallet’s private key, token address and staking address:
-    ```json
+    ```bash
     export PRIVATE_KEY=<your private key>
     export TOKEN_ADDRESS=<your token address>
     export STAKING_ADDRESS=<your staking address>
     ```
 
 3. Execute the script:
-    ```Plain Text
+    ```bash
     forge script script/InteractSimpleStaking.s.sol --rpc-url <JOVAY_RPC_URL> --broadcast
     ```
     If your script's execution succeeds, your terminal should resemble the output below:

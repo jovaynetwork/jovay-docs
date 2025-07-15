@@ -20,24 +20,24 @@ Before starting, make sure you have:
 
 ## Step 1: Set Up Your Project
 1. Download the example repository:
-    ```Plain Text
+    ```bash
     wget 'https://web3-static-prod.oss-ap-southeast-1.aliyuncs.com/static/Jovay/JovayExamples.tar.bz'
     tar -xvzf JovayExamples.tar.gz
     cd JovayExamples/hardhat/ERC20Example/
     ```
 2. Install OpenZeppelin Contracts:
-    ```Plain Text
+    ```bash
     npm install
     ```
 
 ## Step 2: Write the Token Contract
 1. Create a New Solidity File:
-    ```Plain Text
+    ```bash
     touch contracts/MyToken.sol
     ```
 
 2. Paste the following code into `contracts/MyToken.sol`:
-    ```Plain Text
+    ```solidity
     // SPDX-License-Identifier: MIT
     pragma solidity ^0.8.0;
 
@@ -55,16 +55,16 @@ Before starting, make sure you have:
     ```
 
 3. Compile the Smart Contract:
-    ```Plain Text
+    ```bash
     npx hardhat compile
     ```
 4. Test the Smart Contract (optional but recommended):
-    ```Plain Text
+    ```bash
     touch test/MyToken.js
     ```
 
 5. Paste the following code into `test/MyToken.js`:
-    ```Plain Text
+    ```js
     const { expect } = require("chai");
     const { ethers } = require("hardhat");
 
@@ -106,17 +106,17 @@ Before starting, make sure you have:
     ```
 
 6. Test it:
-    ```Plain Text
+    ```bash
     npx hardhat test
     ```
 
 ## Step 3: Deploy the Token Contract
 1. Create a Deployment Script:
-    ```Plain Text
+    ```bash
     touch scripts/deploy.js
     ```
 2. Paste the following code into `scripts/deploy.js`:
-    ```Plain Text
+    ```js
     async function main() {
         const Token = await ethers.getContractFactory("MyToken");
         const token = await Token.deploy(ethers.parseUnits("1000", 6));
@@ -178,7 +178,7 @@ Before starting, make sure you have:
     ```
 
 4. Deploy the contract:
-    ```Plain Text
+    ```bash
     npx hardhat run scripts/deploy.js --network Jovay
     ```
     If your script's execution succeeds, your terminal should resemble the output below:
