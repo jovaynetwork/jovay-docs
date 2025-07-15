@@ -48,7 +48,7 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: "About Jovay", link: "/guide/about-jovay" },
-
+          { text: "Technical Whitepaper", link: "/guide/jovay-white-paper" },
         ],
       },
       {
