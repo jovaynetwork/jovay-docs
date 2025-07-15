@@ -213,7 +213,7 @@ You need to send a transaction for calling the Token Bridge on Sepolia to trigge
 
     - **data**: Message delivered with this deposit from Ethereum to Jovay. But here just input `0x`.
 
-    - **value in transaction**: The deposit ether value in transaction must cover the cost of the crosschain gas limit and the transfer amount. Now the price in Token Bridge is `0.01gwei`, if your gasLimit is `1200000` and your amount is `x`, the your value with transaction should greater or equal to value `x + 1200000 * 1e7`. For example `x` is *`0.001 ether` (`1000000000000000 wei`)* and value can be *`1012000000000000 wei`*.<br>
+    - **value in transaction**: The deposit ether value in transaction must cover the cost of the crosschain gas limit and the transfer amount. Now the price in Token Bridge is `0.001gwei`, if your gasLimit is `1200000` and your amount is `x`, the your value with transaction should greater or equal to value `x + 1200000 * 1e6`. For example `x` is *`0.001 ether` (`1000000000000000 wei`)* and value can be *`1001200000000000 wei`*.<br>
 
         Fill in your value into the input box above the function area, such as the one shown in the picture below:
 
@@ -328,12 +328,12 @@ According to the following parameter definition, call the function withdraw with
 - **amount_**: The amount of ETH to transfer to the withdrawal target address. Please ensure that sufficient balance remains to cover both the gas cost of this withdrawal transaction and the associated L1 transaction on Sepolia. For example *`0.0001 ether` (`100000000000000 wei`)* . 
 - **gasLimit_**: The gas limit for the L1 transfer transaction associated with the L2 withdrawal. For example `1130000`.
 - **data_**: Message delivered with this withdraw from Jovay to Ethereum. Just input 0x.
-- **value in transaction**: The withdraw ether value in transaction must cover the cost of the crosschain gas limit and the transfer amount. Now the price in Token Bridge is `0.01gwei`, if your gasLimit is 1130000 and your amount is `x`, the your value with transaction should greater or equal to value `x + 1130000 * 1e7`. For example `x` is *`0.0001 ether` (`100000000000000 wei`)* and value can be *`111300000000000 wei`*.
+- **value in transaction**: The withdraw ether value in transaction must cover the cost of the crosschain gas limit and the transfer amount. Now the price in Token Bridge is `0.001gwei`, if your gasLimit is 1130000 and your amount is `x`, the your value with transaction should greater or equal to value `x + 1130000 * 1e6`. For example `x` is *`0.0001 ether` (`100000000000000 wei`)* and value can be *`101130000000000 wei`*.
 
     Fill in your value into the input box above the function area, such as the one shown in the picture below:
 
     <div align="center">
-        <img src="/Images/developer-quickstart/value-for-transation-1113.png" >
+        <img src="/Images/developer-quickstart/value-for-transation-10113.png" >
     </div>
     <p align="center">
         <span style="font-size: 14px;">Figure 14: Value for Transation</span>
