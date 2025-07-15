@@ -615,11 +615,10 @@ entities while anchoring value creation within trustless systems.
 [2]. [Keyrock](https://keyrock.com/the-great-tokenization-shift-2025-and-the-road-ahead/), The Great Tokenization Shift: 2025 and the Road Ahead,2025<br>
 [3]. Jeremy Allaire, “Blockchain is in from the cold — and stablecoins are set to change the financial system forever,” World Economic Forum, January 15, 2024.
 [4]. Rajaram Suresh, Sumit Kumar, Darius Liu, Bernhard Kronfellner, and Aaditya Kaul, “Relevance of on-chain Asset Tokenization in ‘Crypto Winter’,” Boston Consulting Group, September 12, 2022.<br>
-[5]. What is Starknet: A Scalable Layer 2 Network for Ethereum
-https://www.rapidinnovation.io/post/what-is-starknet-a-scalable-layer-2-network-forethereum#blog-hero<br>
+[5]. What is Starknet: A Scalable Layer 2 Network for Ethereum https://www.rapidinnovation.io/post/what-is-starknet-a-scalable-layer-2-network-for-ethereum#blog-hero<br>
 [6]. Understanding L2 Fees: What They Are and Why They Matter https://www.starknet.io/blog/understanding-l2-fees/<br>
 [7]. Forbes, Top Stablecoins Coins Today By Market Cap. https://www.forbes.com/digitalassets/categories/stablecoins/?sh=779ba5751cd0<br>
-[8]. Illia Polosukhin, Building Next-Gen NEAR AI Infrastructure with TEEs https://near.ai/blog/building-next-gen-near-ai-infrastructure-with-tees,January 20, 2025<br>
+[8]. Illia Polosukhin, Building Next-Gen NEAR AI Infrastructure with TEEs https://near.ai/blog/building-next-gen-near-ai-infrastructure-with-tees, January 20, 2025<br>
 [9]. Keyu Ji, Cong Zhang, Taiyu Wang, Bingsheng Zhang, Hong-Sheng Zhou, Xin Wang, Kui Ren. "
 On the Complexity of Cryptographic Groups and Generic Group Models", ASIACRYPT 2024.<br>
 [10]. Luu, L., Narayanan, V., Zheng, C., Baweja, K., Gilbert, S., Saxena, P., 2016. A secure sharding
@@ -630,7 +629,7 @@ arXiv:2107.10881. Accessed: Apr. 18, 2022.<br>
 [12]. H. A. Kalodner, S. Goldfeder, X. Chen, S. M. Weinberg, and E. W. Felten. Arbitrum: Scalable,
 private smart contracts. In W. Enck and A. P. Felt, editors, USENIX Security 2018, pages 1353–
 1370, Baltimore, MD, USA, Aug. 15–17, 2018. USENIX Association.<br>
-[13]. S. Chaliasos, I. Reif, A. Torralba-Agell, J. Ernstberger, A. Kattis, and B. Livshits. Analyzing and benchmarking ZK-rollups. Cryptology ePrint Archive, Paper 2024/889, 2024. https://eprint.iacr.org/2024/889.<br>
+[13]. S. Chaliasos, I. Reif, A. Torralba-Agell, J. Ernstberger, A. Kattis, and B. Livshits. Analyzing and benchmarking ZK-rollups. Cryptology ePrint Archive, Paper 2024/889, 2024. https://eprint.iacr.org/2024/889.pdf<br>
 [14]. Dencun Mainnet Announcement, https://blog.ethereum.org/2024/02/27/dencun-mainnetannouncement<br>
 [15]. Parallel Execution — docs.monad.xyz. https://docs.monad.xyz/ technicaldiscussion/execution/parallel-execution. [Accessed 23-01-2024].<br>
 [16]. Sei Labs. Sei: The layer 1 for trading. https://github.com/sei-protocol/ seichain/blob/main/whitepaper/Sei_Whitepaper.pdf. [Accessed 17-03-2024].<br>
@@ -638,14 +637,13 @@ private smart contracts. In W. Enck and A. P. Felt, editors, USENIX Security 201
 [18]. Shahid R. Parallel Transaction Execution in Public Blockchain Systems[D]. University of
 Waterloo, 2024.<br>
 [19]. What is authorize and capture?, https://www.checkout.com/blog/authorize-and-capture<br>
-[20]. The multi-prover scheme. https://ethereum-magicians.org/t/a-simple-l2-security-and-finalizationroadmap/
-23309, 2025.<br>
+[20]. The multi-prover scheme. https://ethereum-magicians.org/t/a-simple-l2-security-and-finalizationroadmap/23309, 2025.<br>
 [21]. Antgroup Skyward Lab, https://github.com/antgroup-skyward<br>
 [22]. Fetch AI, https://fetch.ai/<br>
 [23]. Google, “Announcing the Agent2Agent Protocol (A2A),” Google Developers Blog, 2025.
-Accessed: May 31, 2025. [Online]. Available: https://developers.googleblog.com/en/a2a-a-newera-of-agentinteroperability/<br>
+Accessed: May 31, 2025. [Online]. Available: https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/<br>
 [24]. S. Labs, “Sp1 zkvm,” 2024. [Online]. Available: https://blog.succinct.xyz/introducing-sp1/<br>
-[25]. R. Z. T. Jeremy Bruestle, Paul Gafni, “Risc zero whitepaper,” https://dev.risczero.com/proofsystem-in-detail. pdf, 2024, [Accessed 02-22-2024].<br>
+[25]. R. Z. T. Jeremy Bruestle, Paul Gafni, “Risc zero whitepaper,” https://dev.risczero.com/proof-system-in-detail.pdf, 2024, [Accessed 02-22-2024].<br>
 [26]. P. Z. Team, “Plonky2: Fast recursive arguments with plonk and fri,” 2022, accessed: July 22,
 2024. [Online]. Available: https://github.com/0xPolygonZero/plonky2/blob/main/plonky2/plonky2.pdf<br>
 [27]. Plonky3, https://github.com/Plonky3/Plonky3<br>
