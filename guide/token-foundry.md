@@ -20,7 +20,7 @@ Before starting, make sure you have:
 ## Step 1: Set Up Your Project
 1. Clone the example repository:
     ```bash
-    wget 'https://web3-static-prod.oss-ap-southeast-1.aliyuncs.com/static/Jovay/JovayExamples.tar.bz'
+    wget 'https://web3-static-prod.oss-ap-southeast-1.aliyuncs.com/static/Jovay/JovayExamples.tar.gz'
     tar -xvzf JovayExamples.tar.gz
     cd JovayExamples/foundry/ERC20Example/
     ```
@@ -84,18 +84,18 @@ Before starting, make sure you have:
         }
 
         // Test name and symbol
-        function testNameAndSymbol() public {
+        function testNameAndSymbol() public view {
             assertEq(token.name(), "MyToken");
             assertEq(token.symbol(), "MTK");
         }
 
         // Test initial supply
-        function testInitialSupply() public {
+        function testInitialSupply() public view {
             assertEq(token.balanceOf(owner), 1_000_000e6);
         }
 
         // Test decimals are 6
-        function testDecimals() public {
+        function testDecimals() public view {
             assertEq(token.decimals(), 6);
         }
 
@@ -179,22 +179,22 @@ Before starting, make sure you have:
     // SPDX-License-Identifier: MIT
     pragma solidity ^0.8.13;
 
-    import {Script} from "forge-std/Script.sol";
-    import {Token} from "../src/MyToken.sol";
+    import {Script, console} from "forge-std/Script.sol";
+    import {MyToken} from "../src/MyToken.sol";
 
     contract InteractToken is Script {
         function run() external {
             uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
             vm.startBroadcast(deployerPrivateKey);
 
-            MyToken token = MyToken(address(0x00)); // Replace with your token contract address
+            MyToken token = MyToken(address(0x00));
 
             // Check balance
             uint256 balance = token.balanceOf(msg.sender);
             console.log("Balance:", balance);
 
             // Transfer tokens
-            token.transfer(address(0x00), 100); // Replace with recipient address and amount
+            token.transfer(address(0x00), 1);
             console.log("Tokens transferred");
 
             vm.stopBroadcast();

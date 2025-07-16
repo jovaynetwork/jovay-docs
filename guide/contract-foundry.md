@@ -20,7 +20,7 @@ Before starting, make sure you have:
 ## Step 1: Set Up Your Project
 1. Clone the example repository:
     ```bash
-    wget 'https://web3-static-prod.oss-ap-southeast-1.aliyuncs.com/static/Jovay/JovayExamples.tar.bz'
+    wget 'https://web3-static-prod.oss-ap-southeast-1.aliyuncs.com/static/Jovay/JovayExamples.tar.gz'
     tar -xvzf JovayExamples.tar.gz
     cd JovayExamples/foundry/StakingExample/
     ```
@@ -62,7 +62,7 @@ Before starting, make sure you have:
     ```
 4. Test the Smart Contract (optional but recommended):
     ```bash
-    touch test/MyToken.t.sol
+    touch c
     ```
 
 5. Paste the following code into `test/MyToken.t.sol`:
@@ -84,18 +84,18 @@ Before starting, make sure you have:
         }
 
         // Test name and symbol
-        function testNameAndSymbol() public {
+        function testNameAndSymbol() public view {
             assertEq(token.name(), "MyToken");
             assertEq(token.symbol(), "MTK");
         }
 
         // Test initial supply
-        function testInitialSupply() public {
+        function testInitialSupply() public view {
             assertEq(token.balanceOf(owner), 1_000_000e6);
         }
 
         // Test decimals are 6
-        function testDecimals() public {
+        function testDecimals() public view {
             assertEq(token.decimals(), 6);
         }
 
@@ -133,7 +133,7 @@ Before starting, make sure you have:
 ## Step 3: Deploy the Token Contract
 1. Create a Deployment Script:
     ```bash
-    touch script/DeployToken.s.sol
+    touch script/DeployMyToken.s.sol
     ```
 2. Paste the following code into `script/DeployToken.s.sol`:
     ```solidity

@@ -20,7 +20,7 @@ Before starting, make sure you have:
 ## Step 1: Set Up Your Project
 1. Clone the example repository:
     ```bash
-    wget 'https://web3-static-prod.oss-ap-southeast-1.aliyuncs.com/static/Jovay/JovayExamples.tar.bz'
+    wget 'https://web3-static-prod.oss-ap-southeast-1.aliyuncs.com/static/Jovay/JovayExamples.tar.gz'
     tar -xvzf JovayExamples.tar.gz
     cd JovayExamples/foundry/ERC721Example/
     ```

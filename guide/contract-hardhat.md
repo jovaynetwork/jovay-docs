@@ -21,7 +21,7 @@ Before starting, make sure you have:
 ## Step 1: Set Up Your Project
 1. Download the example repository:
     ```bash
-    wget 'https://web3-static-prod.oss-ap-southeast-1.aliyuncs.com/static/Jovay/JovayExamples.tar.bz'
+    wget 'https://web3-static-prod.oss-ap-southeast-1.aliyuncs.com/static/Jovay/JovayExamples.tar.gz'
     tar -xvzf JovayExamples.tar.gz
     cd JovayExamples/hardhat/StakingExample/
     ```
@@ -127,13 +127,13 @@ Before starting, make sure you have:
         using SafeERC20 for IERC20;
 
         IERC20 public stakingToken;
-        uint public rewardRate = 1e18; // 1 token per second
+        uint public rewardRate = 1e18;
         uint public totalStaked;
 
         struct User {
-            uint amount;
-            uint lastTime;
-            uint unclaimedRewards;
+            uint amount;          // current stake amount
+            uint lastTime;        // last update time
+            uint unclaimedRewards; // unclaimed rewards
         }
 
         mapping(address => User) public users;
@@ -143,6 +143,7 @@ Before starting, make sure you have:
             stakingToken = IERC20(_stakingToken);
         }
 
+        // stake
         function stake(uint amount) external {
             require(amount > 0, "Cannot stake 0");
             stakingToken.safeTransferFrom(msg.sender, address(this), amount);
@@ -157,6 +158,7 @@ Before starting, make sure you have:
             totalStaked += amount;
         }
 
+        // claim reward
         function claimRewards() external {
             _update(msg.sender);
             uint rewards = users[msg.sender].unclaimedRewards;
@@ -165,6 +167,7 @@ Before starting, make sure you have:
             stakingToken.safeTransfer(msg.sender, rewards);
         }
 
+        // withdraw and claim reward
         function withdraw(uint amount) external {
             User storage u = users[msg.sender];
             require(u.amount >= amount, "Not enough staked");
@@ -185,6 +188,7 @@ Before starting, make sure you have:
             return u.unclaimedRewards + timeDiff * rewardRate * u.amount / 1e18;
         }
 
+        // update reward
         function _update(address user) internal {
             User storage u = users[user];
             uint timeDiff = block.timestamp - u.lastTime;
