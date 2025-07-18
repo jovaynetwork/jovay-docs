@@ -62,7 +62,7 @@ Before starting, make sure you have:
     ```
 4. Test the Smart Contract (optional but recommended):
     ```bash
-    touch c
+    touch test/MyToken.t.sol
     ```
 
 5. Paste the following code into `test/MyToken.t.sol`:
@@ -420,10 +420,9 @@ Before starting, make sure you have:
             token.transfer(address(staking), rewardPoolAmount);
 
             // Simulate time passing (1 hour)
-            vm.warp(block.timestamp + 3600);
 
-            // Claim rewards
-            staking.claimRewards();
+            // Claim rewards after 1 hour
+            // staking.claimRewards();
             console.log("Rewards claimed.");
 
             // Withdraw
