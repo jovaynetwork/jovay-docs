@@ -14,61 +14,61 @@ Below is a quick overview of how each Ethereum JSON‑RPC method behaves on Jova
 
 With that in mind, following table maps every standard JSON‑RPC call to its Jovay status and highlights any noteworthy deviations.
 
-| **<font style="color:black;">Ethereum JSON-RPC API</font>** | **<font style="color:black;">Status</font>** | **<font style="color:black;">Note</font>** |
+| **Ethereum JSON-RPC API** | **Status** | **Note** |
 | --- | --- | --- |
-| <font style="color:black;">eth_protocolVersion</font> | <font style="color:black;">⚠️</font> | Always Returns`0x41` |
-| <font style="color:black;">eth_syncing</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_coinbase</font> | <font style="color:black;">⚠️</font> | Returns `0x0` due to unimplemented coinbase functionality |
-| <font style="color:black;">eth_chainId</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_mining</font> | <font style="color:black;">⚠️</font> | Returns `false` due to the absence of PoW functionality in L2 |
-| <font style="color:black;">eth_hashrate</font> | <font style="color:black;">⚠️</font> | Returns `0x0` due to the absence of PoW functionality in L2 |
-| <font style="color:black;">eth_gasPrice</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_accounts</font> | <font style="color:black;">⚠️</font> | Returns `empty array` due to wallet functionality  unimplemented |
-| <font style="color:black;">eth_blockNumber</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getBalance</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getStorageAt</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getTransactionCount</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getBlockTransactionCountByHash</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getBlockTransactionCountByNumber</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getUncleCountByBlockHash</font> | <font style="color:black;">⚠️</font> | Returns `0x0` due to the L2 chain having no uncle blocks |
-| <font style="color:black;">eth_getUncleCountByBlockNumber</font> | <font style="color:black;">⚠️</font> | Returns `0x0` due to the L2 chain having no uncle blocks |
-| <font style="color:black;">eth_getCode</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_sign</font> | <font style="color:black;">❌</font> | not provided due to wallet functionality unimplemented |
-| <font style="color:black;">eth_signTransaction</font> | <font style="color:black;">❌</font> | not provided due to wallet functionality unimplemented |
-| <font style="color:black;">eth_sendTransaction</font> | <font style="color:black;">❌</font> | not provided due to wallet functionality unimplemented |
-| <font style="color:black;">eth_sendRawTransaction</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_call</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_estimateGas</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_createAccessList</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getBlockByHash</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getBlockByNumber</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getBlockReceipts</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getTransactionByHash</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getTransactionByBlockHashAndIndex</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getTransactionByBlockNumberAndIndex</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getTransactionReceipt</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getUncleByBlockHashAndIndex</font> | <font style="color:black;">⚠️</font> | Returns `null` due to the L2 chain having no uncle blocks |
-| <font style="color:black;">eth_getUncleByBlockNumberAndIndex</font> | <font style="color:black;">⚠️</font> | Returns `null` due to the L2 chain having no uncle blocks|
-| <font style="color:black;">eth_newFilter</font> | <font style="color:black;">❌</font> | not provided due to filter functionality  unimplemented |
-| <font style="color:black;">eth_newBlockFilter</font> | <font style="color:black;">❌</font> | not provided due to filter functionality  unimplemented |
-| <font style="color:black;">eth_newPendingTransactionFilter</font> | <font style="color:black;">❌</font> | not provided due to filter functionality  unimplemented |
-| <font style="color:black;">eth_uninstallFilter</font> | <font style="color:black;">❌</font> | not provided due to filter functionality  unimplemented |
-| <font style="color:black;">eth_getFilterChanges</font> | <font style="color:black;">❌</font> | not provided due to filter functionality  unimplemented |
-| <font style="color:black;">eth_getFilterLogs</font> | <font style="color:black;">❌</font> | not provided due to filter functionality  unimplemented |
-| <font style="color:black;">eth_getLogs</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_maxPriorityFeePerGas</font> | <font style="color:black;">⚠️</font> | Returns `0x0` due to the absence of priority-fee scheduling |
-| <font style="color:black;">eth_feeHistory</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_getAccount</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">eth_subscribe</font> | <font style="color:black;">✅</font> | WebSocket API |
-| <font style="color:black;">eth_unsubscribe</font> | <font style="color:black;">✅</font> | WebSocket API |
-| <font style="color:black;">debug_traceBlockByHash</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">debug_traceBlockByNumber</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">debug_traceTransaction</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">debug_getRawBlock</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">debug_getRawHeader</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">debug_getRawReceipts</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">debug_getRawTransaction</font> | <font style="color:black;">✅</font> |  |
-| <font style="color:black;">jovay_getProof</font> | <font style="color:black;"></font> |  |
+| eth_protocolVersion| ⚠️ | Always Returns`0x41` |
+| eth_syncing | ✅ |  |
+| eth_coinbase | ⚠️ | Returns `0x0` due to unimplemented coinbase functionality |
+| eth_chainId | ✅ |  |
+| eth_mining | ⚠️ | Returns `false` due to the absence of PoW functionality in L2 |
+| eth_hashrate | ⚠️ | Returns `0x0` due to the absence of PoW functionality in L2 |
+| eth_gasPrice | ✅ |  |
+| eth_accounts | ⚠️ | Returns `empty array` due to wallet functionality  unimplemented |
+| eth_blockNumber | ✅ |  |
+| eth_getBalance | ✅|  |
+| eth_getStorageAt | ✅ |  |
+| eth_getTransactionCount| ✅ |  |
+| eth_getBlockTransactionCountByHash | ✅ |  |
+| eth_getBlockTransactionCountByNumber | ✅ |  |
+| eth_getUncleCountByBlockHash | ⚠️ | Returns `0x0` due to the L2 chain having no uncle blocks |
+| eth_getUncleCountByBlockNumber | ⚠️ | Returns `0x0` due to the L2 chain having no uncle blocks |
+| eth_getCode | ✅ |  |
+| eth_sign | ❌ | not provided due to wallet functionality unimplemented |
+| eth_signTransaction | ❌ | not provided due to wallet functionality unimplemented |
+| eth_sendTransaction | ❌ | not provided due to wallet functionality unimplemented |
+| eth_sendRawTransaction | ✅ |  |
+| eth_call | ✅ |  |
+| eth_estimateGas | ✅ |  |
+| eth_createAccessList | ✅ |  |
+| eth_getBlockByHash | ✅ |  |
+| eth_getBlockByNumber | ✅ |  |
+| eth_getBlockReceipts | ✅ |  |
+| eth_getTransactionByHash | ✅ |  |
+| eth_getTransactionByBlockHashAndIndex | ✅ |  |
+| eth_getTransactionByBlockNumberAndIndex | ✅ |  |
+| eth_getTransactionReceipt | ✅ |  |
+| eth_getUncleByBlockHashAndIndex | ⚠️ | Returns `null` due to the L2 chain having no uncle blocks |
+| eth_getUncleByBlockNumberAndIndex | ⚠️ | Returns `null` due to the L2 chain having no uncle blocks|
+| eth_newFilter | ❌ | not provided due to filter functionality  unimplemented |
+| eth_newBlockFilter | ❌ | not provided due to filter functionality  unimplemented |
+| eth_newPendingTransactionFilter | ❌ | not provided due to filter functionality  unimplemented |
+| eth_uninstallFilter | ❌ | not provided due to filter functionality  unimplemented |
+| eth_getFilterChanges | ❌ | not provided due to filter functionality  unimplemented |
+| eth_getFilterLogs | ❌ | not provided due to filter functionality  unimplemented |
+| eth_getLogs | ✅ |  |
+| eth_maxPriorityFeePerGas | ⚠️ | Returns `0x0` due to the absence of priority-fee scheduling |
+| eth_feeHistory | ✅ |  |
+| eth_getAccount| ✅ |  |
+| eth_subscribe | ✅ | WebSocket API |
+| eth_unsubscribe | ✅ | WebSocket API |
+| debug_traceBlockByHash | ✅ |  |
+| debug_traceBlockByNumber | ✅|  |
+| debug_traceTransaction | ✅ |  |
+| debug_getRawBlock | ✅|  |
+| debug_getRawHeader | ✅ |  |
+| debug_getRawReceipts | ✅ |  |
+| debug_getRawTransaction | ✅ |  |
+| jovay_getProof |  |  |
 
 <div align="center">
   <span style="font-size: 14px;">Table1: Jovay JSON-RPC API List</span>
@@ -150,7 +150,7 @@ Returns sync status of the node.
 ### eth_coinbase
 Returns the client coinbase address. 
 
-<font style="color:rgba(0, 0, 0, 0.96);">Since the Coinbase-related features are not yet developed, this API currently returns a null value as mock data.</font>
+Since the Coinbase-related features are not yet developed, this API currently returns a null value as mock data.
 
 **Input**: None  
 **Output**: String - Coinbase address  
@@ -181,7 +181,7 @@ Returns the client coinbase address.
 ### eth_mining
 Returns whether the client is mining.
 
-<font style="color:rgba(0, 0, 0, 0.96);">Since the L2 sequencer does not perform mining, it will always return false.</font>
+Since the L2 sequencer does not perform mining, it will always return false.
 
 **Input**: None  
 **Output**: Boolean - Mining status  
@@ -212,7 +212,7 @@ Returns whether the client is mining.
 ### eth_hashrate
 Returns the hashrate of the mining operation.
 
-<font style="color:rgba(0, 0, 0, 0.96);">Since the L2 sequencer does not perform mining, it will always return 0x0.</font>
+Since the L2 sequencer does not perform mining, it will always return 0x0.
 
 **Input**: None  
 **Output**: String - Hashrate in hashes per second  
@@ -505,13 +505,13 @@ Returns block information by number.
 ---
 
 ### eth_getBlockReceipts
-<font style="color:rgb(28, 29, 31);">Returns the receipts of all transactions in a block.</font>
+Returns the receipts of all transactions in a block.
 
 **Input**:
 
 1. String - An integer represented by a hex string, indicating the block number or the string `"latest"`, `"earliest"`, `"pending"`, `"safe"` or `"finalized"`
 
-**Output**: Array - <font style="color:rgb(28, 29, 31);">List of transaction receipts</font> 
+**Output**: Array - List of transaction receipts
 
 **Example Request**:
 
@@ -867,7 +867,7 @@ Returns logs matching filter.
 ### eth_getUncleCountByBlockHash
 Returns the number of uncles in a block by hash.
 
-<font style="color:rgba(0, 0, 0, 0.96);">Since L2 networks do not produce uncle blocks, this API always returns 0.</font>
+Since L2 networks do not produce uncle blocks, this API always returns 0.
 
 **Input**:
 
@@ -901,7 +901,7 @@ Returns the number of uncles in a block by hash.
 ### eth_getUncleCountByBlockNumber
 Returns the number of uncles in a block by number.
 
-<font style="color:rgba(0, 0, 0, 0.96);">Since L2 networks do not produce uncle blocks, this API always returns 0.</font>
+Since L2 networks do not produce uncle blocks, this API always returns 0.
 
 **Input**:
 
@@ -935,7 +935,7 @@ Returns the number of uncles in a block by number.
 ### eth_getUncleByBlockHashAndIndex
 Returns uncle information by block hash and index.
 
-<font style="color:rgba(0, 0, 0, 0.96);">Since L2 networks do not produce uncle blocks, this API always returns null value.</font>
+Since L2 networks do not produce uncle blocks, this API always returns null value.
 
 **Input**:
 
@@ -970,7 +970,7 @@ Returns uncle information by block hash and index.
 ### eth_getUncleByBlockNumberAndIndex
 Returns uncle information by block number and index.
 
-<font style="color:rgba(0, 0, 0, 0.96);">Since L2 networks do not produce uncle blocks, this API always returns null value.</font>
+Since L2 networks do not produce uncle blocks, this API always returns null value.
 
 **Input**:
 
