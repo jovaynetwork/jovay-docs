@@ -3,7 +3,7 @@ outline: deep
 ---
 # SmartCogent Introduction
 ## What is SmartCogent?
-SmartCogent offers an AI-driven full-stack development experience, leveraging large language models (LLMs) to automate tasks across the smart contract lifecycle: development, debugging, security auditing, and deployment. This is achieved through a multi-Agent workflow with serveral defined roles, supported by at least seven specialized Agents.
+SmartCogent offers an AI-driven full-stack development experience, leveraging large language models (LLMs) to automate tasks across the smart contract lifecycle: development, debugging, security auditing, and deployment. This is achieved through a multi-Agent workflow with several defined roles, supported by at least seven specialized Agents.
 ![SmartCogent Agents](/Images/SmartCogent/SmartCogent_Agents.png)
 ## SmartCogent Features
 - **Contract Development Phase:**
