@@ -42,13 +42,13 @@ Before that, you need :
     apt install wget curl vim -y     
     ```
 
-    b. Install nodejs and npm in the recommanded way by [nodejs.org](https://nodejs.org/en/download/).
+    b. Install nodejs and npm in the recommended way by [nodejs.org](https://nodejs.org/en/download/).
 
     ```
     # Download and install nvm:
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
     ```
-    c. Install official Solidity compiler solc in the recommanded way [here](https://docs.soliditylang.org/en/latest/installing-solidity.html#linux-packages).
+    c. Install official Solidity compiler solc in the recommended way [here](https://docs.soliditylang.org/en/latest/installing-solidity.html#linux-packages).
 
     ```
     apt install software-properties-common
