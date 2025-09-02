@@ -213,7 +213,7 @@ Before starting, make sure you have:
     ![Deploy Suucess](/Images/foundry-hardhat-tutorial/deploy-success-nft-foundry.png)
 
 ## Step 4: Interact with the NFT Contract
-1. Create a scipt:
+1. Create a script:
     ```bash
     touch script/InteractMyNFT.s.sol
     ```

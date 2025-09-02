@@ -169,7 +169,7 @@ Before starting, make sure you have:
     ![Deploy Suucess](/Images/foundry-hardhat-tutorial/deploy-success-token-foundry.png)
 
 ## Step 4: Interact with the Token Contract
-1. Create a scipt:
+1. Create a script:
     ```bash
     touch script/InteractToken.s.sol
     ```

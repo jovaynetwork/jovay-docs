@@ -383,7 +383,7 @@ Before starting, make sure you have:
     ![Deploy Staking Contract Success](/Images/foundry-hardhat-tutorial/deploy-success-staking-contract-foundry.png)
 
 ## Step 6: Interact with the Staking Contract
-1. Create a scipt:
+1. Create a script:
     ```bash
     touch script/InteractSimpleStaking.s.sol
     ```

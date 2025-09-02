@@ -200,7 +200,7 @@ You need to send a transaction for calling the Token Bridge on Sepolia to trigge
         <img src="/Images/developer-quickstart/deposit-function.png" >
     </div>
     <p align="center">
-        <span style="font-size: 14px;">Figure 4: Dposit Function</span>
+        <span style="font-size: 14px;">Figure 4: Deposit Function</span>
     </p>
 
     Parameters describe here:

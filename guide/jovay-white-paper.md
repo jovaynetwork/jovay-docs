@@ -15,7 +15,7 @@ finance and RWA integration.
 To overcome the inherent scalability constraints of existing blockchain architectures,
 Jovay employs a fully pipelined, parallel execution engine. This engine breaks down
 transaction workflows into discrete execution units, enabling concurrent processing
-across transaction, block, and batch levels. As a result, the system achieves clusterscale
+across transaction, block, and batch levels. As a result, the system achieves cluster-scale
 throughput with reduced end-to-end latency—targeting performance levels
 suitable for large-scale financial applications. Jovay’s security model is based on a
 phased and heterogeneous validity proof mechanism. Initially, it leverages Trusted
@@ -58,8 +58,8 @@ scaling solutions—such as sharding [10]—seek to enhance throughput via
 protocol-level upgrades. For instance, sharding partitions the network into 64
 parallel sub-chains, targeting a throughput exceeding 100K TPS. However, it
 faces challenges like cross-shard communication latency and high migration
-costs. In contrast, Layer 2 introduce an off-chain execution model with onchain
-data availability and finality, inheriting Ethereum’s security while
+costs. In contrast, Layer 2 introduce an off-chain execution model with on-chain
+data availability and finality, inheriting Ethereum's security while
 significantly improving performance [5,6]. Notable approaches include
 Plasma, state channels, sidechains, and Rollups [11]. Among them, Rollups
 have emerged as the dominant scaling paradigm due to their balance between
@@ -68,7 +68,7 @@ Optimistic Rollups [12], which rely on fraud proofs, and Zero-Knowledge
 (ZK) Rollups [13], which use cryptographic validity proofs.
 - **Synergistic Integration Acceleration:** The rapid advancement of artificial
 intelligence is catalyzing new synergies with Web3 technologies across
-multiple layers. At the infrastructure level, NEAR has proposed a privacypreserving,
+multiple layers. At the infrastructure level, NEAR has proposed a privacy-preserving,
 verifiable decentralized AI computing framework based on
 distributed AI networks [8]. At the protocol level, agent-based economic
 frameworks are forming intelligent transaction ecosystems [22], with
@@ -86,7 +86,7 @@ This architecture enables cluster-scale performance while significantly reducing
 
 Jovay aims to build a high-performance, high-security Layer 2 network serving as
 the technological backbone of next-generation digital finance. From inception,
-performance and security have been prioritized. The project adopts a “pragmatismfirst”
+performance and security have been prioritized. The project adopts a "pragmatism-first"
 approach, aligning technical roadmaps with the scale and complexity of live
 on-chain assets.
 
@@ -199,7 +199,7 @@ Environments (TEEs).
 hardware isolation, but depend on trusted hardware providers. In contrast, ZKPs
 provide mathematically sound security with minimal trust assumptions, and
 recent advances in proof acceleration are rapidly improving their efficiency.
-Buterin introduced the hybrid verification model [20], which integrates zeroknowledge
+Buterin introduced the hybrid verification model [20], which integrates zero-knowledge
 (ZK) proofs, Trusted Execution Environment (TEE), and Optimistic
 Rollup (OP) techniques. The use of multi-prover verification is expected to
 receive greater consideration in future developments.
@@ -347,7 +347,7 @@ caused by single-CPU limitations and storage I/O constraints.
 
 - **Asynchronous Multi-Stage Pipelining - Inter-Block Parallelism**
 
-    Through a multi-stage asynchronous pipelining architecture, Jovay achieves blocklevel
+    Through a multi-stage asynchronous pipelining architecture, Jovay achieves block-level
 concurrency across different processing stages. Each block's processing workflow is divided into multiple pipeline phases. These phases operate concurrently across multiple blocks, maximizing resource utilization. Block proposal intervals remain significantly shorter than individual block processing times, reducing userperceived transaction latency. This approach ensures high system throughput without compromising execution correctness.
 
 - **Adaptive Transaction Parallelism - Intra-Block Concurrency**
@@ -359,7 +359,7 @@ validated and analyzed for read-write dependencies. A Directed Acyclic Graph
 These groups are assigned to distributed executors based on available resources for
 parallel execution. Transactions encountering conflicts during execution are
 dynamically rescheduled to maintain correctness. This mechanism guarantees
-deterministic equivalence with serial execution while achieving maximum intrablock
+deterministic equivalence with serial execution while achieving maximum intra-block
 parallelism.
 
 ### 3.4 Exploring the Prover Subsystem: Validity Proof Technology
@@ -529,7 +529,7 @@ supports efficient and low-cost asset tokenization. Temporal modeling capabiliti
 enable predictive analytics on data quality, risk indicators, and yield projections. *c).
 **Asset Issuance Layer**:* Smart contracts formalize processed asset portfolios into
 SPV-style tokenized structures. AI-powered modules assist in whitelist verification,
-pathway analysis, and visual report in. *d). **Asset Trading Layer**:* Regulatory-compliant mechanisms govern asset redemptions and transfers. For international
+pathway analysis, and visual reporting. *d). **Asset Trading Layer**:* Regulatory-compliant mechanisms govern asset redemptions and transfers. For international
 investments, zkSQL-based verifiable reporting allows transaction validation without
 exposing sensitive data details. *e). **Data Services Layer**:* Manages model assets,
 executes offline/real-time data pipelines, and performs AI-assisted data quality
