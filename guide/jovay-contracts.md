@@ -13,7 +13,7 @@ Though Jovay prioritizes a high degree of compatibility with the Ethereum EVM, i
 | Opcode  | Solidity syntax   | Behavior on Jovay   |
 |--       |--                 |--                   |
 |COINBASE |block.coinbase     | Returns `0`. The behavior of this opcode is expected to change in future updates.  |
-|PREVRANDAO |block.prevrandao     | Returns `0`.Currently, Jovay does not support providing pseudo-random numbers via `prevrandao`  |
+|PREVRANDAO |block.prevrandao     | Returns `0`. Currently, Jovay does not support providing pseudo-random numbers via `prevrandao`.  |
 |BASEFEE |block.basefee     | The base fee is configured by a system contract. In Ethereum, the base fee is dynamically and automatically set based on block size changes.  |
 |BLOBBASEFEE |block.blobbasefee     | Returns `0`. EIP-4844 is not currently supported.  |
 |BLOBHASH |block.blobhash(blobIndex)    | Returns `0`. EIP-4844 is not currently supported.  |
@@ -120,7 +120,7 @@ The following is a comprehensive list of the opcodes supported by the Jovay EVM 
 | 0x5F | PUSH0 | push the constant value 0 onto stack |  |
 | 0x60-0x7F | PUSH1-PUSH32 | push a 1 to 32-byte value onto the stack. |  |
 | 0x80-0x8F | DUP1-DUP16 | clone the 1st to 16th value on the stack. |  |
-| 0x90-0x9F | SWAP1-SWAP16 | wwap the 1st to 16th value with the top of the stack. |  |
+| 0x90-0x9F | SWAP1-SWAP16 | swap the 1st to 16th value with the top of the stack. |  |
 | 0xA0 | LOG0 | LOG0(memory[ost:ost+len-1]) |  |
 | 0xA1 | LOG1 | LOG1(memory[ost:ost+len-1], topic0) |  |
 | 0xA2 | LOG2 | LOG2(memory[ost:ost+len-1], topic0, topic1) |  |
@@ -201,7 +201,7 @@ The Jovay EVM supports the following precompiled contracts.
         </tr>
         <tr>
             <td>0x0a</td>
-            <td>point evaulation</td>
+            <td>point evaluation</td>
             <td>Not supported at this time.</td>
         </tr>
     </tbody>

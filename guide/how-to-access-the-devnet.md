@@ -96,7 +96,7 @@ Before that, you need :
     ├── package.json
     ├── scripts
     │   ├── eth_bridge.js               // the script for bridging ETH; include deposit, withdraw, finalizeWithdraw
-    │   └── interact_with_contract.js   // the scripy for deploy and invoke contract on Jovay
+    │   └── interact_with_contract.js   // the script for deploy and invoke contract on Jovay
     └── src
         └── contracts
             └── jovay_example.sol
@@ -114,9 +114,9 @@ Before that, you need :
     RPC_URL="url of Sepolia"
     L2_RPC_URL="url of Jovay"
 
-    # the address of your acoount on Sepolia
+    # the address of your account on Sepolia
     L1_OWNER_ADDR=bar
-    # the address of your acoount on Jovay
+    # the address of your account on Jovay
     L2_OWNER_ADDR=foo
 
     # the private key of your account on Sepolia

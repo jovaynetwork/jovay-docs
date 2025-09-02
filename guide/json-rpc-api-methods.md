@@ -9,7 +9,7 @@ Jovay implements the standard [Ethereum JSON‑RPC API](https://ethereum.org/en/
 
 Below is a quick overview of how each Ethereum JSON‑RPC method behaves on Jovay. We’ll use three status indicators to guide you:
 - ✅ Fully compatible: request and response semantics are identical to Ethereum.
-- ⚠️ Semantically different: the method is implemented, but its return value or behavior diverges (e.g., no PoW, no uncle blocks). See theNotecolumn for details.
+- ⚠️ Semantically different: the method is implemented, but its return value or behavior diverges (e.g., no PoW, no uncle blocks). See the Note column for details.
 - ❌ Not supported: the method is not available (typically wallet or filter features). Replace, stub, or omit the call until future support is announced.
 
 With that in mind, following table maps every standard JSON‑RPC call to its Jovay status and highlights any noteworthy deviations.
@@ -112,7 +112,7 @@ Returns sync status of the node.
 
 + `startingBlock`: `QUANTITY` `- The block at which the import started (will only be reset, after the sync reached his head)`
 + `currentBlock`: `QUANTITY` `- The current block, same as eth_blockNumber`
-+ `highestBlock`: `QUANTITY</font>` `- The estimated highest block`
++ `highestBlock`: `QUANTITY` `- The estimated highest block`
 
 **Example Request**:
 
@@ -414,7 +414,7 @@ Returns block information by hash.
 }
 ```
 
-**E****xample Respon****se**:
+**Example Response**:
 
 ```json
 {
@@ -804,7 +804,7 @@ Returns logs matching filter.
 - data: DATA - contains zero or more 32 Bytes non-indexed arguments of the log.
 - topics: Array of DATA - Array of 0 to 4 32 Bytes DATA of indexed log arguments. (In solidity: The first topic is the hash of the signature of the event (e.g. Deposit(address,bytes32,uint256)), except you declared the event with the anonymous specifier.)
 
-**Example**** Req****uest**:
+**Example Request**:
 
 ```json
 {
