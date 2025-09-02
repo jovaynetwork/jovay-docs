@@ -473,7 +473,7 @@ processes for secure and trustless tokenization (Fig. 5).
 
     Real-world asset onboarding supports diverse types of assets such as new energy
 assets (e.g. EV charging equipment, photovoltaic equipment) and standard
-financial assets (e.g. bonds, bills, notes, trust). Taking new energy assets for
+financial assets (e.g. bonds, bills, notes, trusts). Taking new energy assets for
 example, due to their non-standard nature，hardware-software co-design
 solutions can be applied at the asset originator level to enhance trust, which
 benefits the subsequent tokenized asset issuance and trading processes. Secure
