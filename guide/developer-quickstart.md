@@ -12,7 +12,7 @@ By the time you’re done, you’ll have:
 
 🥈: Worked through the ETH deposit and withdraw between Ethereum and Jovay.
 
-🥉: Get familar with Jovay network and tooling.
+🥉: Get familiar with Jovay network and tooling.
 
 ## 🔧 Prerequisite
 Here we assume that readers are already familiar with the concepts and usage of cryptocurrency. In order to successfully complete the tutorial, you need to be familiar with the usage of the following tools.
@@ -164,7 +164,7 @@ contract JovayExample {
 
 </EnhancedCollapsibleCodeBlock>
 
-💡 tips: If you not familar with remix usage, please check out the help document.
+💡 tips: If you not familiar with remix usage, please check out the help document.
 
 ### Call contract to deposit
 You need to send a transaction for calling the Token Bridge on Sepolia to trigger the crosschain deposit process, so here we go☄️.
