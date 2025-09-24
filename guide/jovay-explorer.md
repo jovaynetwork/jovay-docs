@@ -3,7 +3,7 @@ outline: deep
 ---
 # Blockchain Explorer
 
-The official Jovay Block Explorer is available at: **[explorer.jovay.io](https://explorer.jovay.io/)**
+The official Jovay Block Explorer is available at: **[https://explorer.jovay.io](https://explorer.jovay.io/)**
 
 ## Blockchain Explorer Overview
 **Jovay** delivers a user-friendly, fully customizable blockchain explorer tailored for **Layer 2 ecosystems**, offering multi-dimensional visualization capabilities to enhance transparency and traceability.
