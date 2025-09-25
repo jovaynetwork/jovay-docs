@@ -17,8 +17,13 @@ For a simple and secure user experience, we strongly recommend using the officia
 | **Ethereum Mainnet** | `0x922248db4a99bb542539ae7165fb9d7a546fb9f1` |
 | **Sepolia Testnet** | `0x940eFB877281884699176892B02A3db49f29CDE8` |
 
-<details>
-<summary>View L1 Bridge ABI</summary>
+<EnhancedCollapsibleCodeBlock 
+  title="View L1 Bridge ABI"
+  language="json"
+  :show-copy-button="true"
+  :show-language-label="true"
+  :default-expanded="false"
+>
 
 ```json
 [
@@ -142,7 +147,7 @@ For a simple and secure user experience, we strongly recommend using the officia
 	}
 ]
 ```
-</details>
+</EnhancedCollapsibleCodeBlock>
 
 ### L2 ETH Bridge Contract (on Jovay)
 | Network | L2 Bridge Contract Address |
@@ -150,8 +155,13 @@ For a simple and secure user experience, we strongly recommend using the officia
 | **Jovay Mainnet** | `0xb220d17a11bd2d11e3f57a305ff5b481c81b1028` |
 | **Jovay Testnet** | `0xD278bC7189d2ed65c005c345A0e8a387f15b7a3A` |
 
-<details>
-<summary>View L2 Bridge ABI</summary>
+<EnhancedCollapsibleCodeBlock 
+  title="View L2 Bridge ABI"
+  language="json"
+  :show-copy-button="true"
+  :show-language-label="true"
+  :default-expanded="false"
+>
 
 ```json
 [
@@ -306,7 +316,7 @@ For a simple and secure user experience, we strongly recommend using the officia
 	}
 ]
 ```
-</details>
+</EnhancedCollapsibleCodeBlock>
 
 ## Core Workflows
 ### Deposit: L1 to L2

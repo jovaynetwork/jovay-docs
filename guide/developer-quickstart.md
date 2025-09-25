@@ -39,7 +39,7 @@ For more detailed network information, please see the [Network Information](../d
 
 During the development phase, we recommend using the testnet. After completing development, testing, and a security audit, you can deploy to the Jovay Mainnet. Here’s how to configure the Jovay Testnet in MetaMask.
 
-<div align="center"><img src="/public/Images/developer-quickstart/the-config-of-Jovay.png"></div><br>
+<div align="center"><img src="/Images/developer-quickstart/the-config-of-Jovay.png"></div><br>
 
 <div align="center"><i>Figure 1: the Config of Jovay Testnet</i></div>
 
@@ -90,14 +90,14 @@ Before you start, switch your MetaMask to Jovay testnet and the Remix environmen
 
 After deployment, you can find your deployed contract like below. You can search your contract address on [Jovay explorer](https://sepolia-explorer.jovay.io/l2) and get the details.
 
-<div align="center"><img src="/public/Images/developer-quickstart/a-deployed-demo-contract.png"></div><br>
+<div align="center"><img src="/Images/developer-quickstart/a-deployed-demo-contract.png"></div><br>
 
 <div align="center"><i>Figure 2: A Deployed Demo Contract</i></div>
 
 ### Interacting with deployed contract
 Set the some string value in the input box. And click button `transact` to request the wallet to sign and send a transaction to Jovay testnet.
 
-<div align="center"><img src="/public/Images/developer-quickstart/call-and-send-tx.png"></div><br>
+<div align="center"><img src="/Images/developer-quickstart/call-and-send-tx.png"></div><br>
 
 <div align="center"><i>Figure 3: Call and Send Tx 🏎️</i></div>
 
@@ -111,7 +111,7 @@ After confirmation, your account balance will be reduced to pay the transaction 
 
 Then call the GetContent function to check the content value. You should get the updated value which set by sent transaction.
 
-<div align="center"><img src="/public/Images/developer-quickstart/new-content.png"></div><br>
+<div align="center"><img src="/Images/developer-quickstart/new-content.png"></div><br>
 
 <div align="center"><i>Figure 5: New Content</i></div>
 
