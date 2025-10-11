@@ -11,7 +11,7 @@ Below are the details for the mainnet and testnet versions of the bridge:
 | Version | DApp URL | Network |
 | :--- | :--- | :--- |
 | **Jovay Bridge(Mainnet)** | [https://bridge.jovay.io/](https://bridge.jovay.io/) | Layer1: _**Ethereum Mainnet**_<br/>Layer2: _**Jovay Mainnet**_ |
-| **Jovay Bridge(Testnet)** | [http://bridge-test.jovay.io/](http://bridge-test.jovay.io/) | Layer1: _**ETH Sepolia Testnet**_<br/>Layer2: _**Jovay Sepolia Testnet**_ |
+| **Jovay Bridge(Testnet)** | [https://bridge-test.jovay.io/](https://bridge-test.jovay.io/) | Layer1: _**ETH Sepolia Testnet**_<br/>Layer2: _**Jovay Sepolia Testnet**_ |
 
 ## Prerequisites
 Before you begin, please ensure you have the following:
