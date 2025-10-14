@@ -6,6 +6,9 @@ Jovay is committed to the security and reliability of its platform. Our core com
 
 | Audited Module | Audit Firm | Report Link | Date |
 | :--- | :--- | :--- | :--- |
+| *Rollup Contracts* | *OpenZeppelin* | *[Jovay-Solidity-Rollup-Audit-2025.10.pdf](https://github.com/jovaynetwork/jovay-docs/blob/main/security-reports/202510/Jovay-Solidity-Rollup-Audit-2025.10.pdf)* | *2025.10.13* |
+| *Sequencer Contracts* | *OpenZeppelin* | *[Jovay-Solidity-Sequencer-Audit-2025.10.pdf](https://github.com/jovaynetwork/jovay-docs/blob/main/security-reports/202510/Jovay-Solidity-Sequencer-Audit-2025.10.pdf)* | *2025.10.13* |
+| *TEE Verifier Contracts* | *OpenZeppelin* | *[Jovay-TEE-Verifier-Audit-2025.10.pdf](https://github.com/jovaynetwork/jovay-docs/blob/main/security-reports/202510/Jovay-TEE-Verifier-Audit-2025.10.pdf)* | *2025.10.14* |
 | *Rollup Contracts*<br/>*System Contracts*<br/>*TEE Verifier Contracts* | *SlowMist* | *[Jovay-Network-SlowMist-Audit-Report-Contracts-20250924.pdf](https://github.com/jovaynetwork/jovay-docs/blob/main/security-reports/202509/Jovay-Network-SlowMist-Audit-Report-Contracts-20250924.pdf)* | *2025.09.24* |
 | *Jovay Chain Parts* | *SlowMist* | *[Jovay-Network-SlowMist-Audit-Report-Chain-20250924.pdf](https://github.com/jovaynetwork/jovay-docs/blob/main/security-reports/202509/Jovay-Network-SlowMist-Audit-Report-Chain-20250924.pdf)* | *2025.09.24* |
 
