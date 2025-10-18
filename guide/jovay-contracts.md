@@ -12,7 +12,7 @@ Though Jovay prioritizes a high degree of compatibility with the Ethereum EVM, i
 
 | Opcode  | Solidity syntax   | Behavior on Jovay   |
 |--       |--                 |--                   |
-|COINBASE |block.coinbase     | Returns `0`. The behavior of this opcode is expected to change in future updates.  |
+|COINBASE |block.coinbase     | Return the recipient address for the block fees.  |
 |PREVRANDAO |block.prevrandao     | Returns `0`. Currently, Jovay does not support providing pseudo-random numbers via `prevrandao`.  |
 |BASEFEE |block.basefee     | The base fee is configured by a system contract. In Ethereum, the base fee is dynamically and automatically set based on block size changes.  |
 |BLOBBASEFEE |block.blobbasefee     | Returns `0`. EIP-4844 is not currently supported.  |
@@ -91,7 +91,7 @@ The following is a comprehensive list of the opcodes supported by the Jovay EVM 
 | 0x3E | RETURNDATACOPY | copy returned data from last external call |  |
 | 0x3F | EXTCODEHASH | hash = addr.exists ? keccak256(addr.code) : 0 |  |
 | 0x40 | BLOCKHASH |  | Returns the keccak256 hash of a block number, where the input to the hash is the block number in decimal string format. |
-| 0x41 | COINBASE | address of proposer of current block | Returns `0`. This behavior will change in the future. |
+| 0x41 | COINBASE | Return the recipient address for the block fees. |
 | 0x42 | TIMESTAMP | timestamp of current block |  |
 | 0x43 | NUMBER | number of current block |  |
 | 0x44 | PREVRANDAO | randomness beacon | Returns `0`.Currently, Jovay does not support providing pseudo-random numbers via `prevrandao` |
