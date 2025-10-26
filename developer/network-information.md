@@ -13,7 +13,7 @@ The Jovay Mainnet is the production network for real-value transactions.
 | **RPC URL** | `https://rpc.jovay.io` |
 | **Chain ID** | `5734951` |
 | **Currency Symbol** | `ETH` |
-| **Block Explorer URL** | `https://explorer.jovay.io` |
+| **Block Explorer URL** | `https://explorer.jovay.io/l2` |
 | **L1 Bridge Contract** | `0x922248db4a99bb542539ae7165fb9d7a546fb9f1` |
 | **L2 Bridge Contract** | `0xb220d17a11bd2d11e3f57a305ff5b481c81b1028` |
 
