@@ -31,7 +31,7 @@ Refer to the [MetaMask help document](https://support.metamask.io/configure/netw
 | **RPC URL** | `https://api.zan.top/public/jovay-testnet` | `https://rpc.jovay.io` |
 | **Chain ID** | `2019775` | `5734951` |
 | **Symbol** | ETH | ETH |
-| **Block Explorer URL** | `https://sepolia-explorer.jovay.io/l2` | `https://explorer.jovay.io` |
+| **Block Explorer URL** | `https://sepolia-explorer.jovay.io/l2` | `https://explorer.jovay.io/l2` |
 
 For more detailed network information, please see the [Network Information](../developer/network-information.md) page.
 

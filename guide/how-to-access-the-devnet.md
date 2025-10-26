@@ -254,7 +254,7 @@ If successful, you will see output similar to the following:
 🎉🎉 Send transaction success.
 ```
 By running the above command, you transferred 11,000,000,000 wei to the Sepolia ETH Bridge Contract. Of this amount, 10,007,000,000 wei was successfully transferred to Jovay, and the remainder was refunded to your wallet account. Within the transferred amount, 10,000,000,000 wei was deposited to your account on Jovay, while 7,000,000 wei was collected as the bridge fee.
-You can check on [Jovay Explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) whether the L1 `deposit` transaction has been delivered to Jovay; this process may take up to 25 minutes. Once the `deposit` is confirmed on Jovay, an L2 transaction hash will be displayed instead of a pending claim.
+You can check on [Jovay Explorer](http://explorer.jovay.io/l2) whether the L1 `deposit` transaction has been delivered to Jovay; this process may take up to 25 minutes. Once the `deposit` is confirmed on Jovay, an L2 transaction hash will be displayed instead of a pending claim.
 
 ![Jovay Explorer](/Images/Access/pending%20claim.png)
 
@@ -313,15 +313,15 @@ Once the batch is verified on L1, the Proof field will display a hex value. At t
 #### finalizeWithdraw
 Finalizing a withdrawal on Sepolia triggers the Bridge contract to transfer ETH to the target address, based on the L2 message produced by the Jovay `withdraw` transaction.
 
-The following commands can only be executed after the Jovay `withdraw` transaction has been finalized on Sepolia. Enter the `withdraw` transaction hash on the [Jovay Explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) to navigate to the transaction details page, where the finalization status will be displayed. Then you can find the proof we descriped and assume that you already have the proof from the transaction detail page.
+The following commands can only be executed after the Jovay `withdraw` transaction has been finalized on Sepolia. Enter the `withdraw` transaction hash on the [Jovay Explorer](http://explorer.jovay.io/l2) to navigate to the transaction details page, where the finalization status will be displayed. Then you can find the proof we descriped and assume that you already have the proof from the transaction detail page.
 
 Please prepare the script parameters as listed in the table below before executing the following command.
 
 | Parameter  |  Description  | Value  |
 |---|---|---|
-| `batch_index`  | the batch index of `withdraw` hash. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100).</br><ol><li>Search `withdraw` tx hash.</br>![explorer-1](/Images/Access/jovay%20explorer-1.png)</li><li>Click the Block Number.</br>![explorer-2](/Images/Access/jovay%20explorer-2.png)</li></ol>  | 122  | 
+| `batch_index`  | the batch index of `withdraw` hash. you can find at [jovay explorer](http://explorer.jovay.io/l2).</br><ol><li>Search `withdraw` tx hash.</br>![explorer-1](/Images/Access/jovay%20explorer-1.png)</li><li>Click the Block Number.</br>![explorer-2](/Images/Access/jovay%20explorer-2.png)</li></ol>  | 122  | 
 |`tx_hash`  |The `withdraw` transaction was sent on Jovay. The script automatically retrieves the `nonce` and `msg` from the L2 message.  | <div style="word-wrap: break-word; word-break:break-all;"> 0x620629487a0497afd77c838637fa4a57e9c4cdf72cd9993ea35c9e3bff6a3e7a</div> |
-|`proof`   |  The spv proof of L2 withdrawmsg. you can find at [jovay explorer](http://explorer.jovay.io/l2/home?bizId=ethdevnetl2&unionId=100100) after batch is **finalized**.</br>Search withdraw tx hash and check the status is finalized</br>![explorer-2](/Images/Access/jovay%20explorer.png)| <div style="word-wrap: break-word; word-break:break-all;">0000000000000000000000000000000000000000000000000000000000000000ad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5b4c11951957c6f8f642c4af61cd6b24640fec6dc7fc607ee8206a99e92410d3021ddb9a356815c3fac1026b6dec5df3124afbadb485c9ba5a3e3398a04b7ba8524540cfcbc067229a7d700b686a7f626a5362b21e569dcdb84d3e9c1dde6895c</div>  |
+|`proof`   |  The spv proof of L2 withdrawmsg. you can find at [jovay explorer](http://explorer.jovay.io/l2) after batch is **finalized**.</br>Search withdraw tx hash and check the status is finalized</br>![explorer-2](/Images/Access/jovay%20explorer.png)| <div style="word-wrap: break-word; word-break:break-all;">0000000000000000000000000000000000000000000000000000000000000000ad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5b4c11951957c6f8f642c4af61cd6b24640fec6dc7fc607ee8206a99e92410d3021ddb9a356815c3fac1026b6dec5df3124afbadb485c9ba5a3e3398a04b7ba8524540cfcbc067229a7d700b686a7f626a5362b21e569dcdb84d3e9c1dde6895c</div>  |
 |`gas_price` | Max fee per gas on Sepolia. It is recommended to set this value based on the base fee of the current Sepolia block.  | 40630943068  |
 ```
 node scripts/eth_bridge.js finalizeWithdraw $batch_index $tx_hash $proof $gas_price

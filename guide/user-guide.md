@@ -27,7 +27,7 @@ Use the information from the table below:
 | **RPC URL** | `https://rpc.jovay.io` | `https://api.zan.top/public/jovay-testnet` |
 | **Chain ID** | `5734951` | `2019775` |
 | **Currency Symbol** | `ETH` | `ETH` |
-| **Block Explorer URL** | `https://explorer.jovay.io` | `https://sepolia-explorer.jovay.io/l2` |
+| **Block Explorer URL** | `https://explorer.jovay.io/l2` | `https://sepolia-explorer.jovay.io/l2` |
 
 
 After saving, you can easily switch to the Jovay network from your wallet's network list.
