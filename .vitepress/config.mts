@@ -113,6 +113,16 @@ export default defineConfig({
           },
           { text: "Jovay Bridge Developer Reference", link: "/developer/jovay-bridge-developer-reference" },
           { text: "Network Information", link: "/developer/network-information" },
+          {
+            text: "Jovay Integration Tutorials",
+            collapsed: true,
+            items: [
+              {
+                text: "Jovay dApp Frontend Integration",
+                link: "/developer/integration/jovay-dapp-viem-integration-tutorial",
+              },
+            ],
+          }
         ],
       },
       {
