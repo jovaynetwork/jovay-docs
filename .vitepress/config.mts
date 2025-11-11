@@ -154,6 +154,38 @@ export default defineConfig({
       copyright: "©2025 Copyright by Jovay, all rights reserved.",
     },
   },
-});
 
+  sitemap: {
+    hostname: 'https://docs.jovay.io',
+    transformItems: (items) => {
+      items = [];
+      items.push({
+        url: '/guide/user-guide',
+        changefreq: 'weekly',
+        priority: 1,
+      });
+      items.push({
+        url: '/guide/jovay-white-paper',
+        changefreq: 'weekly',
+        priority: 0.9,
+      });
+      items.push({
+        url: 'https://explorer.jovay.io',
+        changefreq: 'weekly',
+        priority: 0.8,
+      });
+      items.push({
+        url: '/guide/user-guide',
+        changefreq: 'weekly',
+        priority: 0.7,
+      });
+      items.push({
+        url: 'https://jovay.io',
+        changefreq: 'weekly',
+        priority: 0.6,
+      });
+      return items;
+    },
+  }
+});
 
