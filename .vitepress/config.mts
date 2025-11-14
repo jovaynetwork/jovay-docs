@@ -61,6 +61,40 @@ export default defineConfig({
           { text: "User Guide", link: "/guide/user-guide" },
           { text: "Developer Guide", link: "/guide/developer-guide" },
           { text: "Developer Quickstart", link: "/guide/developer-quickstart" },
+          {
+              text: "Jovay CLI",
+              collapsed: true,
+              items: [
+                  {
+                      text: "Getting Started",
+                      link: "/guide/jovay-cli/getting-started",
+                  },
+                  {
+                      text: "CLI Overview",
+                      link: "/guide/jovay-cli/cli-overview",
+                  },
+                  {
+                      text: "jovay network",
+                      link: "/guide/jovay-cli/jovay-network",
+                  },
+                  {
+                      text: "jovay wallet",
+                      link: "/guide/jovay-cli/jovay-wallet",
+                  },
+                  {
+                      text: "jovay transaction",
+                      link: "/guide/jovay-cli/jovay-transaction",
+                  },
+                  {
+                      text: "jovay contract",
+                      link: "/guide/jovay-cli/jovay-contract",
+                  },
+                  {
+                      text: "jovay dapp",
+                      link: "/guide/jovay-cli/jovay-dapp",
+                  },
+              ]
+          },
           { text: "Jovay Bridge DApp Tutorial", link: "/guide/jovay-bridge-dapp-tutorial" },
           { text: "Jovay Explorer", link: "/guide/jovay-explorer" },
         ],
@@ -72,7 +106,7 @@ export default defineConfig({
           { text: "JSON-RPC API Methods", link: "/guide/json-rpc-api-methods" },
           { text: "Jovay Contracts", link: "/guide/jovay-contracts" },
           { text: "Using Jovay with Anvil", link: "/developer/jovay-anvil-guide" },
-
+          { text: "Jovay CLI Tutorial", link: "/guide/jovay-cli-quickstart" },
           {
             text: "Foundry Tutorial",
             //          link: "/guide/foundry-tutorial",

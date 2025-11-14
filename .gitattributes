@@ -31,3 +31,14 @@ public/Images/verify-contract-guide/verify-single-file-step1.png filter=lfs diff
 public/Images/verify-contract-guide/verify-single-file-step2.png filter=lfs diff=lfs merge=lfs -text
 public/Images/verify-contract-guide/verify-single-file-step3.png filter=lfs diff=lfs merge=lfs -text
 public/Images/verify-contract-guide/verify-single-file-step4-1.png filter=lfs diff=lfs merge=lfs -text
+public/Images/jovay-cli/jovay-cli-airdrop.png filter=lfs diff=lfs merge=lfs -text
+public/Images/jovay-cli/jovay-cli-dapp-deploy.png filter=lfs diff=lfs merge=lfs -text
+public/Images/jovay-cli/jovay-cli-init.png filter=lfs diff=lfs merge=lfs -text
+public/Images/jovay-cli/jovay-cli-network-set.png filter=lfs diff=lfs merge=lfs -text
+public/Images/jovay-cli/jovay-cli-welcome.png filter=lfs diff=lfs merge=lfs -text
+public/Images/jovay-cli/nft-example.png filter=lfs diff=lfs merge=lfs -text
+public/Images/jovay-cli/jovay-cli-airdrop-tx-cli.png filter=lfs diff=lfs merge=lfs -text
+public/Images/jovay-cli/jovay-cli-airdrop-tx-explorer.png filter=lfs diff=lfs merge=lfs -text
+public/Images/jovay-cli/jovay-cli-dapp-build.png filter=lfs diff=lfs merge=lfs -text
+public/Images/jovay-cli/jovay-cli-dapp-call.png filter=lfs diff=lfs merge=lfs -text
+public/Images/jovay-cli/jovay-cli-dapp-init.png filter=lfs diff=lfs merge=lfs -text
