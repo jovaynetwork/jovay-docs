@@ -81,7 +81,7 @@ Each trading pair has a unique Feed ID. For this example, we'll use **ETH/USD on
 Feed ID: 0x000362205e10b3a147d02792eccee483dca6c7b44ecce7012cb8c6e0b68b3ae9
 ```
 
-Find more Feed IDs in the [Chainlink Crypto Streams documentation](https://docs.chain.link/data-streams/crypto-streams?page=1&testnetPage=1).
+If you want to get information on other trading pairs, you can find more Feed IDs in the [Chainlink Crypto Streams documentation](https://docs.chain.link/data-streams/crypto-streams?page=1&testnetPage=1).
 
 #### Step 2.3: Create the Data Fetching Script
 
