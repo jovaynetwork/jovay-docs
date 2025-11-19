@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress";
 import markdownItMathjax3 from 'markdown-it-mathjax3'
+import fs from 'fs';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -13,6 +14,12 @@ export default defineConfig({
       md.renderer.rules.image = (tokens, idx, options, env, self) => {
         const token = tokens[idx];
         const src = token.attrGet("src");
+        // if image is svg, read svg file from public folder
+        if (src?.endsWith(".svg")) {
+          // read svg file from public folder
+          const svg = fs.readFileSync(`public/${src}`, "utf-8");
+          return svg;
+        }
         const alt = token.content;
         return `<CustomImage src="${src}" alt="${alt}" />`;
       };
@@ -159,6 +166,10 @@ export default defineConfig({
           },
           {
             text: "Verify Contract On Explorer", link: "/developer/verify-contract-guide"
+          },
+          {
+            text: "Chainlink Integration",
+            link: "/developer/integration/how-to-use-chainlink-datastream",
           },
         ],
       },

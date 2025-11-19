@@ -42,3 +42,4 @@ public/Images/jovay-cli/jovay-cli-airdrop-tx-explorer.png filter=lfs diff=lfs me
 public/Images/jovay-cli/jovay-cli-dapp-build.png filter=lfs diff=lfs merge=lfs -text
 public/Images/jovay-cli/jovay-cli-dapp-call.png filter=lfs diff=lfs merge=lfs -text
 public/Images/jovay-cli/jovay-cli-dapp-init.png filter=lfs diff=lfs merge=lfs -text
+public/Images/chainlink-integration/jovay-chainlink-datastream-decode-report.png filter=lfs diff=lfs merge=lfs -text

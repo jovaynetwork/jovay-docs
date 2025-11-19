@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # Integrating dApps frontend with Jovay using viem
 
 This tutorial guides you through connecting your decentralized application (dApp) frontend to the Jovay Mainnet and Testnet using the popular `viem` library. We'll walk through setting up your environment and then create a simple example that signs a message using MetaMask.
