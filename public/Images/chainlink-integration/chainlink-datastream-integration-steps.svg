@@ -131,12 +131,12 @@
     <line x1="460" y1="275" x2="600" y2="275" stroke="#BDC3C7" stroke-width="1"/>
     
     <circle cx="470" cy="295" r="4" fill="#F39C12"/>
-    <text x="480" y="299" font-family="Arial, sans-serif" font-size="11" fill="#34495E">Deploy Verifier</text>
-    <text x="480" y="312" font-family="Arial, sans-serif" font-size="11" fill="#34495E">contract on Jovay</text>
+    <text x="480" y="299" font-family="Arial, sans-serif" font-size="11" fill="#34495E">Get Chainlink Verifier</text>
+    <text x="480" y="312" font-family="Arial, sans-serif" font-size="11" fill="#34495E">address (0xF1Ee...)</text>
     
     <circle cx="470" cy="335" r="4" fill="#F39C12"/>
-    <text x="480" y="339" font-family="Arial, sans-serif" font-size="11" fill="#34495E">Pass Verifier proxy</text>
-    <text x="480" y="352" font-family="Arial, sans-serif" font-size="11" fill="#34495E">address (0xF1Ee...)</text>
+    <text x="480" y="339" font-family="Arial, sans-serif" font-size="11" fill="#34495E">Deploy your client</text>
+    <text x="480" y="352" font-family="Arial, sans-serif" font-size="11" fill="#34495E">contract on Jovay</text>
     
     <circle cx="470" cy="375" r="4" fill="#F39C12"/>
     <text x="480" y="379" font-family="Arial, sans-serif" font-size="11" fill="#34495E">Call verifyReport</text>
@@ -144,7 +144,7 @@
     
     <circle cx="470" cy="415" r="4" fill="#F39C12"/>
     <text x="480" y="419" font-family="Arial, sans-serif" font-size="11" fill="#34495E">Get verified price</text>
-    <text x="480" y="432" font-family="Arial, sans-serif" font-size="11" fill="#34495E">on-chain</text>
+    <text x="480" y="432" font-family="Arial, sans-serif" font-size="11" fill="#34495E">from Verifier</text>
   </g>
   
   <g>
@@ -160,8 +160,7 @@
     
     <circle cx="670" cy="355" r="4" fill="#27AE60"/>
     <text x="680" y="359" font-family="Arial, sans-serif" font-size="11" fill="#34495E">Build</text>
-    <text x="680" y="372" font-family="Arial, sans-serif" font-size="11" fill="#34495E">DeFi</text>
-    <text x="680" y="385" font-family="Arial, sans-serif" font-size="11" fill="#34495E">apps</text>
+    <text x="680" y="372" font-family="Arial, sans-serif" font-size="11" fill="#34495E">dApps</text>
   </g>
   
   <!-- Footer note -->

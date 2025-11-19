@@ -2,13 +2,16 @@
 outline: deep
 ---
 
-# How to Use Chainlink on Jovay
+# How to Use Chainlink Data Streams on Jovay
 
-There are two common ways to retrieve off-chain data with Chainlink: **Data Feeds** and **Data Streams**.  
-Data Feeds follow a **push-based** model, where oracles update on-chain data at fixed time intervals or when certain price thresholds are met.  
-Data Streams follow a **pull-based** model: low-latency market data is served off-chain and verified on-chain to remain trust-minimized. This enables dApps to access high-frequency market data on demand.
+## Overview
 
-Jovay currently supports the Chainlink **Data Streams** oracle model. This document describes how to use Data Streams on Jovay in detail.
+Chainlink provides two primary methods for retrieving off-chain data:
+
+- **Data Feeds (Push-based)**: Oracles automatically update on-chain data at fixed intervals or when price thresholds are met
+- **Data Streams (Pull-based)**: Low-latency market data is served off-chain and verified on-chain, maintaining trust minimization while enabling dApps to access high-frequency data on demand
+
+Jovay natively supports **Chainlink Data Streams**, providing developers with access to high-frequency, low-latency oracle data for building sophisticated DeFi applications. This guide walks you through the complete integration process.
 
 ## Developer Integration Steps
 
@@ -20,45 +23,82 @@ The following diagram illustrates the key steps for developers to integrate Chai
 
 - **Step 1 - Setup**: Obtain API credentials from Chainlink and configure your development environment
 - **Step 2 - Fetch Data**: Use SDK to retrieve low-latency price reports from off-chain Data Streams network
-- **Step 3 - Verify**: Deploy verification contract and validate report integrity on Jovay blockchain
-- **Step 4 - Use**: Consume trustless, verified price data in your DeFi applications
+- **Step 3 - Verify**: Deploy your client contract and validate report integrity using Chainlink's Verifier on Jovay
+- **Step 4 - Use**: Consume trustless, verified price data in your dApps
 
-## Chainlink Data Streams Tutorial
+## Integration Guide
 
-Official Chainlink Data Streams tutorial:  
-`https://docs.chain.link/data-streams/tutorials/overview`
+::: tip Official Documentation
+For comprehensive Chainlink Data Streams documentation, visit:  
+[https://docs.chain.link/data-streams/tutorials/overview](https://docs.chain.link/data-streams/tutorials/overview)
+:::
 
-Using Chainlink Data Streams generally involves two major parts:
+### Integration Architecture
 
-- **Retrieve and decode market data (Report)** from the Data Streams Aggregation Network using the Go, Rust, or TypeScript SDK.
-- **Verify the Report on Jovay** by calling the Stream Verifier Network contract that is deployed on Jovay.
+Chainlink Data Streams integration consists of two core components:
 
-*The following example uses the Go SDK to fetch the ETH/USD price and verify it on the Jovay mainnet.*
+1. **Off-chain Data Retrieval**: Fetch and decode market data (Reports) from the Data Streams Aggregation Network using the Go, Rust, or TypeScript SDK
+2. **On-chain Verification**: Validate Report integrity by calling the Stream Verifier Network contract deployed on Jovay
+
+::: info Example Scenario
+This guide demonstrates fetching **ETH/USD** price data using the **Go SDK** and verifying it on **Jovay mainnet**.
+:::
 
 ### 1. Environment Setup
 
-1. Request mainnet or testnet API credentials (API_KEY and API_SECRET) from Chainlink:  
-   [https://chainlinkcommunity.typeform.com/datastreams?typeform-source=docs.chain.link#ref_id=docs](https://chainlinkcommunity.typeform.com/datastreams?typeform-source=docs.chain.link#ref_id=docs)
-2. Install and configure Go (version >= 1.21 is required).
+#### Prerequisites
+
+Before you begin, ensure you have the following:
+
+1. **Chainlink API Credentials**: Apply for mainnet or testnet API credentials (`API_KEY` and `API_SECRET`)
+   - Application form: [Chainlink Data Streams Access](https://chainlinkcommunity.typeform.com/datastreams?typeform-source=docs.chain.link#ref_id=docs)
+   - Approval typically takes 1-2 business days
+
+2. **Development Environment**: Install Go version 1.21 or higher
+   - Download from: [https://go.dev/dl/](https://go.dev/dl/)
+   - Verify installation: `go version`
 
 ### 2. Fetch Market Data (Report)
 
-1. Set `API_KEY` and `API_SECRET` in your environment variables:
+#### Step 2.1: Configure API Credentials
+
+Set your Chainlink API credentials as environment variables:
 
 ```bash
-export API_KEY="xxx"
-export API_SECRET="xxx"
+export API_KEY="your_api_key_here"
+export API_SECRET="your_api_secret_here"
 ```
 
-1. Get the **Feed ID** for the market data you want to query.  
-   For example, the Feed ID for **ETH/USD on mainnet** is:
-   `0x000362205e10b3a147d02792eccee483dca6c7b44ecce7012cb8c6e0b68b3ae9`.  
-   You can look this up here:  
-   [https://docs.chain.link/data-streams/crypto-streams?page=1&testnetPage=1](https://docs.chain.link/data-streams/crypto-streams?page=1&testnetPage=1)
+::: warning Security Note
+Never commit API credentials to version control. Use environment variables or secure secret management solutions.
+:::
 
-1. Create a `single-stream.go` file (example code below). You can switch between mainnet and testnet data by changing the `RestURL`.  
-   - Mainnet `RestURL`: [https://api.dataengine.chain.link](https://api.dataengine.chain.link)  
-   - Testnet `RestURL`: [https://api.testnet-dataengine.chain.link](https://api.testnet-dataengine.chain.link)
+#### Step 2.2: Identify the Feed ID
+
+Each trading pair has a unique Feed ID. For this example, we'll use **ETH/USD on mainnet**:
+
+```text
+Feed ID: 0x000362205e10b3a147d02792eccee483dca6c7b44ecce7012cb8c6e0b68b3ae9
+```
+
+Find more Feed IDs in the [Chainlink Crypto Streams documentation](https://docs.chain.link/data-streams/crypto-streams?page=1&testnetPage=1).
+
+#### Step 2.3: Create the Data Fetching Script
+
+Create a file named `single-stream.go` with the following code. This script fetches the latest price report from the Data Streams Aggregation Network.
+
+**Network Configuration:**
+
+- **Mainnet**: `https://api.dataengine.chain.link`
+- **Testnet**: `https://api.testnet-dataengine.chain.link`
+
+<EnhancedCollapsibleCodeBlock
+  title="View single-stream.go (Complete Go Script)"
+  language="go"
+  :show-copy-button="true"
+  :show-language-label="true"
+  :default-expanded="false"
+>
 
 ```go
 package main
@@ -162,41 +202,84 @@ func main() {
 }
 ```
 
-1. Run the following command to fetch ETH/USD price data on mainnet:
+</EnhancedCollapsibleCodeBlock>
+
+#### Step 2.4: Execute the Script
+
+Run the script with the Feed ID as an argument:
 
 ```bash
-go run single-stream.go <feed-id>
+go run single-stream.go 0x000362205e10b3a147d02792eccee483dca6c7b44ecce7012cb8c6e0b68b3ae9
 ```
 
-If the command succeeds, you will see both the raw price report data and the decoded price data (for example, the ETH/USD median price agreed upon by the DON — Decentralized Oracle Network).  
-As shown in the screenshot, at **2025-11-19 06:27:46 UTC time** (timestamp `1763533666`), the ETH/USD median price produced by the DON is approximately **3027 USD**.
+#### Understanding the Output
 
-![jovay-chainlink-datastream-decode-report.png](/Images/chainlink-integration/jovay-chainlink-datastream-decode-report.png)
+Upon successful execution, you'll receive both raw and decoded price data. The decoded data shows the **ETH/USD median price** agreed upon by the Decentralized Oracle Network (DON).
 
-*Decoded data explanation:*
+**Example Output:**
 
-```text
-Observations Timestamp: 1763533666 (End timestamp of price validity period, in seconds)
-Benchmark Price       : 3027356134972465500000 (DON median consensus price for ETH/USD)
-Bid                   : 3027338049135112200000 (Simulated buy-impact price)
-Ask                   : 3027449300000000000000 (Simulated sell-impact price)
-Valid From Timestamp  : 1763533666 (Start timestamp of price validity period, in seconds)
-Expires At            : 1766125666 (Timestamp when this report expires, in seconds)
-Link Fee              : 24164455119479504 (Verification cost in LINK tokens)
-Native Fee            : 105701685923302 (Verification cost in the native blockchain token)
-```
+![Chainlink Data Streams Decoded Report](/Images/chainlink-integration/jovay-chainlink-datastream-decode-report.png)
+
+In this example (captured at **2025-11-19 06:27:46 UTC**, timestamp `1763533666`), the DON consensus price for ETH/USD is approximately **$3,027**.
+
+#### Report Data Fields Explained
+
+| Field | Value (Example) | Description |
+|-------|----------------|-------------|
+| **Observations Timestamp** | `1763533666` | End timestamp of price validity period (Unix time, seconds) |
+| **Benchmark Price** | `3027356134972465500000` | DON median consensus price for ETH/USD (with decimals) |
+| **Bid** | `3027338049135112200000` | Simulated buy-impact price |
+| **Ask** | `3027449300000000000000` | Simulated sell-impact price |
+| **Valid From Timestamp** | `1763533666` | Start timestamp of price validity period (Unix time, seconds) |
+| **Expires At** | `1766125666` | Report expiration timestamp (Unix time, seconds) |
+| **Link Fee** | `24164455119479504` | Verification cost in LINK tokens |
+| **Native Fee** | `105701685923302` | Verification cost in native blockchain tokens |
+
+::: tip Price Precision
+Prices are returned with 18 decimal places. Divide by `10^18` to get the human-readable price.
+:::
 
 ### 3. Verify Report Integrity On-Chain
 
-1. Get the **Jovay Stream Verifier Network** mainnet contract address:  
-   `0xF1Ee15ecca3aD06edF9603a1ea6d19043804522A`  
-   Reference:  
-   [https://docs.chain.link/data-streams/crypto-streams?page=1&testnetPage=1](https://docs.chain.link/data-streams/crypto-streams?page=1&testnetPage=1)
+Now that you have the off-chain price report, the next step is to verify its integrity on the Jovay blockchain. This ensures the data is trustless and cryptographically validated.
 
-2. Write a contract that verifies the integrity of the Report.  
-   This contract should call Jovay’s Verifier contract, verify the Report obtained in the previous step, parse the ETH/USD price from the verification result, and emit it via a `DecodedPrice` event.  
-   You can use the `ClientReportsVerifier.sol` contract below (or download the official sample:  
-   [ClientReportsVerifier contract](https://remix.ethereum.org/#url=https://docs.chain.link/samples/DataStreams/ClientReportsVerifier.sol)):
+#### Step 3.1: Locate the Verifier Contract
+
+Jovay's **Stream Verifier Network** contract address on mainnet:
+
+```text
+0xF1Ee15ecca3aD06edF9603a1ea6d19043804522A
+```
+
+::: info Contract Registry
+Find verifier contracts for other networks in the [Chainlink Crypto Streams documentation](https://docs.chain.link/data-streams/crypto-streams?page=1&testnetPage=1).
+:::
+
+#### Step 3.2: Deploy the Verification Contract
+
+Create a smart contract that interacts with Jovay's Verifier contract to validate the Report and extract the verified price data.
+
+**Contract Functionality:**
+
+1. Accepts the raw Report from Step 2
+2. Calls the Jovay Verifier contract for validation
+3. Decodes the verified price data
+4. Emits a `DecodedPrice` event with the validated price
+
+You can use the `ClientReportsVerifier.sol` contract below, or download it directly from:  
+[ClientReportsVerifier.sol on Remix](https://remix.ethereum.org/#url=https://docs.chain.link/samples/DataStreams/ClientReportsVerifier.sol)
+
+::: warning Production Usage
+This is a demonstration contract. Ensure proper auditing and security reviews before using in production.
+:::
+
+<EnhancedCollapsibleCodeBlock
+  title="View ClientReportsVerifier.sol (Complete Solidity Contract)"
+  language="solidity"
+  :show-copy-button="true"
+  :show-language-label="true"
+  :default-expanded="false"
+>
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -420,10 +503,71 @@ contract ClientReportsVerifier {
 }
 ```
 
-1. Compile and deploy the `ClientReportsVerifier` contract.  
-   When deploying, pass the Jovay Stream Verifier Network mainnet contract address to the constructor.  
-   Record the deployed `ClientReportsVerifier` contract address.
+</EnhancedCollapsibleCodeBlock>
 
-1. Call the `verifyReport` function on the `ClientReportsVerifier` contract, passing the raw Report data obtained in **"2. Fetch Market Data (Report)"** as the parameter.  
-   You can inspect the transaction details on the Jovay Explorer:  
-   [https://explorer.jovay.io](https://explorer.jovay.io)
+#### Step 3.3: Compile and Deploy
+
+1. **Compile the Contract**: Use Remix, Hardhat, or Foundry to compile `ClientReportsVerifier.sol`
+
+2. **Deploy to Jovay**: When deploying, pass the Verifier contract address as a constructor parameter:
+
+   ```text
+   Constructor Parameter: 0xF1Ee15ecca3aD06edF9603a1ea6d19043804522A
+   ```
+
+3. **Save the Deployment Address**: Record your deployed `ClientReportsVerifier` contract address for the next step
+
+::: tip Deployment Tools
+
+- **Remix**: Use the Jovay RPC endpoint in MetaMask
+- **Hardhat/Foundry**: Configure Jovay network in your deployment scripts
+- See [Jovay Network Information](/developer/network-information) for RPC details
+
+:::
+
+#### Step 3.4: Verify the Report
+
+Call the `verifyReport` function on your deployed contract:
+
+**Function Parameters:**
+
+- `unverifiedReport`: The raw Report data obtained from Step 2.4
+
+**What Happens:**
+
+1. The contract extracts the report version (v3 or v8)
+2. Queries the Fee Manager (if applicable)
+3. Calls the Verifier Proxy to validate signatures
+4. Decodes and emits the verified price via the `DecodedPrice` event
+
+**Monitor the Transaction:**
+
+View your verification transaction on Jovay Explorer:  
+[https://explorer.jovay.io](https://explorer.jovay.io)
+
+::: tip Event Monitoring
+Listen for the `DecodedPrice` event to capture the verified price in your application:
+
+```solidity
+event DecodedPrice(int192 price);
+```
+
+:::
+
+---
+
+## Next Steps
+
+Congratulations! You've successfully integrated Chainlink Data Streams on Jovay. Here are some next steps:
+
+- **Build dApps**: Use verified price data for lending protocols, DEXs, derivatives, and more
+- **Explore Other Feeds**: Check the [Chainlink Crypto Streams](https://docs.chain.link/data-streams/crypto-streams) for additional trading pairs
+- **Optimize Gas Costs**: Implement batch verification for multiple reports using `verifyBulk()`
+- **Production Readiness**: Add proper error handling, access controls, and monitoring
+
+## Additional Resources
+
+- [Chainlink Data Streams Documentation](https://docs.chain.link/data-streams)
+- [Jovay Developer Guide](/guide/developer-guide)
+- [Jovay Network Information](/developer/network-information)
+- [Jovay Bridge Developer Reference](/developer/jovay-bridge-developer-reference)
