@@ -103,6 +103,7 @@ export default defineConfig({
               ]
           },
           { text: "Jovay Bridge DApp Tutorial", link: "/guide/jovay-bridge-dapp-tutorial" },
+          { text: "Jovay RPC Node", link: "/guide/jovay-rpc-node" },
           { text: "Jovay Explorer", link: "/guide/jovay-explorer" },
         ],
       },
