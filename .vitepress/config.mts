@@ -172,6 +172,16 @@ export default defineConfig({
             text: "Chainlink Integration",
             link: "/developer/integration/how-to-use-chainlink-datastream",
           },
+          {
+            text: "Data Provider",
+            collapsed: true,
+            items: [
+              {
+                text: "ERC20 Transaction Data",
+                link: "/developer/data-provider/erc20-transaction-data",
+              },
+            ],
+          },
         ],
       },
       {
