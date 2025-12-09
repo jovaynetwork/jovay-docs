@@ -7,8 +7,8 @@ outline: deep
 
 | Release Date | Product Version | Build Version    | Docker Image                                                                           | Description                         |
 |--------------|-----------------|------------------|----------------------------------------------------------------------------------------|-------------------------------------|
-| 2025.12.01   | 0.9.0           | 0.9.0-rc2        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:L2-0.9.0-rc2           | Fix batchrpc, debug_traceTransaction|
-| 2025.11.21   | 0.9.0           | 0.9.0-rc1        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:L2-0.9.0-rc1           | First release for external RPC node |
+| 2025.12.01   | 0.9.0           | 0.9.0-rc2        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc2              | Fix batchrpc, debug_traceTransaction|
+| 2025.11.21   | 0.9.0           | 0.9.0-rc1        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc1              | First release for external RPC node |
 
 ## RPC node deployment
 Jovay  RPC node can be deployed using a Docker image.
