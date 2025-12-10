@@ -40,12 +40,12 @@ https://datasets.jovay.io/rwa/erc20/asset_operation/
 
 **Full data snapshot:**
 ```
-http://datasets.jovay.io/rwa/erc20/asset_operation/date=2025-12-03/asset_operation_full.parquet
+https://datasets.jovay.io/rwa/erc20/asset_operation/date=2025-12-03/asset_operation_full.parquet
 ```
 
 **Incremental data:**
 ```
-http://datasets.jovay.io/rwa/erc20/asset_operation/date=2025-12-08/asset_operation_increment.parquet
+https://datasets.jovay.io/rwa/erc20/asset_operation/date=2025-12-08/asset_operation_increment.parquet
 ```
 
 ## Data Schema
@@ -100,7 +100,7 @@ df = pd.read_parquet('./asset_operation_full.parquet')
 
 # Or read directly from URL
 df = pd.read_parquet(
-    'http://datasets.jovay.io/rwa/erc20/asset_operation/date=2025-12-03/asset_operation_full.parquet'
+    'https://datasets.jovay.io/rwa/erc20/asset_operation/date=2025-12-03/asset_operation_full.parquet'
 )
 
 # View row count and shape
