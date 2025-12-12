@@ -7,6 +7,7 @@ outline: deep
 
 | Release Date | Product Version | Build Version    | Docker Image                                                                           | Description                         |
 |--------------|-----------------|------------------|----------------------------------------------------------------------------------------|-------------------------------------|
+| 2025.12.12   | 0.9.0           | 0.9.0-rc3        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc3              | Fix eth_call with invalid block; Support non-root deployment|
 | 2025.12.01   | 0.9.0           | 0.9.0-rc2        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc2              | Fix batchrpc, debug_traceTransaction|
 | 2025.11.21   | 0.9.0           | 0.9.0-rc1        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc1              | First release for external RPC node |
 
@@ -35,7 +36,10 @@ Once deployed, you can use this RPC node to connect to the Jovay network, synchr
 - Docker Compose (>= 2.29.7)
 
 #### privilege requirement
-- Run the Docker container with the root user.
+- Versions before 0.9.0-rc3 must run with the root user.
+- Starting from 0.9.0-rc3, run with a non-root user is supported:
+  1. The host user must belong to the docker group so that it have permission to use Docker.
+  2. Inside the container, the processes run as a user with a fixed uid=1000 and gid=1000. So ensure that the deploy directory are writable by the user with uid=1000 or group with uid=1000.
 - Enable privileged mode for the Docker container (optional, but convenient for attaching with gdb inside the container at runtime).
 
 #### network accessibility
@@ -54,10 +58,10 @@ Ensure that your network can reach the Jovay Network. The endpoint is specified 
 Create workspace dictionary.
 ```bash
 export Release=${Build_Version}
-export WORKSPACE=${deploy_jovay_rpc_path}
+export DEPLOY_DIR=${deploy_jovay_rpc_path}
 
-mkdir /mnt/$WORKSPACE
-cd /mnt/$WORKSPACE
+mkdir $DEPLOY_DIR
+cd $DEPLOY_DIR
 ```
 > Refer to Section 1 to get the ${Build_Version}.
 
@@ -66,7 +70,7 @@ cd /mnt/$WORKSPACE
 The configuration is included in the released docker image, and the default settings work out of the box. For easier modification, consider extracting the configuration to the host and mounting it into the container, so you can edit the configuration directly on the host. 
 
 ```bash
-cd /mnt/$WORKSPACE
+cd $DEPLOY_DIR
 docker create --name temp_container ${Docker_Image}
 docker cp temp_container:/opt/l2_deploy/conf ./
 docker rm temp_container
@@ -84,7 +88,7 @@ Both files are officially released and maintained by the Jovay Network team. Cop
 # get the genesis file
 url_genesis="http://dl-testnet.jovay.io/snapshot/genesis.conf"
 md5_genesis="1b6ad3d9fa67a596ca094e89bd2280ee"
-dst_genesis="/mnt/$WORKSPACE/conf/genesis.aldaba-ng.conf"
+dst_genesis="$DEPLOY_DIR/conf/genesis.aldaba-ng.conf"
 wget $url_genesis -O genesis.conf
 # check md5 then put the genesis file to conf dir
 echo "$md5_genesis genesis.conf" | md5sum -c - && mv genesis.conf $dst_genesis
@@ -92,7 +96,7 @@ echo "$md5_genesis genesis.conf" | md5sum -c - && mv genesis.conf $dst_genesis
 # get the version file
 url_version="http://dl-testnet.jovay.io/snapshot/VERSION_epoch19433"
 md5_version="61cc78b21a65f47820df1594cc42908b"
-dst_version="/mnt/$WORKSPACE/conf/VERSION"
+dst_version="$DEPLOY_DIR/conf/VERSION"
 wget $url_version -O VERSION
 # check md5 then put the version file to conf dir
 echo "$md5_version VERSION" | md5sum -c - && mv VERSION $dst_version
@@ -103,7 +107,7 @@ echo "$md5_version VERSION" | md5sum -c - && mv VERSION $dst_version
 # get the genesis file
 url_genesis="http://dl.jovay.io/snapshot/genesis.conf"
 md5_genesis="502c910cbc21137c606621622fe67d28"
-dst_genesis="/mnt/$WORKSPACE/conf/genesis.aldaba-ng.conf"
+dst_genesis="$DEPLOY_DIR/conf/genesis.aldaba-ng.conf"
 wget $url_genesis -O genesis.conf
 # check md5 then put the genesis file to conf dir
 echo "$md5_genesis genesis.conf" | md5sum -c - && mv genesis.conf $dst_genesis
@@ -111,14 +115,16 @@ echo "$md5_genesis genesis.conf" | md5sum -c - && mv genesis.conf $dst_genesis
 # get the version file
 url_version="http://dl.jovay.io/snapshot/VERSION_epoch9375"
 md5_version="b08719b4b2511efc5c4c3706de41c096"
-dst_version="/mnt/$WORKSPACE/conf/VERSION"
+dst_version="$DEPLOY_DIR/conf/VERSION"
 wget $url_version -O VERSION
 # check md5 then put the version file to conf dir
 echo "$md5_version VERSION" | md5sum -c - && mv VERSION $dst_version
 ```
 
 ##### docker-compose.yml
-prepare docker compose file for jovay rpc node.
+prepare docker compose file for jovay rpc node. if run as non-root user:
+1. Make sure the user (1000:1000) has write permission to $DEPLOY_DIR (including all its subdirectories and files).
+2. Add "user: 1000:1000" to the docker-compose.yml file.
 
 **docker-compose.yml for Jovay testnet rpc node**
 ```yaml
@@ -136,10 +142,10 @@ services:
       - "18200:18200"  # WebSocket port (client_ws_port)
       - "19000:19000"  # Node communication port
     volumes:
-      - /mnt/$WORKSPACE/data:/opt/l2_deploy/light/data
-      - /mnt/$WORKSPACE/log:/opt/l2_deploy/light/log
-      - /mnt/$WORKSPACE/conf:/opt/l2_deploy/conf
-      - /mnt/$WORKSPACE/conf/VERSION:/opt/l2_deploy/bin/VERSION
+      - $DEPLOY_DIR/data:/opt/l2_deploy/light/data
+      - $DEPLOY_DIR/log:/opt/l2_deploy/light/log
+      - $DEPLOY_DIR/conf:/opt/l2_deploy/conf
+      - $DEPLOY_DIR/conf/VERSION:/opt/l2_deploy/bin/VERSION
     restart: "no"
 ```
 
@@ -159,18 +165,19 @@ services:
       - "18200:18200"  # WebSocket port (client_ws_port)
       - "19000:19000"  # Node communication port
     volumes:
-      - /mnt/$WORKSPACE/data:/opt/l2_deploy/light/data
-      - /mnt/$WORKSPACE/log:/opt/l2_deploy/light/log
-      - /mnt/$WORKSPACE/conf:/opt/l2_deploy/conf
-      - /mnt/$WORKSPACE/conf/VERSION:/opt/l2_deploy/bin/VERSION
+      - $DEPLOY_DIR/data:/opt/l2_deploy/light/data
+      - $DEPLOY_DIR/log:/opt/l2_deploy/light/log
+      - $DEPLOY_DIR/conf:/opt/l2_deploy/conf
+      - $DEPLOY_DIR/conf/VERSION:/opt/l2_deploy/bin/VERSION
     restart: "no"
 ```
 > Refer to Section 1 to get the ${Docker_Image}.
 > "privileged: true" is not compulsory, which is convenient for attaching with gdb inside the container at runtime.
 
+
 #### Start the node
 ```bash
-cd /mnt/$WORKSPACE
+cd $DEPLOY_DIR
 docker-compose up -d
 ```
 After starting the container, watch the container’s standard output:
@@ -205,7 +212,7 @@ Follow these steps to bootstrap from latest snapshot:
 #### ✅ Download snapshot dataset
 > ⚠️ WARNING: Only use snapshots from offical channels. Verify checksums before deployment.
 
-```yaml
+```bash
 # Jovay testnet network as follows
 # File: 20251120_37631390.tar.gz (≈120GB)
 # MD5: bbf2f0660ad2fb0e53d70043f4f84d24
@@ -224,23 +231,23 @@ wget -c http://dl.jovay.io/snapshot/20251121_3011478.tar.gz
 
 #### 🧯 Stop container
 ```bash
-cd /mnt/$WORKSPACE
+cd $DEPLOY_DIR
 docker-compose down
 ```
 
 #### 🧹 Replace local data with snapshot
 ```bash
 # Remove existing unsynced data
-rm -rf /mnt/$WORKSPACE/data/public
-rm -rf /mnt/$WORKSPACE/data/history_kvdbs
+rm -rf $DEPLOY_DIR/data/public
+rm -rf $DEPLOY_DIR/data/history_kvdbs
 
 # decompress snapshot to data dir
-tar -zxvf <snapshot_file_name>.tar.gz -C /mnt/$WORKSPACE/data/
+tar -zxvf <snapshot_file_name>.tar.gz -C $DEPLOY_DIR/data/
 ```
 
 #### 🚀 Restart node
 ```bash
-cd /mnt/$WORKSPACE
+cd $DEPLOY_DIR
 docker-compose up -d
 ```
 The startup time when using a snapshot can be relatively long, depending on the number of historical blocks and the size of the state data.
@@ -253,28 +260,43 @@ HandleConsensusedResultAfterInit] stable block
 CheckSyncStatus] start sync
 ```
 
+## On-click deployment
+
+To make deployment easier, we provide a one-click deployment script that allows you to conveniently do the following:
+- fresh-genesis – start from genesis and sync from block 0
+- fresh-snapshot – fresh deployment: use genesis first to generate metadata, then replace data with a snapshot and restart
+If the host user is root or has UID=1000, and the jovay-rpc container is also started with the same user, this script can help you complete all deployment and startup tasks. Otherwise, you need to create the deployment directory in advance that meets the permission requirements, and adjust the permissions again after extract the init configuration files from images.
+
+```bash
+# Download Jovay on-click deploy script
+# MD5: 4e8a71d952db82a2e81daf8b5599ca15
+wget -c http://dl-testnet.jovay.io/snapshot/jovay_rpc_deploy.sh
+# Run it, then just follow the prompts to make your selections.
+./jovay_rpc_deploy.sh
+```
+
 ## RPC node mangement
 ### Stop node
 ```bash
-cd /mnt/$WORKSPACE
+cd $DEPLOY_DIR
 docker-compose down
 ```
 
 ### Start node
 ```bash
-cd /mnt/$WORKSPACE
+cd $DEPLOY_DIR
 docker-compose up -d
 ```
 
 ### Update configuration
 1. Modify configuration files in host directory:
     ```bash
-    cd /mnt/$WORKSPACE
+    cd $DEPLOY_DIR
     # Edit conf/global.conf as needed
     ```
 2. Restart node:
    ```bash
-   docker compose -f /mnt/$WORKSPACE/docker-compose.yml restart
+   docker compose -f $DEPLOY_DIR/docker-compose.yml restart
    ```
 
 ### Check node liveness
