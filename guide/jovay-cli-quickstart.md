@@ -242,7 +242,7 @@ The moment of truth has arrived! With our contract compiled, we are now ready to
 
    For convenience, we have prepared a sample metadata URI, which image is logo of Jovay. However, to simplify this tutorial and avoid the extra step of uploading files to IPFS, we will use a standard HTTPS link instead.
 
-   The metadata following stores at [here](https://jovay-mainnet.oss-cn-hongkong.aliyuncs.com/jstack/jnft.json), url can be directly used to mint a nft:
+   The metadata following stores at [here](https://website.jovay.io/jstack/jnft.json), url can be directly used to mint a nft:
 
     ```
     {
@@ -258,7 +258,7 @@ The moment of truth has arrived! With our contract compiled, we are now ready to
     ```bash
     jovay contract write --contract 0x722526A8eB9e610B97736B2c50f40a0adE1a1368 \
                          --method safeMint --inputs address,string \
-                         --args '"${RECEIVER_ADDRESS}","https://jovay-mainnet.oss-cn-hongkong.aliyuncs.com/jstack/jnft.json"' \
+                         --args '"${RECEIVER_ADDRESS}","https://website.jovay.io/jstack/jnft.json"' \
                          --enc-key ${YOUR_WALLET_ENC_KEY}
                          --broadcast
     ```
