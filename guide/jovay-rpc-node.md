@@ -7,6 +7,7 @@ outline: deep
 
 | Release Date | Product Version | Build Version    | Docker Image                                                                           | Description                         |
 |--------------|-----------------|------------------|----------------------------------------------------------------------------------------|-------------------------------------|
+| 2025.12.17   | 0.9.0           | 0.9.0-rc4        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc4              | Fix  the issue of mismatched request id in batch RPC|
 | 2025.12.12   | 0.9.0           | 0.9.0-rc3        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc3              | Fix eth_call with invalid block; Support non-root deployment|
 | 2025.12.01   | 0.9.0           | 0.9.0-rc2        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc2              | Fix batchrpc, debug_traceTransaction|
 | 2025.11.21   | 0.9.0           | 0.9.0-rc1        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc1              | First release for external RPC node |
@@ -265,6 +266,7 @@ CheckSyncStatus] start sync
 To make deployment easier, we provide a one-click deployment script that allows you to conveniently do the following:
 - fresh-genesis – start from genesis and sync from block 0
 - fresh-snapshot – fresh deployment: use genesis first to generate metadata, then replace data with a snapshot and restart
+
 If the host user is root or has UID=1000, and the jovay-rpc container is also started with the same user, this script can help you complete all deployment and startup tasks. Otherwise, you need to create the deployment directory in advance that meets the permission requirements, and adjust the permissions again after extract the init configuration files from images.
 
 ```bash
