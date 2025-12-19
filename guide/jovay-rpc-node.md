@@ -7,7 +7,8 @@ outline: deep
 
 | Release Date | Product Version | Build Version    | Docker Image                                                                           | Description                         |
 |--------------|-----------------|------------------|----------------------------------------------------------------------------------------|-------------------------------------|
-| 2025.12.17   | 0.9.0           | 0.9.0-rc4        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc4              | Fix  the issue of mismatched request id in batch RPC|
+| 2025.12.17   | 0.9.0           | 0.9.0-rc6        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc6              | Fix the batch RPC request id mismatch issue, including edge cases. This release supersedes rc4 and is the recommended version for production use.|
+| 2025.12.17   | 0.9.0           | 0.9.0-rc4        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc4              | Fix  the issue of mismatched request id in batch RPC, Known issues remain in some batch RPC edge cases. Recommended to upgrade to rc6.|
 | 2025.12.12   | 0.9.0           | 0.9.0-rc3        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc3              | Fix eth_call with invalid block; Support non-root deployment|
 | 2025.12.01   | 0.9.0           | 0.9.0-rc2        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc2              | Fix batchrpc, debug_traceTransaction|
 | 2025.11.21   | 0.9.0           | 0.9.0-rc1        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc1              | First release for external RPC node |
