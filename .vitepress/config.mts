@@ -35,6 +35,7 @@ export default defineConfig({
         src: "https://www.googletagmanager.com/gtag/js?id=G-HH2VW9FRN9",
       },
     ],
+    // 埋点脚本
     [
       "script",
       {},
@@ -44,6 +45,20 @@ export default defineConfig({
       gtag('js', new Date());
 
       gtag('config', 'G-HH2VW9FRN9');
+    `,
+    ],
+    // 设置搜索默认使用详细列表模式
+    [
+      "script",
+      {},
+      `
+      // 设置搜索默认使用详细列表模式（在页面加载前设置，确保搜索组件初始化时使用）
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const searchModeKey = 'vitepress:local-search-detailed-list';
+        if (!localStorage.getItem(searchModeKey)) {
+          localStorage.setItem(searchModeKey, 'true');
+        }
+      }
     `,
     ],
   ],
@@ -209,6 +224,10 @@ export default defineConfig({
     footer: {
       copyright: "©2025 Copyright by Jovay, all rights reserved.",
     },
+
+    search: {
+      provider: 'local'
+    }
   },
 
   sitemap: {
