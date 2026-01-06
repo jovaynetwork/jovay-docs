@@ -7,8 +7,9 @@ outline: deep
 
 | Release Date | Product Version | Build Version    | Docker Image                                                                           | Description                         |
 |--------------|-----------------|------------------|----------------------------------------------------------------------------------------|-------------------------------------|
+| 2026.01.06   | 0.10.0          | 0.10.0-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.10.0-rc1             | Support deploy Multicall3, create2 factory with non-EIP-155 raw transaction. Fix issues of eth_debugTraceTransaction. Introducing more cross-chain and asset security validations.|
 | 2025.12.17   | 0.9.0           | 0.9.0-rc6        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc6              | Fix the batch RPC request id mismatch issue, including edge cases. This release supersedes rc4 and is the recommended version for production use.|
-| 2025.12.17   | 0.9.0           | 0.9.0-rc4        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc4              | Fix  the issue of mismatched request id in batch RPC, Known issues remain in some batch RPC edge cases. Recommended to upgrade to rc6.|
+| 2025.12.17   | 0.9.0           | 0.9.0-rc4        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc4              | Fix the issue of mismatched request id in batch RPC. Known issues remain in some batch RPC edge cases. Recommended to upgrade to rc6.|
 | 2025.12.12   | 0.9.0           | 0.9.0-rc3        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc3              | Fix eth_call with invalid block; Support non-root deployment|
 | 2025.12.01   | 0.9.0           | 0.9.0-rc2        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc2              | Fix batchrpc, debug_traceTransaction|
 | 2025.11.21   | 0.9.0           | 0.9.0-rc1        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc1              | First release for external RPC node |
@@ -96,8 +97,8 @@ wget $url_genesis -O genesis.conf
 echo "$md5_genesis genesis.conf" | md5sum -c - && mv genesis.conf $dst_genesis
 
 # get the version file
-url_version="http://dl-testnet.jovay.io/snapshot/VERSION_epoch19433"
-md5_version="61cc78b21a65f47820df1594cc42908b"
+url_version="http://dl-testnet.jovay.io/snapshot/VERSION_epoch26280"
+md5_version="994db44ba74a280efe44efdcd3f4422d"
 dst_version="$DEPLOY_DIR/conf/VERSION"
 wget $url_version -O VERSION
 # check md5 then put the version file to conf dir
@@ -276,6 +277,34 @@ If the host user is root or has UID=1000, and the jovay-rpc container is also st
 wget -c http://dl-testnet.jovay.io/snapshot/jovay_rpc_deploy.sh
 # Run it, then just follow the prompts to make your selections.
 ./jovay_rpc_deploy.sh
+```
+
+## Upgrade RPC node
+
+#### 1. Update the VERSION file if spec version will update
+
+**Jovay testnet**
+```yaml
+# get the latest version file
+url_version="http://dl-testnet.jovay.io/snapshot/VERSION_epoch26280"
+md5_version="994db44ba74a280efe44efdcd3f4422d"
+dst_version="$DEPLOY_DIR/conf/VERSION"
+wget $url_version -O VERSION
+# check md5 then put the version file to conf dir
+echo "$md5_version VERSION" | md5sum -c - && mv VERSION $dst_version
+```
+
+**Jovay mainnet**
+
+The spec version change time for the Jovay mainnet has not been determined yet. 
+
+#### 2. Upgrade the image tag and Restart
+
+```bash
+cd $DEPLOY_DIR
+# upgrade the image tag to latest Build_Version
+sed -i 's#\(jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc\):[^[:space:]]*#\1:${Build_Version}#g' docker-compose.yml
+docker-compose up -d
 ```
 
 ## RPC node mangement
