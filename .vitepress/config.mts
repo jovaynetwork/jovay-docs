@@ -185,7 +185,37 @@ export default defineConfig({
           },
           {
             text: "Chainlink Integration",
-            link: "/developer/integration/how-to-use-chainlink-datastream",
+            collapsed: true,
+            items: [
+              {
+                text: "Overview",
+                link: "/developer/chainlink/",
+              },
+              {
+                text: "Data Streams",
+                link: "/developer/chainlink/data-streams",
+              },
+              {
+                text: "CCIP Overview",
+                link: "/developer/chainlink/ccip-overview",
+              },
+              {
+                text: "CCIP Message Transfer",
+                link: "/developer/chainlink/ccip-message-transfer",
+              },
+              {
+                text: "CCIP Token Transfer",
+                link: "/developer/chainlink/ccip-token-transfer",
+              },
+              {
+                text: "CCIP Token Manager",
+                link: "/developer/chainlink/ccip-token-manager",
+              },
+              {
+                text: "CCIP Network Information",
+                link: "/developer/chainlink/ccip-network-information",
+              },
+            ],
           },
           {
             text: "Data Provider",
