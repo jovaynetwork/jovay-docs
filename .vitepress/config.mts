@@ -14,8 +14,8 @@ export default defineConfig({
       md.renderer.rules.image = (tokens, idx, options, env, self) => {
         const token = tokens[idx];
         const src = token.attrGet("src");
-        // if image is svg, read svg file from public folder
-        if (src?.endsWith(".svg")) {
+        // if image is svg and is a local path (not external URL), read svg file from public folder
+        if (src?.endsWith(".svg") && !src.startsWith("http://") && !src.startsWith("https://")) {
           // read svg file from public folder
           const svg = fs.readFileSync(`public/${src}`, "utf-8");
           return svg;
@@ -185,8 +185,42 @@ export default defineConfig({
           },
           {
             text: "Chainlink Integration",
-            link: "/developer/integration/how-to-use-chainlink-datastream",
+            link: "/developer/integration/how-to-use-chainlink-datastream"
           },
+          // {
+          //   text: "Chainlink Integration",
+          //   collapsed: true,
+          //   items: [
+          //     {
+          //       text: "Overview",
+          //       link: "/developer/chainlink/",
+          //     },
+          //     {
+          //       text: "Data Streams",
+          //       link: "/developer/chainlink/data-streams",
+          //     },
+          //     {
+          //       text: "CCIP Overview",
+          //       link: "/developer/chainlink/ccip-overview",
+          //     },
+          //     {
+          //       text: "CCIP Message Transfer",
+          //       link: "/developer/chainlink/ccip-message-transfer",
+          //     },
+          //     {
+          //       text: "CCIP Token Transfer",
+          //       link: "/developer/chainlink/ccip-token-transfer",
+          //     },
+          //     {
+          //       text: "CCIP Token Manager",
+          //       link: "/developer/chainlink/ccip-token-manager",
+          //     },
+          //     {
+          //       text: "CCIP Network Information",
+          //       link: "/developer/chainlink/ccip-network-information",
+          //     },
+          //   ],
+          // },
           {
             text: "Data Provider",
             collapsed: true,

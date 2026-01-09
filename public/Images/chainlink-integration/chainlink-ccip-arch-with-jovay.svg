@@ -1,0 +1,84 @@
+<svg width="100%" height="380" viewBox="0 0 1000 380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#666" />
+    </marker>
+    <marker id="arrow-start" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M9,0 L9,6 L0,3 z" fill="#666" />
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Source Chain Group (Jovay) -->
+  <rect x="20" y="40" width="300" height="300" fill="#E6F7FF" stroke="#91D5FF" stroke-width="2" rx="10" ry="10" />
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#0050b3" text-anchor="start">Source Chain (Jovay)</text>
+
+  <!-- CCIP Network Group -->
+  <rect x="350" y="40" width="160" height="300" fill="#F9F0FF" stroke="#D3ADF7" stroke-width="2" rx="10" ry="10" />
+  <text x="370" y="70" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#531dab" text-anchor="start">Chainlink CCIP</text>
+
+  <!-- Dest Chain Group (Ethereum, Polygon, etc.) -->
+  <rect x="540" y="40" width="440" height="300" fill="#F6FFED" stroke="#B7EB8F" stroke-width="2" rx="10" ry="10" />
+  <text x="560" y="70" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#237804" text-anchor="start">Dest Chain (Ethereum, Polygon, etc.)</text>
+
+  <!-- Source Chain Nodes -->
+  <g transform="translate(40, 100)">
+    <rect x="0" y="0" width="110" height="40" stroke-width="2" rx="6" ry="6" fill="#fff" stroke="#1890FF" filter="url(#shadow)" />
+    <text x="55" y="20" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle">User App</text>
+    
+    <rect x="0" y="70" width="110" height="40" stroke-width="2" rx="6" ry="6" fill="#fff" stroke="#1890FF" filter="url(#shadow)" />
+    <text x="55" y="90" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle">Sender</text>
+
+    <rect x="150" y="70" width="110" height="40" stroke-width="2" rx="6" ry="6" fill="#fff" stroke="#1890FF" filter="url(#shadow)" />
+    <text x="205" y="90" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle">CCIP Router</text>
+
+    <rect x="150" y="140" width="110" height="40" stroke-width="2" rx="6" ry="6" fill="#fff" stroke="#1890FF" filter="url(#shadow)" />
+    <text x="205" y="160" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle">OnRamp</text>
+  </g>
+
+  <!-- CCIP Network Nodes -->
+  <g transform="translate(375, 170)">
+    <rect x="0" y="0" width="110" height="40" stroke-width="2" rx="6" ry="6" fill="#fff" stroke="#722ED1" filter="url(#shadow)" />
+    <text x="55" y="20" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle">DON</text>
+
+    <rect x="0" y="70" width="110" height="40" stroke-width="2" rx="6" ry="6" fill="#fff" stroke="#722ED1" filter="url(#shadow)" />
+    <text x="55" y="90" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle">RMN</text>
+  </g>
+
+  <!-- Dest Chain Nodes -->
+  <g transform="translate(560, 100)">
+    <rect x="0" y="140" width="110" height="40" stroke-width="2" rx="6" ry="6" fill="#fff" stroke="#52C41A" filter="url(#shadow)" />
+    <text x="55" y="160" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle">OffRamp</text>
+
+    <rect x="150" y="140" width="110" height="40" stroke-width="2" rx="6" ry="6" fill="#fff" stroke="#52C41A" filter="url(#shadow)" />
+    <text x="205" y="160" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle">CCIP Router</text>
+
+    <rect x="150" y="70" width="110" height="40" stroke-width="2" rx="6" ry="6" fill="#fff" stroke="#52C41A" filter="url(#shadow)" />
+    <text x="205" y="90" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle">Receiver</text>
+
+    <rect x="300" y="70" width="110" height="40" stroke-width="2" rx="6" ry="6" fill="#fff" stroke="#52C41A" filter="url(#shadow)" />
+    <text x="355" y="90" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle">Dest App</text>
+  </g>
+
+  <!-- Paths/Arrows -->
+  <path d="M95,140 L95,170" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  
+  <path d="M150,190 L190,190" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+  <path d="M245,210 L245,240" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+  <path d="M300,260 L375,190" stroke="#666" stroke-width="2" fill="none" stroke-dasharray="4" marker-end="url(#arrow)" />
+
+  <path d="M430,210 L430,240" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)" marker-start="url(#arrow-start)" />
+
+  <path d="M485,190 L560,260" stroke="#666" stroke-width="2" fill="none" stroke-dasharray="4" marker-end="url(#arrow)" />
+
+  <path d="M670,260 L710,260" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+  <path d="M765,240 L765,210" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+  <path d="M820,190 L860,190" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+</svg>
