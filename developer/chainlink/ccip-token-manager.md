@@ -32,12 +32,114 @@ Token Manager simplifies the process of:
 
 ### Pool Mechanisms
 
-Token Manager supports different pool mechanisms for cross-chain transfers:
+Token Manager supports different pool mechanisms for cross-chain transfers. Understanding pool mechanisms is critical for designing your cross-chain token architecture.
 
-| Mechanism | How It Works | Best For |
-|-----------|--------------|----------|
-| **Burn & Mint** | Burns tokens on source chain, mints on destination | New tokens, consistent total supply across chains |
-| **Lock & Release** | Locks tokens on source chain, releases from pool on destination | Existing tokens with fixed supply |
+#### Bidirectional Cross-Chain Requires Pools on Both Chains
+
+::: warning Important
+To enable **bidirectional** token transfers between Chain A and Chain B, you must deploy and configure a TokenPool on **both chains**. Each pool must be configured to recognize the remote pool on the other chain.
+:::
+
+**Single Pool = One-way only**: If you only deploy a pool on Chain A, tokens can only flow out from A. Without a pool on Chain B, the destination chain cannot receive or send tokens via CCIP.
+
+**Bidirectional Setup**:
+1. Deploy TokenPool on Chain A, configure it to point to Chain B's pool
+2. Deploy TokenPool on Chain B, configure it to point to Chain A's pool
+3. Both pools must be registered with the CCIP TokenAdminRegistry on their respective chains
+
+#### Pool Types
+
+There are two fundamental pool types:
+
+| Pool Type | Source Chain Behavior | Destination Chain Behavior |
+|-----------|----------------------|---------------------------|
+| **MintBurn** (Burn & Mint) | Burns tokens from sender | Mints tokens to receiver |
+| **LockRelease** (Lock & Release) | Locks tokens in pool | Releases tokens from pool |
+
+#### The 4 Pool Combination Modes
+
+When setting up bidirectional transfers between two chains, the pool type on each chain creates **4 possible combinations**. The combination you choose affects token supply management and liquidity requirements.
+
+![CCIP Pool Combination Modes](/Images/chainlink-integration/ccip-pool-combination-modes.svg)
+
+| # | Source Pool | Dest Pool | Transfer Flow | Use Case |
+|---|-------------|-----------|---------------|----------|
+| 1 | **MintBurn** | **MintBurn** | Burn on source → Mint on dest | New cross-chain native tokens; total supply is always consistent across all chains |
+| 2 | **MintBurn** | **LockRelease** | Burn on source → Release on dest | Rare; dest chain has pre-funded liquidity pool |
+| 3 | **LockRelease** | **MintBurn** | Lock on source → Mint on dest | Existing token on source chain (canonical); wrapped/synthetic representation on dest |
+| 4 | **LockRelease** | **LockRelease** | Lock on source → Release on dest | Both chains have canonical token with pre-funded pools; requires liquidity on both sides |
+
+#### Detailed Combination Analysis
+
+##### 1. MintBurn / MintBurn
+
+**How it works**: Tokens are burned when leaving any chain and minted when arriving. No liquidity pools needed.
+
+**Pros**:
+- Total supply across all chains always equals the original minted amount
+- No liquidity management required
+- Scales easily to many chains
+
+**Cons**:
+- Token contract must grant mint/burn permissions to the pool
+- Not suitable for existing tokens without mint capability
+
+**Best for**: New tokens designed from scratch for cross-chain use.
+
+##### 2. LockRelease / MintBurn
+
+**How it works**: The "canonical" token exists on Chain A (source). When transferring to Chain B, tokens are locked on A and a synthetic/wrapped version is minted on B. Returning tokens burns on B and releases on A.
+
+**Pros**:
+- Preserves existing token on the canonical chain
+- No need to pre-fund liquidity on destination chains
+- Clear distinction between "real" and "wrapped" tokens
+
+**Cons**:
+- Destination chain tokens are synthetic representations
+- Requires mint/burn capability on destination chain token
+
+**Best for**: Migrating existing tokens to new chains; wrapped token patterns (like WETH on L2s).
+
+##### 3. MintBurn / LockRelease
+
+**How it works**: Tokens are burned on source chain, and pre-existing tokens are released from a liquidity pool on destination. This is an uncommon pattern.
+
+**Best for**: Special cases where destination chain has an existing token supply that needs to be distributed via cross-chain transfers.
+
+##### 4. LockRelease / LockRelease
+
+**How it works**: Tokens are locked in a pool on the source chain and released from a pool on the destination chain. Both pools must be pre-funded with liquidity.
+
+**Pros**:
+- Works with existing tokens that cannot be burned/minted
+- Both chains have "real" tokens
+
+**Cons**:
+- Requires liquidity management on all chains
+- Transfer capacity limited by pool balances
+- Complex to scale to many chains
+
+**Best for**: Existing tokens with fixed supply where you cannot modify the token contract.
+
+#### Bidirectional Behavior
+
+When transfers flow in **both directions** (A→B and B→A), remember:
+
+- **A→B transfer**: Chain A pool is the source pool, Chain B pool is the destination pool
+- **B→A transfer**: Chain B pool is the source pool, Chain A pool is the destination pool
+
+The same pool acts as source or destination depending on transfer direction. For example, with LockRelease/MintBurn:
+- A→B: Lock on A, Mint on B
+- B→A: Burn on B, Release on A
+
+::: tip Choosing the Right Combination
+- **New token with no existing supply?** → MintBurn/MintBurn
+- **Existing token on one chain, expanding to others?** → LockRelease/MintBurn (canonical chain uses LockRelease)
+- **Existing tokens on multiple chains?** → LockRelease/LockRelease (requires liquidity management)
+:::
+
+For more details on token pool architecture, see the [Chainlink CCIP Token Pool Documentation](https://docs.chain.link/ccip/architecture#token-pools).
 
 ## Getting Started
 

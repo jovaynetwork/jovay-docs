@@ -1,0 +1,137 @@
+<svg width="100%" height="480" viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#666" />
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="30" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#333" text-anchor="middle">CCIP Token Pool Combination Modes</text>
+
+  <!-- Header Labels -->
+  <text x="250" y="70" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#0050b3" text-anchor="middle">Source Chain Pool</text>
+  <text x="650" y="70" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#237804" text-anchor="middle">Destination Chain Pool</text>
+
+  <!-- Combination 1: MintBurn / MintBurn -->
+  <g transform="translate(0, 90)">
+    <rect x="20" y="0" width="860" height="80" fill="#F0F5FF" stroke="#ADC6FF" stroke-width="1" rx="8" ry="8" />
+    <text x="40" y="25" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1D39C4">1. MintBurn / MintBurn</text>
+    
+    <!-- Source Pool -->
+    <rect x="150" y="35" width="120" height="35" fill="#fff" stroke="#1890FF" stroke-width="2" rx="6" ry="6" filter="url(#shadow)" />
+    <text x="210" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#333" text-anchor="middle">MintBurn Pool</text>
+    
+    <!-- Action Label -->
+    <text x="330" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Burn</text>
+    
+    <!-- Arrow -->
+    <path d="M280,52 L520,52" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="5,3" />
+    <text x="400" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#722ED1" text-anchor="middle">CCIP</text>
+    
+    <!-- Action Label -->
+    <text x="470" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Mint</text>
+    
+    <!-- Dest Pool -->
+    <rect x="530" y="35" width="120" height="35" fill="#fff" stroke="#52C41A" stroke-width="2" rx="6" ry="6" filter="url(#shadow)" />
+    <text x="590" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#333" text-anchor="middle">MintBurn Pool</text>
+    
+    <!-- Use Case -->
+    <text x="750" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#595959" text-anchor="middle">New cross-chain tokens</text>
+  </g>
+
+  <!-- Combination 2: LockRelease / MintBurn -->
+  <g transform="translate(0, 180)">
+    <rect x="20" y="0" width="860" height="80" fill="#F6FFED" stroke="#B7EB8F" stroke-width="1" rx="8" ry="8" />
+    <text x="40" y="25" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#237804">2. LockRelease / MintBurn</text>
+    
+    <!-- Source Pool -->
+    <rect x="150" y="35" width="120" height="35" fill="#fff" stroke="#1890FF" stroke-width="2" rx="6" ry="6" filter="url(#shadow)" />
+    <text x="210" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#333" text-anchor="middle">LockRelease Pool</text>
+    
+    <!-- Action Label -->
+    <text x="330" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Lock</text>
+    
+    <!-- Arrow -->
+    <path d="M280,52 L520,52" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="5,3" />
+    <text x="400" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#722ED1" text-anchor="middle">CCIP</text>
+    
+    <!-- Action Label -->
+    <text x="470" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Mint</text>
+    
+    <!-- Dest Pool -->
+    <rect x="530" y="35" width="120" height="35" fill="#fff" stroke="#52C41A" stroke-width="2" rx="6" ry="6" filter="url(#shadow)" />
+    <text x="590" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#333" text-anchor="middle">MintBurn Pool</text>
+    
+    <!-- Use Case -->
+    <text x="750" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#595959" text-anchor="middle">Existing token + wrapped</text>
+  </g>
+
+  <!-- Combination 3: MintBurn / LockRelease -->
+  <g transform="translate(0, 270)">
+    <rect x="20" y="0" width="860" height="80" fill="#FFF7E6" stroke="#FFD591" stroke-width="1" rx="8" ry="8" />
+    <text x="40" y="25" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#D46B08">3. MintBurn / LockRelease</text>
+    
+    <!-- Source Pool -->
+    <rect x="150" y="35" width="120" height="35" fill="#fff" stroke="#1890FF" stroke-width="2" rx="6" ry="6" filter="url(#shadow)" />
+    <text x="210" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#333" text-anchor="middle">MintBurn Pool</text>
+    
+    <!-- Action Label -->
+    <text x="330" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Burn</text>
+    
+    <!-- Arrow -->
+    <path d="M280,52 L520,52" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="5,3" />
+    <text x="400" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#722ED1" text-anchor="middle">CCIP</text>
+    
+    <!-- Action Label -->
+    <text x="470" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Release</text>
+    
+    <!-- Dest Pool -->
+    <rect x="530" y="35" width="120" height="35" fill="#fff" stroke="#52C41A" stroke-width="2" rx="6" ry="6" filter="url(#shadow)" />
+    <text x="590" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#333" text-anchor="middle">LockRelease Pool</text>
+    
+    <!-- Use Case -->
+    <text x="750" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#595959" text-anchor="middle">Rare: pre-funded dest pool</text>
+  </g>
+
+  <!-- Combination 4: LockRelease / LockRelease -->
+  <g transform="translate(0, 360)">
+    <rect x="20" y="0" width="860" height="80" fill="#F9F0FF" stroke="#D3ADF7" stroke-width="1" rx="8" ry="8" />
+    <text x="40" y="25" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#531DAB">4. LockRelease / LockRelease</text>
+    
+    <!-- Source Pool -->
+    <rect x="150" y="35" width="120" height="35" fill="#fff" stroke="#1890FF" stroke-width="2" rx="6" ry="6" filter="url(#shadow)" />
+    <text x="210" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#333" text-anchor="middle">LockRelease Pool</text>
+    
+    <!-- Action Label -->
+    <text x="330" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Lock</text>
+    
+    <!-- Arrow -->
+    <path d="M280,52 L520,52" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="5,3" />
+    <text x="400" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#722ED1" text-anchor="middle">CCIP</text>
+    
+    <!-- Action Label -->
+    <text x="470" y="45" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Release</text>
+    
+    <!-- Dest Pool -->
+    <rect x="530" y="35" width="120" height="35" fill="#fff" stroke="#52C41A" stroke-width="2" rx="6" ry="6" filter="url(#shadow)" />
+    <text x="590" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#333" text-anchor="middle">LockRelease Pool</text>
+    
+    <!-- Use Case -->
+    <text x="750" y="57" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#595959" text-anchor="middle">Fixed supply tokens</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(20, 455)">
+    <rect x="0" y="0" width="15" height="15" fill="#1890FF" rx="2" ry="2" />
+    <text x="22" y="12" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#666">Source Chain</text>
+    
+    <rect x="120" y="0" width="15" height="15" fill="#52C41A" rx="2" ry="2" />
+    <text x="142" y="12" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#666">Destination Chain</text>
+    
+    <rect x="280" y="0" width="15" height="15" fill="#722ED1" rx="2" ry="2" />
+    <text x="302" y="12" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#666">CCIP Network</text>
+  </g>
+</svg>

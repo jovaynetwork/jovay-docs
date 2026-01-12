@@ -53,6 +53,21 @@ For testnet development, Chainlink provides test tokens that work across CCIP-su
 CCIP-BnM is a test token for development purposes. On mainnet, you would use real tokens that are supported by CCIP. Check the [CCIP Directory](https://docs.chain.link/ccip/directory) for supported mainnet tokens.
 :::
 
+## Custom Tokens and Bidirectional Transfers
+
+This guide uses **CCIP-BnM**, an official test token with pre-configured TokenPools on all supported testnets. If you want to transfer **your own custom token** across chains, you must set up TokenPools yourself.
+
+::: info Bidirectional Requires Pools on Both Chains
+To enable **bidirectional** cross-chain transfers for your custom token:
+1. Deploy a TokenPool on **each chain** where your token exists
+2. Configure each pool to recognize the remote pool on the other chain
+3. Register both pools with the CCIP TokenAdminRegistry
+
+Without pools on both chains, transfers can only flow in one direction (or not at all).
+:::
+
+For detailed instructions on deploying and configuring TokenPools, including the **4 pool combination modes** (MintBurn/MintBurn, LockRelease/MintBurn, etc.), see the [Token Manager Guide - Pool Mechanisms](./ccip-token-manager#pool-mechanisms).
+
 ## Part 1: Transfer Tokens from Ethereum to Jovay
 
 ### Step 1: Deploy the TokenTransferor Contract
@@ -286,6 +301,119 @@ This enables use cases like:
 - Cross-chain lending collateral
 - NFT purchases across chains
 
+## Failure Handling and Message Recovery
+
+Cross-chain transfers can fail at the destination chain due to various reasons. Understanding failure scenarios and recovery options is critical for building robust cross-chain applications.
+
+### What Happens When a Transfer Fails?
+
+When a CCIP message (including token transfers) is delivered to the destination chain, the `_ccipReceive` function in your receiver contract is executed. If this execution **reverts**, the message enters a **failed state**.
+
+**Important**: The tokens are **not lost**. Failed messages can be retried through manual execution or programmatic recovery.
+
+::: danger No Source Chain Cancellation
+**There is no cancellation mechanism on the source chain.** Once a CCIP message is sent, it cannot be cancelled or recalled. The message will eventually be delivered to the destination chain.
+
+This means your **only recourse** for handling failures is:
+1. **Defensive receiver pattern** - Must be implemented **in advance** on your receiver contract to recover tokens/handle failures gracefully
+2. **Manual execution retry** - Only helps with **transitory failures** (e.g., temporary gas issues, contract not yet deployed)
+
+If your receiver contract has a permanent bug that causes reverts, retrying via CCIP Explorer will fail repeatedly. You must fix the receiver logic first, or if you implemented the defensive pattern, use it to recover the tokens.
+:::
+
+### Failure Scenarios
+
+| Scenario | Cause | Recovery |
+|----------|-------|----------|
+| **Receiver reverts** | Bug in `_ccipReceive` logic, out of gas, or assertion failure | Fix receiver logic, then manually execute |
+| **Insufficient gas limit** | `gasLimit` in extraArgs too low | Retry with higher gas via manual execution |
+| **Contract not deployed** | Receiver address has no code | Deploy receiver, then manually execute |
+
+### Manual Execution (Retry Failed Messages)
+
+When a message fails on the destination chain, you can manually trigger re-execution. **This only helps with transitory failures**—situations where the failure was temporary and can be resolved.
+
+**When manual execution helps:**
+- Contract was not deployed yet → Deploy it, then retry
+- Gas limit was too low → Retry with higher gas override
+- Temporary network congestion → Simply retry
+
+**When manual execution does NOT help:**
+- Permanent bug in receiver logic → Must fix and redeploy the receiver first
+- Receiver lacks defensive pattern → Cannot recover tokens from failed programmable transfer
+
+**Steps to retry:**
+1. **Find the failed message** on [CCIP Explorer](https://ccip.chain.link/)
+2. **Fix the root cause** (e.g., deploy missing contract, fix and redeploy receiver)
+3. **Manually execute** the message via CCIP Explorer or programmatically
+
+::: tip Official Guide
+For step-by-step instructions on retrying failed messages:
+[Manual Execution Guide](https://docs.chain.link/ccip/tutorials/evm/manual-execution)
+:::
+
+### Defensive Programming for Token Transfers
+
+::: warning Must Be Implemented In Advance
+The defensive receiver pattern **must be deployed before** you start receiving cross-chain transfers. You cannot add this pattern after a transfer has already failed—by then, the tokens are stuck in a failed message that your original receiver cannot handle.
+:::
+
+For programmable token transfers (tokens + data), implement a **defensive receiver pattern** that separates token receipt from business logic execution. This pattern ensures tokens are safely held even if your business logic fails:
+
+```solidity
+contract DefensiveReceiver is CCIPReceiver {
+    // Store failed messages for later retry
+    mapping(bytes32 => Client.Any2EVMMessage) public failedMessages;
+    
+    function _ccipReceive(
+        Client.Any2EVMMessage memory message
+    ) internal override {
+        // Tokens are already received at this point
+        try this.processMessage(message) {
+            // Success - business logic executed
+        } catch {
+            // Store for later retry - tokens are safe
+            failedMessages[message.messageId] = message;
+            emit MessageFailed(message.messageId);
+        }
+    }
+    
+    function retryFailedMessage(bytes32 messageId) external {
+        Client.Any2EVMMessage memory message = failedMessages[messageId];
+        // Retry processing
+        this.processMessage(message);
+        delete failedMessages[messageId];
+    }
+}
+```
+
+::: tip Official Guide
+For complete defensive programming patterns and reprocessing failed messages:
+[Programmable Token Transfers - Reprocessing Failed Messages](https://docs.chain.link/ccip/tutorials/evm/programmable-token-transfers-defensive#reprocessing-of-failed-messages)
+:::
+
+### Business Consistency Best Practices
+
+To ensure business consistency across chains:
+
+1. **Use `messageId` as idempotency key**: Store processed messageIds to prevent duplicate execution on retry
+   
+   ```solidity
+   mapping(bytes32 => bool) public processedMessages;
+   
+   function _ccipReceive(Client.Any2EVMMessage memory message) internal override {
+       require(!processedMessages[message.messageId], "Already processed");
+       processedMessages[message.messageId] = true;
+       // ... process message
+   }
+   ```
+
+2. **Two-phase processing**: First validate and record, then execute side effects. This allows safe retries.
+
+3. **Compensating actions**: For complex workflows, design compensating transactions that can reverse partial operations if needed.
+
+4. **Event logging**: Emit events for all cross-chain operations to enable off-chain monitoring and reconciliation.
+
 ## Troubleshooting
 
 ### Transfer Fails with Insufficient Fee
@@ -310,6 +438,24 @@ This enables use cases like:
 - Verify the token is supported on the CCIP lane
 - Check the [CCIP Directory](https://docs.chain.link/ccip/directory) for supported tokens
 - For custom tokens, see [Token Manager Guide](./ccip-token-manager)
+
+### Message Execution Failed
+
+**Error**: Transfer shows "Execution Failed" on CCIP Explorer
+
+**Solution**:
+1. Check CCIP Explorer for the failure reason
+2. Common causes:
+   - Receiver contract reverted
+   - Insufficient gas limit
+   - Receiver contract not deployed
+3. Fix the root cause (e.g., fix receiver logic, redeploy contract)
+4. Use [Manual Execution](https://docs.chain.link/ccip/tutorials/evm/manual-execution) to retry
+5. **Important**: Ensure your receiver is idempotent before retrying
+
+::: warning Before Retrying
+Always verify that your receiver contract logic is fixed and handles the message correctly. Retrying without fixing the root cause will fail again.
+:::
 
 ## Next Steps
 
