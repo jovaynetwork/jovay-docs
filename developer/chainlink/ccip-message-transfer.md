@@ -231,6 +231,113 @@ You can also send messages **from Jovay** to other chains. The process is the sa
 | Ethereum Mainnet | See [CCIP Directory](https://docs.chain.link/ccip/directory) |
 | Polygon | See [CCIP Directory](https://docs.chain.link/ccip/directory) |
 
+## Failure Handling and Message Recovery
+
+Cross-chain messages can fail at the destination chain. Understanding failure scenarios and recovery options is essential for building reliable cross-chain applications.
+
+### What Happens When a Message Fails?
+
+When a CCIP message is delivered to the destination chain, the `_ccipReceive` function in your receiver contract is executed. If this execution **reverts**, the message enters a **failed state**.
+
+**Important**: Failed messages are not lost. They can be retried through manual execution.
+
+::: danger No Source Chain Cancellation
+**There is no cancellation mechanism on the source chain.** Once a CCIP message is sent, it cannot be cancelled or recalled. The message will eventually be delivered to the destination chain.
+
+This means your **only recourse** for handling failures is:
+1. **Defensive receiver pattern** - Must be implemented **in advance** on your receiver contract to handle failures gracefully
+2. **Manual execution retry** - Only helps with **transitory failures** (e.g., temporary gas issues, contract not yet deployed)
+
+If your receiver contract has a permanent bug that causes reverts, retrying via CCIP Explorer will fail repeatedly. You must fix the receiver logic first, or if you implemented the defensive pattern, use it to recover and reprocess the message.
+:::
+
+### Failure Scenarios
+
+| Scenario | Cause | Recovery |
+|----------|-------|----------|
+| **Receiver reverts** | Bug in `_ccipReceive` logic, assertion failure | Fix receiver logic, then manually execute |
+| **Out of gas** | `gasLimit` in extraArgs too low | Retry with higher gas via manual execution |
+| **Contract not deployed** | Receiver address has no code | Deploy receiver, then manually execute |
+
+### Manual Execution (Retry Failed Messages)
+
+When a message fails on the destination chain, you can manually trigger re-execution. **This only helps with transitory failures**—situations where the failure was temporary and can be resolved.
+
+**When manual execution helps:**
+- Contract was not deployed yet → Deploy it, then retry
+- Gas limit was too low → Retry with higher gas override
+- Temporary network congestion → Simply retry
+
+**When manual execution does NOT help:**
+- Permanent bug in receiver logic → Must fix and redeploy the receiver first
+- Receiver lacks defensive pattern → Cannot gracefully handle/store the failed message
+
+**Steps to retry:**
+1. **Find the failed message** on [CCIP Explorer](https://ccip.chain.link/)
+2. **Fix the root cause** (e.g., deploy missing contract, fix and redeploy receiver)
+3. **Manually execute** the message via CCIP Explorer or programmatically
+
+::: tip Official Guide
+For step-by-step instructions on retrying failed messages:
+[Manual Execution Guide](https://docs.chain.link/ccip/tutorials/evm/manual-execution)
+:::
+
+### Defensive Receiver Pattern
+
+::: warning Must Be Implemented In Advance
+The defensive receiver pattern **must be deployed before** you start receiving cross-chain messages. You cannot add this pattern after a message has already failed—by then, the message is stuck in a failed state that your original receiver cannot handle.
+:::
+
+Implement a defensive pattern that stores failed messages for later retry:
+
+```solidity
+contract DefensiveReceiver is CCIPReceiver {
+    mapping(bytes32 => Client.Any2EVMMessage) public failedMessages;
+    mapping(bytes32 => bool) public processedMessages;
+    
+    function _ccipReceive(
+        Client.Any2EVMMessage memory message
+    ) internal override {
+        // Idempotency check
+        require(!processedMessages[message.messageId], "Already processed");
+        
+        try this.processMessage(message) {
+            processedMessages[message.messageId] = true;
+        } catch {
+            // Store for later retry
+            failedMessages[message.messageId] = message;
+            emit MessageFailed(message.messageId);
+        }
+    }
+    
+    function retryFailedMessage(bytes32 messageId) external {
+        Client.Any2EVMMessage memory message = failedMessages[messageId];
+        require(message.messageId != bytes32(0), "Message not found");
+        
+        this.processMessage(message);
+        processedMessages[messageId] = true;
+        delete failedMessages[messageId];
+    }
+}
+```
+
+::: tip Official Guide
+For complete defensive programming patterns:
+[Programmable Token Transfers - Reprocessing Failed Messages](https://docs.chain.link/ccip/tutorials/evm/programmable-token-transfers-defensive#reprocessing-of-failed-messages)
+:::
+
+### Business Consistency Best Practices
+
+To ensure consistency in cross-chain workflows:
+
+1. **Use `messageId` as idempotency key**: Prevent duplicate processing on retries
+
+2. **Two-phase processing**: Validate and record first, execute side effects second
+
+3. **Compensating actions**: Design rollback mechanisms for complex multi-step workflows
+
+4. **Off-chain monitoring**: Use events and indexers to track cross-chain state
+
 ## Troubleshooting
 
 ### Insufficient LINK Balance
@@ -257,6 +364,24 @@ router.getFee(destinationChainSelector, message)
 **Issue**: Message stuck in "Waiting for Finality"
 
 **Solution**: This is normal for chains with longer finality times. Wait for the source chain to reach the required confirmation depth.
+
+### Message Execution Failed
+
+**Issue**: Message shows "Execution Failed" on CCIP Explorer
+
+**Solution**:
+1. Check CCIP Explorer for the failure reason
+2. Common causes:
+   - Receiver contract `_ccipReceive` reverted
+   - Insufficient gas limit in `extraArgs`
+   - Receiver contract not deployed at the specified address
+3. Fix the root cause
+4. Use [Manual Execution](https://docs.chain.link/ccip/tutorials/evm/manual-execution) to retry
+5. Ensure your receiver handles retries correctly (idempotency)
+
+::: warning Before Retrying
+Verify your receiver contract is fixed and can handle the message. Also ensure the receiver is idempotent—retrying the same message should not cause duplicate side effects.
+:::
 
 ## Next Steps
 
