@@ -116,8 +116,8 @@ wget $url_genesis -O genesis.conf
 echo "$md5_genesis genesis.conf" | md5sum -c - && mv genesis.conf $dst_genesis
 
 # get the version file
-url_version="http://dl.jovay.io/snapshot/VERSION_epoch9375"
-md5_version="b08719b4b2511efc5c4c3706de41c096"
+url_version="http://dl.jovay.io/snapshot/VERSION_epoch16905"
+md5_version="3b8bfc464d24c101e0b407aeba200345"
 dst_version="$DEPLOY_DIR/conf/VERSION"
 wget $url_version -O VERSION
 # check md5 then put the version file to conf dir
@@ -296,7 +296,15 @@ echo "$md5_version VERSION" | md5sum -c - && mv VERSION $dst_version
 
 **Jovay mainnet**
 
-The spec version change time for the Jovay mainnet has not been determined yet. 
+```yaml
+# get the latest version file
+url_version="http://dl.jovay.io/snapshot/VERSION_epoch16905"
+md5_version="3b8bfc464d24c101e0b407aeba200345"
+dst_version="$DEPLOY_DIR/conf/VERSION"
+wget $url_version -O VERSION
+# check md5 then put the version file to conf dir
+echo "$md5_version VERSION" | md5sum -c - && mv VERSION $dst_version
+```
 
 #### 2. Upgrade the image tag and Restart
 
