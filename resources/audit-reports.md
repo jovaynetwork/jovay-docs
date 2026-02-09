@@ -6,6 +6,7 @@ Jovay is committed to the security and reliability of its platform. Our core com
 
 | Audited Module | Audit Firm | Report Link | Date |
 | :--- | :--- | :--- | :--- |
+| *Relayer Module*<br/>*Jovay 0.9 Version* | *Zellic* | *[Jovay-Relay-Audit-Report-Zellic-202512.pdf](https://github.com/jovaynetwork/jovay-docs/blob/main/security-reports/202512/Jovay-Relay-Audit-Report-Zellic-202512.pdf)* | *2025.12.22* |
 | *Rollup Contracts*<br/>*System Contracts (Phase3)* | *SlowMist* | *[Jovay-Network-SlowMist-Audit-Report-Phase3-20251203.pdf](https://github.com/jovaynetwork/jovay-docs/blob/main/security-reports/202512/Jovay-Network-SlowMist-Audit-Report-Phase3-20251203.pdf)* | *2025.12.03* |
 | *Rollup Contracts* | *OpenZeppelin* | *[Jovay-Solidity-Rollup-Audit-2025.10.pdf](https://github.com/jovaynetwork/jovay-docs/blob/main/security-reports/202510/Jovay-Solidity-Rollup-Audit-2025.10.pdf)* | *2025.10.15* |
 | *Sequencer Contracts* | *OpenZeppelin* | *[Jovay-Solidity-Sequencer-Audit-2025.10.pdf](https://github.com/jovaynetwork/jovay-docs/blob/main/security-reports/202510/Jovay-Solidity-Sequencer-Audit-2025.10.pdf)* | *2025.10.15* |
