@@ -16,6 +16,8 @@ The Jovay Mainnet is the production network for real-value transactions.
 | **Block Explorer URL** | `https://explorer.jovay.io` |
 | **L1 Bridge Contract** | `0x922248db4a99bb542539ae7165fb9d7a546fb9f1` |
 | **L2 Bridge Contract** | `0xb220d17a11bd2d11e3f57a305ff5b481c81b1028` |
+| **L1 ERC20 Bridge Contract** | `0xbb2517a6ab344e01daee71f59d64bdef3c42911d` |
+| **L2 ERC20 Bridge Contract** | `0x0b13924ea75b6a80beeeb8fa830a92fd3d4922dc` |
 
 ## Jovay Testnet
 
@@ -31,6 +33,8 @@ The Jovay Testnet is the recommended environment for development, testing, and s
 | **Block Explorer URL** | `https://sepolia-explorer.jovay.io` |
 | **L1 Bridge Contract** | `0x940eFB877281884699176892B02A3db49f29CDE8` |
 | **L2 Bridge Contract** | `0xD278bC7189d2ed65c005c345A0e8a387f15b7a3A` |
+| **L1 ERC20 Bridge Contract** | `0x62250ec771945eef939cb8b48da49c4b84cda99f` |
+| **L2 ERC20 Bridge Contract** | `0xbe6cfcd5c63f3914f6c6a59d3eeab548e167b382` |
 
 ## Useful Tools
 
