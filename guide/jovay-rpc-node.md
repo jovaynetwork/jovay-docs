@@ -7,6 +7,7 @@ outline: deep
 
 | Release Date | Product Version | Build Version    | Docker Image                                                                           | Description                         |
 |--------------|-----------------|------------------|----------------------------------------------------------------------------------------|-------------------------------------|
+| 2026.02.05   | 0.11.1          | 0.11.1-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.11.1-rc1             | Fix create contract nonce when value is not enough, fix modexp crash for invalid input|
 | 2026.02.05   | 0.11.0          | 0.11.0-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.11.0-rc1             | Add support for debug_traceCall, migrate spec version management to a system contract, and apply relayer fixes and optimizations based on Zellic audit recommendations.|
 | 2026.01.06   | 0.10.0          | 0.10.0-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.10.0-rc1             | Support deploy Multicall3, create2 factory with non-EIP-155 raw transaction. Fix issues of eth_debugTraceTransaction. Introducing more cross-chain and asset security validations.|
 | 2025.12.17   | 0.9.0           | 0.9.0-rc6        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc6              | Fix the batch RPC request id mismatch issue, including edge cases. This release supersedes rc4 and is the recommended version for production use.|
