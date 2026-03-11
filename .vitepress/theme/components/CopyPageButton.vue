@@ -55,6 +55,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useData, useRoute } from 'vitepress'
+import { copyToClipboard } from '../utils/clipboard'
 
 const { page, frontmatter } = useData()
 const route = useRoute()
@@ -169,7 +170,7 @@ async function onCopyForLLM() {
     const title = page.value.title || frontmatter.value.title || 'Page'
     const source = typeof window !== 'undefined' ? window.location.href : ''
     const wrapped = `<!-- Source: ${source} -->\n# ${title}\n\n${raw}`
-    await navigator.clipboard.writeText(wrapped)
+    await copyToClipboard(wrapped)
     showToast('Copied for LLMs')
   } catch (e) {
     console.error(e)

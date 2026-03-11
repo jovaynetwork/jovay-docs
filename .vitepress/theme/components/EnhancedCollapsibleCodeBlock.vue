@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { copyToClipboard } from '../utils/clipboard'
 
 interface Props {
   title: string
@@ -59,51 +60,21 @@ const copyText = ref('复制代码')
 
 const copyAllCode = async () => {
   if (!codeContentRef.value) return
-  
+
+  const codeElements = codeContentRef.value.querySelectorAll('code')
+  const texts = Array.from(codeElements).map(el => el.textContent || '').join('\n\n')
+
   try {
-    const codeElements = codeContentRef.value.querySelectorAll('code')
-    const texts = Array.from(codeElements).map(el => el.textContent || '').join('\n\n')
-    
-    await navigator.clipboard.writeText(texts)
+    await copyToClipboard(texts)
     copyText.value = '已复制'
-    
     setTimeout(() => {
       copyText.value = '复制代码'
     }, 2000)
-    
     props.onCopy?.(true)
   } catch (error) {
     console.error('复制失败:', error)
     props.onCopy?.(false)
-    // 降级方案
-    fallbackCopyToClipboard()
   }
-}
-
-const fallbackCopyToClipboard = () => {
-  if (!codeContentRef.value) return
-  
-  const codeElements = codeContentRef.value.querySelectorAll('code')
-  const texts = Array.from(codeElements).map(el => el.textContent || '').join('\n\n')
-  
-  const textArea = document.createElement('textarea')
-  textArea.value = texts
-  document.body.appendChild(textArea)
-  textArea.select()
-  
-  try {
-    document.execCommand('copy')
-    copyText.value = '已复制'
-    setTimeout(() => {
-      copyText.value = '复制代码'
-    }, 2000)
-    props.onCopy?.(true)
-  } catch (error) {
-    console.error('降级复制也失败:', error)
-    props.onCopy?.(false)
-  }
-  
-  document.body.removeChild(textArea)
 }
 
 const toggle = () => {
