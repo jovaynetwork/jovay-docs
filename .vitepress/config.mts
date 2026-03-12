@@ -255,6 +255,16 @@ export default defineConfig({
               },
             ],
           },
+          {
+            text: "Account Abstraction",
+            collapsed: true,
+            items: [
+              {
+                text: "ERC-4337 Tutorial",
+                link: "/developer/jovay-erc4337-tutorial",
+              },
+            ],
+          },
         ],
       },
       {
