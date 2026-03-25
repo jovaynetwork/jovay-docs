@@ -49,3 +49,4 @@ Faucets provide free testnet tokens for development purposes.
 Jovay is working to support a variety of RPC providers. Currently, the following providers are supported:
 
 *   **ZAN**: [ZAN](https://zan.top/) provides reliable RPC services for Jovay. For higher rate limits and enhanced services, you can view their API plans at [https://zan.top/blockchain/jovay](https://zan.top/blockchain/jovay).
+*   **Alchemy**: [Alchemy](https://www.alchemy.com/) serves as a high-performance RPC provider for [Jovay](https://jovay.io/), offering robust infrastructure and enhanced reliability. Developers can get started immediately with [Alchemy's Quickstart Guide](https://www.alchemy.com/docs/reference/jovay-api-quickstart) or visit the dedicated [Jovay RPC Page](https://www.alchemy.com/rpc/jovay). For higher rate limits and advanced features, please [sign up here](https://dashboard.alchemy.com/?utm_source=chain_partner&utm_medium=referral&utm_campaign=jovay).
