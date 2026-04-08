@@ -7,6 +7,7 @@ outline: deep
 
 | Release Date | Product Version | Build Version    | Docker Image                                                                           | Description                         |
 |--------------|-----------------|------------------|----------------------------------------------------------------------------------------|-------------------------------------|
+| 2026.04.03   | 0.12.1          | 0.12.1-rc2       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.12.1-rc2             | Fix an issue where, under a special EIP-7702 case, the RPC node could fork from the consensus node|
 | 2026.04.03   | 0.12.1          | 0.12.1-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.12.1-rc1             | Support EIP-7702|
 | 2026.02.05   | 0.11.1          | 0.11.1-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.11.1-rc1             | Fix create contract nonce when value is not enough, fix modexp crash for invalid input|
 | 2026.02.05   | 0.11.0          | 0.11.0-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.11.0-rc1             | Add support for debug_traceCall, migrate spec version management to a system contract, and apply relayer fixes and optimizations based on Zellic audit recommendations.|
