@@ -7,6 +7,7 @@ outline: deep
 
 | Release Date | Product Version | Build Version    | Docker Image                                                                           | Description                         |
 |--------------|-----------------|------------------|----------------------------------------------------------------------------------------|-------------------------------------|
+| 2026.05.12   | 0.13.0          | 0.13.0-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.13.0-rc1             | Optimized historical state query caching, greatly reducing memory usage and startup time|
 | 2026.04.03   | 0.12.1          | 0.12.1-rc2       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.12.1-rc2             | Fix an issue where, under a special EIP-7702 case, the RPC node could fork from the consensus node|
 | 2026.04.03   | 0.12.1          | 0.12.1-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.12.1-rc1             | Support EIP-7702|
 | 2026.02.05   | 0.11.1          | 0.11.1-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.11.1-rc1             | Fix create contract nonce when value is not enough, fix modexp crash for invalid input|
@@ -221,16 +222,16 @@ Follow these steps to bootstrap from latest snapshot:
 
 ```bash
 # Jovay testnet network as follows
-# File: 20251120_37631390.tar.gz (≈120GB)
-# MD5: bbf2f0660ad2fb0e53d70043f4f84d24
-# Block Height: 37631390
-wget -c http://dl-testnet.jovay.io/snapshot/20251120_37631390.tar.gz
+# File: 20260507_42784027.tar.gz (≈120GB)
+# MD5: 16e8c0e84a22f020e16b292a4ab6f889
+# Block Height: 42784027
+wget -c http://dl-testnet.jovay.io/snapshot/20260507_42784027.tar.gz
 
 # Jovay mainnet network as follows
-# File: 20251121_3011478.tar.gz (≈3.7GB)
-# MD5: aeaa6e262f85d87bb9bdc36d4e1e2841
-# Block Height: 3011478 
-wget -c http://dl.jovay.io/snapshot/20251121_3011478.tar.gz
+# File: 20260508_8477395.tar.gz (≈3.7GB)
+# MD5: 482095d707ba3e41a4e7fc8b3c14e4bf
+# Block Height: 8477395 
+wget -c http://dl.jovay.io/snapshot/20260508_8477395.tar.gz
 ```
 
 - Note: Check for the latest version matching your network.
@@ -287,6 +288,8 @@ wget -c http://dl-testnet.jovay.io/snapshot/jovay_rpc_deploy.sh
 
 #### 1. Update the VERSION file if spec version will update
 
+The VERSION file will not be modified in the future. After version 0.11.0, all changes to the spec version will be managed through the system contract.
+
 **Jovay testnet**
 ```yaml
 # get the latest version file
@@ -311,6 +314,30 @@ echo "$md5_version VERSION" | md5sum -c - && mv VERSION $dst_version
 ```
 
 #### 2. Upgrade the image tag and Restart
+
+**Compared with previous versions, 0.13.0 adds new persisted data, so it must be started from the latest snapshot.**
+
+1. Stop node first
+
+```bash
+docker-compose down
+```
+
+2. Backup data/public and use the snapshot instead
+
+```bash
+cd $DEPLOY_DIR
+mv data/public data/public.backup
+
+# Jovay testnet network as follows
+wget -c http://dl-testnet.jovay.io/snapshot/20260507_42784027.tar.gz
+tar zxvf 20260507_42784027.tar.gz -C data
+
+# Jovay mainnet network as follows
+wget -c http://dl.jovay.io/snapshot/20260508_8477395.tar.gz
+tar zxvf 20260508_8477395.tar.gz -C data
+```
+3. Upgrade and start
 
 ```bash
 cd $DEPLOY_DIR
