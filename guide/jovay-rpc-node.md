@@ -337,10 +337,16 @@ tar zxvf 20260507_42784027.tar.gz -C data
 wget -c http://dl.jovay.io/snapshot/20260508_8477395.tar.gz
 tar zxvf 20260508_8477395.tar.gz -C data
 ```
+
 3. Upgrade and start
 
 ```bash
 cd $DEPLOY_DIR
+# use the configuration from the new image
+docker create --name temp_container ${Docker_Image}
+docker cp temp_container:/opt/l2_deploy/conf ./
+docker rm temp_container
+
 # upgrade the image tag to latest Build_Version
 sed -i 's#\(jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc\):[^[:space:]]*#\1:${Build_Version}#g' docker-compose.yml
 docker-compose up -d
