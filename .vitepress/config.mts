@@ -265,6 +265,20 @@ export default defineConfig({
               },
             ],
           },
+          {
+            text: "State Derivation",
+            collapsed: true,
+            items: [
+              {
+                text: "Jovay Ledger Snapshots",
+                link: "/developer/state-derivation/jovay-ledger-snapshot",
+              },
+              {
+                text: "Start SD Sequencer",
+                link: "/developer/state-derivation/start-state-derivation-sequencer",
+              },
+            ],
+          },
         ],
       },
       {
