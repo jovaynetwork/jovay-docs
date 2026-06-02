@@ -279,6 +279,16 @@ export default defineConfig({
               },
             ],
           },
+          {
+            text: "Escape Hatch",
+            collapsed: true,
+            items: [
+              {
+                text: "ForceWithdraw Guide",
+                link: "/developer/escape-hatch/force-withdraw-guide",
+              },
+            ],
+          },
         ],
       },
       {
