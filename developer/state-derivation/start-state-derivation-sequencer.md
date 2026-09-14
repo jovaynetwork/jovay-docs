@@ -39,7 +39,7 @@ By following this guide, you will:
 | --- | --- |
 | 🔗 Jovay network | [Jovay Testnet](../network-information.md#jovay-testnet) |
 | 🔗 Associated L1 | Sepolia |
-| 📦 Snapshot CDN | `http://dl-testnet.jovay.io/snapshot/` |
+| 📦 Snapshot CDN | `https://dl-testnet.jovay.io/snapshot/` |
 | 🐳 SD image | `jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:<TAG>` (`<TAG>` **`>= 0.14.0`**) |
 | 📬 L2 `RELAYER_ADDRESS` | `0xeb623ce3eb46b1d943ba56a09b17c6be9e5b3712` |
 | 📜 L1 Rollup contract | [`0x79C0bB4EE51D7557E012f2f52db4A4ff85Ca3196`](https://sepolia.etherscan.io/address/0x79C0bB4EE51D7557E012f2f52db4A4ff85Ca3196) |
@@ -51,7 +51,7 @@ By following this guide, you will:
 | --- | --- |
 | 🔗 Jovay network | [Jovay Mainnet](../network-information.md#jovay-mainnet) |
 | 🔗 Associated L1 | Ethereum |
-| 📦 Snapshot CDN | `http://dl.jovay.io/snapshot/` |
+| 📦 Snapshot CDN | `https://dl.jovay.io/snapshot/` |
 | 🐳 SD image | `jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:<TAG>` (`<TAG>` **`>= 0.14.0`**) |
 | 📬 L2 `RELAYER_ADDRESS` | `0xae13ce4cd416cb4598865aa5ac8d13532bd3cd99` |
 | 📜 L1 Rollup contract | [`0xe0a28b8918a62edb825055221a1df12c7c81bac1`](https://etherscan.io/address/0xe0a28b8918a62edb825055221a1df12c7c81bac1) |

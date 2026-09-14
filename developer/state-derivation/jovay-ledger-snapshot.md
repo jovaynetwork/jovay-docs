@@ -16,7 +16,7 @@ Each release ships **three artifacts** for a given network:
 | 🗜️ **`<YYYYMMDD>_<BLOCK_HEIGHT>.tar.gz`** | Compressed ledger database snapshot. |
 | ⚓ **`snapshot_anchor.json`** | L1 block height where SD indexing should begin when deriving forward. |
 
-Archive names follow **`YYYYMMDD_BLOCKHEIGHT.tar.gz`** (`YYYYMMDD` = publish date, `BLOCK_HEIGHT` = L2 stable height in the snapshot). The anchor file lives under the same `YYYYMMDD_BLOCKHEIGHT` path (without `.tar.gz`).
+Archive names follow **`YYYYMMDD_BLOCKHEIGHT.tar.gz`** (`YYYYMMDD` = publish date, `BLOCK_HEIGHT` = L2 stable height in the snapshot). The matching anchor is published at `state-derivation/YYYYMMDD_BLOCKHEIGHT/snapshot_anchor.json`.
 
 > 📌 **Retention:** Only the **latest** snapshot per network is kept on the CDN. Older archives are removed when a new one is published.
 
@@ -38,17 +38,17 @@ Before starting an SD Sequencer, download **all three** artifacts for your targe
 
 | File | Min Sequencer version | L2 block height | File name | MD5 / checksum | Download |
 | --- | --- | --- | --- | --- | --- |
-| 📜 **genesis.conf** | `>= 0.14.0` | — | `genesis.conf` | `1b6ad3d9fa67a596ca094e89bd2280ee` | [link](http://dl-testnet.jovay.io/snapshot/genesis.conf) |
-| 🗜️ **Ledger snapshot** | `>= 0.14.0` | _TBD_ | `_TBD_.tar.gz` | _TBD_ | [link](http://dl-testnet.jovay.io/snapshot/_TBD_.tar.gz) |
-| ⚓ **snapshot_anchor.json** | `>= 0.14.0` | _TBD_ | `snapshot_anchor.json` | _TBD_ | [link](http://dl-testnet.jovay.io/snapshot/_TBD_/snapshot_anchor.json) |
+| 📜 **genesis.conf** | `>= 0.14.0` | — | `genesis.conf` | `1b6ad3d9fa67a596ca094e89bd2280ee` | [link](https://dl-testnet.jovay.io/snapshot/genesis.conf) |
+| 🗜️ **Ledger snapshot** | `>= 0.14.0` | _TBD_ | `_TBD_.tar.gz` | _TBD_ | [link](https://dl-testnet.jovay.io/snapshot/_TBD_.tar.gz) |
+| ⚓ **snapshot_anchor.json** | `>= 0.14.0` | _TBD_ | `snapshot_anchor.json` | _TBD_ | [link](https://dl-testnet.jovay.io/state-derivation/_TBD_/snapshot_anchor.json) |
 
 ### Mainnet (Ethereum L1)
 
 | File | Min Sequencer version | L2 block height | File name | MD5 / checksum | Download |
 | --- | --- | --- | --- | --- | --- |
-| 📜 **genesis.conf** | `>= 0.14.0` | — | `genesis.conf` | `502c910cbc21137c606621622fe67d28` | [link](http://dl.jovay.io/snapshot/genesis.conf) |
-| 🗜️ **Ledger snapshot** | `>= 0.14.0` | _TBD_ | `_TBD_.tar.gz` | _TBD_ | [link](http://dl.jovay.io/snapshot/_TBD_.tar.gz) |
-| ⚓ **snapshot_anchor.json** | `>= 0.14.0` | _TBD_ | `snapshot_anchor.json` | _TBD_ | [link](http://dl.jovay.io/snapshot/_TBD_/snapshot_anchor.json) |
+| 📜 **genesis.conf** | `>= 0.14.0` | — | `genesis.conf` | `502c910cbc21137c606621622fe67d28` | [link](https://dl.jovay.io/snapshot/genesis.conf) |
+| 🗜️ **Ledger snapshot** | `>= 0.14.0` | _TBD_ | `_TBD_.tar.gz` | _TBD_ | [link](https://dl.jovay.io/snapshot/_TBD_.tar.gz) |
+| ⚓ **snapshot_anchor.json** | `>= 0.14.0` | _TBD_ | `snapshot_anchor.json` | _TBD_ | [link](https://dl.jovay.io/state-derivation/_TBD_/snapshot_anchor.json) |
 
 After downloading all three artifacts, verify each file's MD5 checksum against the table above:
 
