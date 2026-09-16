@@ -14,13 +14,15 @@ Each release ships **three artifacts** for a given network:
 | --- | --- |
 | 📜 **`genesis.conf`** | Fixed genesis configuration for the network (same file for every release on that network). |
 | 🗜️ **`<YYYYMMDD>_<BLOCK_HEIGHT>.tar.gz`** | Compressed ledger database snapshot. |
-| ⚓ **`snapshot_anchor.json`** | L1 block height where SD indexing should begin when deriving forward. |
+| ⚓ **`snapshot_anchor.json`** | L1 cursor seed for State Derivation. The current implementation begins scanning from the following L1 block. |
 
 Archive names follow **`YYYYMMDD_BLOCKHEIGHT.tar.gz`** (`YYYYMMDD` = publish date, `BLOCK_HEIGHT` = L2 stable height in the snapshot). The matching anchor is published at `state-derivation/YYYYMMDD_BLOCKHEIGHT/snapshot_anchor.json`.
 
 > 📌 **Retention:** Only the **latest** snapshot per network is kept on the CDN. Older archives are removed when a new one is published.
 
 > ⏱️ **Cadence:** Snapshots are published approximately every **14 days**.
+
+> 💾 **Capacity planning:** The current Testnet archive is about **126 GiB compressed** and expands to about **360 GiB**. Keep the archive and extracted ledger on the same filesystem only if it has at least **600 GiB free**, including room for database growth. Snapshot sizes will increase as the chain grows.
 
 ## 🎯 What You Need From a Snapshot
 
@@ -36,45 +38,41 @@ Before starting an SD Sequencer, download **all three** artifacts for your targe
 
 ### Testnet (Sepolia L1)
 
-| File | Min Sequencer version | L2 block height | File name | MD5 / checksum | Download |
+| File | Min Sequencer version | L2 block height | File name | Checksums | Download |
 | --- | --- | --- | --- | --- | --- |
-| 📜 **genesis.conf** | `>= 0.14.0` | — | `genesis.conf` | `1b6ad3d9fa67a596ca094e89bd2280ee` | [link](https://dl-testnet.jovay.io/snapshot/genesis.conf) |
-| 🗜️ **Ledger snapshot** | `>= 0.14.0` | _TBD_ | `_TBD_.tar.gz` | _TBD_ | [link](https://dl-testnet.jovay.io/snapshot/_TBD_.tar.gz) |
-| ⚓ **snapshot_anchor.json** | `>= 0.14.0` | _TBD_ | `snapshot_anchor.json` | _TBD_ | [link](https://dl-testnet.jovay.io/state-derivation/_TBD_/snapshot_anchor.json) |
+| 📜 **genesis.conf** | `>= 0.14.0` | — | `genesis.conf` | MD5: `1b6ad3d9fa67a596ca094e89bd2280ee`<br>SHA-256: `772cdd59b915787a5bca57f7bba0584333081f8749a7f702f5bba60819000fad` | [link](https://dl-testnet.jovay.io/snapshot/genesis.conf) |
+| 🗜️ **Ledger snapshot** | `>= 0.14.0` | `46787372` | `20260916_46787372.tar.gz` | MD5: `16212a19ffa5c6b1d871bb7c9f23a9c6`<br>SHA-256: `95f502b62e2ea7982cfe9006d4b087d840984db9bfed23c4a7fd3314d850e40e` | [link](https://dl-testnet.jovay.io/snapshot/20260916_46787372.tar.gz) |
+| ⚓ **snapshot_anchor.json** | `>= 0.14.0` | `46787372` | `snapshot_anchor.json` | MD5: `478e9f5175cb3ea659b0eceddc5a23d3`<br>SHA-256: `4beedfd0e2147a97eb34e847a06b74c7b62adf64952f3f41f11cfe2a08183ee1` | [link](https://dl-testnet.jovay.io/state-derivation/20260916_46787372/snapshot_anchor.json) |
 
 ### Mainnet (Ethereum L1)
 
-| File | Min Sequencer version | L2 block height | File name | MD5 / checksum | Download |
+| File | Min Sequencer version | L2 block height | File name | Checksums | Download |
 | --- | --- | --- | --- | --- | --- |
-| 📜 **genesis.conf** | `>= 0.14.0` | — | `genesis.conf` | `502c910cbc21137c606621622fe67d28` | [link](https://dl.jovay.io/snapshot/genesis.conf) |
-| 🗜️ **Ledger snapshot** | `>= 0.14.0` | _TBD_ | `_TBD_.tar.gz` | _TBD_ | [link](https://dl.jovay.io/snapshot/_TBD_.tar.gz) |
-| ⚓ **snapshot_anchor.json** | `>= 0.14.0` | _TBD_ | `snapshot_anchor.json` | _TBD_ | [link](https://dl.jovay.io/state-derivation/_TBD_/snapshot_anchor.json) |
+| 📜 **genesis.conf** | `>= 0.14.0` | — | `genesis.conf` | MD5: `502c910cbc21137c606621622fe67d28`<br>SHA-256: `d436f01b2e25d1946e63d885cb1dd3136da0e3d3beaf300f6f3f4482aff6b5d9` | [link](https://dl.jovay.io/snapshot/genesis.conf) |
+| 🗜️ **Ledger snapshot** | — | — | Not available yet | — | Not available yet |
+| ⚓ **snapshot_anchor.json** | — | — | Not available yet | — | Not available yet |
 
-After downloading all three artifacts, verify each file's MD5 checksum against the table above:
+> ⚠️ The Mainnet ledger snapshot and matching anchor have not been published yet. Do not start a Mainnet SD Sequencer until both rows above contain a real release.
+
+After downloading all three artifacts, verify each file's SHA-256 checksum against the table above. MD5 values are retained for compatibility and accidental-transfer checks, but SHA-256 is the primary integrity check:
 
 ```bash
-# genesis.conf
-md5sum genesis.conf
-# Testnet expected: 1b6ad3d9fa67a596ca094e89bd2280ee
-# Mainnet expected: 502c910cbc21137c606621622fe67d28
+sha256sum genesis.conf
+sha256sum <YYYYMMDD>_<BLOCK_HEIGHT>.tar.gz
+sha256sum snapshot_anchor.json
 
-# Ledger snapshot
-md5sum <YYYYMMDD>_<BLOCK_HEIGHT>.tar.gz
-# Expected: see MD5 / checksum column for Ledger snapshot row
-
-# snapshot_anchor.json
-md5sum snapshot_anchor.json
-# Expected: see MD5 / checksum column for snapshot_anchor.json row
+# Optional compatibility check
+md5sum genesis.conf <YYYYMMDD>_<BLOCK_HEIGHT>.tar.gz snapshot_anchor.json
 ```
 
 ## 🗂️ Snapshot Archive Structure
 
-After extracting the `.tar.gz`, the top level contains **11 database directories** (no loose files at the root):
+The archive has one top-level `public/` directory. It contains **11 database directories** and no loose files at that level:
 
-Example (`tree -L 1`):
+Example (`tree -L 1 public` after extraction):
 
 ```text
-20260428_061010/
+public/
 ├── BlockBodySliceKvDB
 ├── BlockHeaderKvDB
 ├── BlockIndexKvDB
@@ -102,7 +100,7 @@ When deploying an SD Sequencer, extract these folders into `data/public/` — se
 
 | Field | Description |
 | --- | --- |
-| `l1_start_block_number` | L1 block height where the SD node begins indexing rollup data. Always use the **`snapshot_anchor.json` published with your snapshot**—do not guess or edit this value. |
+| `l1_start_block_number` | Initial value of the persisted L1 indexer cursor. The current implementation scans from `l1_start_block_number + 1`. Always use the **`snapshot_anchor.json` published with your snapshot**—do not guess or edit this value. |
 
 ## 🚀 Next Steps
 

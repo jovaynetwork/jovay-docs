@@ -57,6 +57,8 @@ By following this guide, you will:
 | 📜 L1 Rollup contract | [`0xe0a28b8918a62edb825055221a1df12c7c81bac1`](https://etherscan.io/address/0xe0a28b8918a62edb825055221a1df12c7c81bac1) |
 | 📮 L1 Mailbox contract | [`0x9869a90fdac287519e48aff4cce329907a995162`](https://etherscan.io/address/0x9869a90fdac287519e48aff4cce329907a995162) |
 
+> ⚠️ The Mainnet ledger snapshot and matching `snapshot_anchor.json` have not been published yet. The Mainnet values in this guide are provided for preparation only; do not start a Mainnet SD Sequencer until the [snapshot table](./jovay-ledger-snapshot.md#mainnet-ethereum-l1) contains a real release.
+
 > 💡 You must provide your own **L1 execution RPC** (`l1_rpc_url`) and **Beacon REST API** (`beacon_rpc_url`) for the associated L1 chain. Use any provider with stable access and sufficient rate limits (Alchemy, Infura, self-hosted, etc.).
 
 ## 🧰 Prerequisites
@@ -67,6 +69,7 @@ Before getting started, make sure you have:
 - 📥 Latest snapshot artifacts from [Using Jovay Ledger Snapshots](./jovay-ledger-snapshot.md) (all three files for your network)
 - 🔗 **L1 execution RPC URL** and **Beacon API URL** for Sepolia (testnet) or Ethereum (mainnet)
 - 🏷️ An `l2-sequencer` image tag **`>= 0.14.0`**, matching your snapshot release
+- 💾 Sufficient disk space for both the compressed archive and extracted ledger. For the current Testnet release, keep at least **600 GiB free** on the target filesystem; future snapshots may require more.
 
 ### Shell variables
 
@@ -75,6 +78,9 @@ export SD_DEPLOY_DIR=/mnt/l2_sd_sequencer # your working path
 export IMAGE=jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:<TAG>
 export SNAPSHOT_ID=<YYYYMMDD>_<BLOCK_HEIGHT>   # from the snapshot table
 export SNAPSHOT_DOWNLOAD_DIR=./jovay-snapshot    # where you saved downloads
+
+# Verify capacity before downloading or extracting the snapshot
+df -h "$(dirname "${SD_DEPLOY_DIR}")"
 ```
 
 ## 🔧 Step-by-Step Guide
@@ -87,14 +93,14 @@ Open [Latest Jovay Ledger Snapshots](./jovay-ledger-snapshot.md#-latest-jovay-le
 - 🗜️ `${SNAPSHOT_ID}.tar.gz`
 - ⚓ `snapshot_anchor.json`
 
-Verify all three downloads with `md5sum` against the [snapshot tables](./jovay-ledger-snapshot.md#-latest-jovay-ledger-snapshots) before continuing:
+Verify all three downloads with `sha256sum` against the [snapshot tables](./jovay-ledger-snapshot.md#-latest-jovay-ledger-snapshots) before continuing:
 
 ```bash
 cd "${SNAPSHOT_DOWNLOAD_DIR}"
 
-md5sum genesis.conf
-md5sum "${SNAPSHOT_ID}.tar.gz"
-md5sum snapshot_anchor.json
+sha256sum genesis.conf
+sha256sum "${SNAPSHOT_ID}.tar.gz"
+sha256sum snapshot_anchor.json
 ```
 
 ### 2️⃣ Initialize directories and config
@@ -103,7 +109,7 @@ md5sum snapshot_anchor.json
 mkdir -p "${SD_DEPLOY_DIR}/data" "${SD_DEPLOY_DIR}/log" "${SD_DEPLOY_DIR}/conf"
 
 docker create --name temp_sd_seq --pull always "${IMAGE}"
-docker cp temp_sd_seq:/opt/l2_deploy/conf "${SD_DEPLOY_DIR}/"
+docker cp temp_sd_seq:/opt/l2_deploy/conf/. "${SD_DEPLOY_DIR}/conf/"
 docker rm temp_sd_seq
 ```
 
@@ -140,6 +146,10 @@ services:
       - ${SD_DEPLOY_DIR}/data:/opt/l2_deploy/light/data
       - ${SD_DEPLOY_DIR}/log:/opt/l2_deploy/light/log
       - ${SD_DEPLOY_DIR}/conf:/opt/l2_deploy/conf
+    ulimits:
+      nofile:
+        soft: 1048576
+        hard: 1048576
     restart: 'no'
     healthcheck:
       test: ["CMD-SHELL", "curl -sf -X POST http://127.0.0.1:18100 -H 'Content-Type: application/json' --data '{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}' | grep -q 'result'"]
@@ -164,11 +174,33 @@ On the **first** start, leave State Derivation **disabled**. The node creates re
 cd "${SD_DEPLOY_DIR}"
 docker compose up -d
 
-sleep 30
-docker logs sd_sequencer 2>&1 | grep -iE 'create.*db|open.*db|initialize' || true
+ready=false
+for _ in $(seq 1 120); do
+  if test -f "${SD_DEPLOY_DIR}/data/.first_run_completed" \
+    && curl -sf -X POST http://127.0.0.1:18100 \
+      -H 'Content-Type: application/json' \
+      --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \
+      | grep -q '"result"'; then
+    ready=true
+    break
+  fi
+
+  if ! docker inspect -f '{{.State.Running}}' sd_sequencer | grep -qx true; then
+    break
+  fi
+  sleep 5
+done
+
+if test "${ready}" != true; then
+  docker logs --tail 200 sd_sequencer
+  echo 'Initial database bootstrap did not complete within 10 minutes.' >&2
+  exit 1
+fi
 
 docker compose down
 ```
+
+Do not replace this readiness check with a fixed sleep. The `.first_run_completed` marker is written only after the initial database bootstrap succeeds.
 
 ### 6️⃣ Load snapshot into `data/public`
 
@@ -199,7 +231,7 @@ Edit `${SD_DEPLOY_DIR}/conf/state_derivation.conf`. Set your L1 RPC URLs; contra
 
 ```json
 {
-  "snapshot_anchor_path": "../conf/snapshot_anchor.json",
+  "snapshot_anchor_path": "/opt/l2_deploy/conf/snapshot_anchor.json",
   "l1_rpc_url": "<YOUR_SEPOLIA_EXECUTION_RPC_URL>",
   "beacon_rpc_url": "<YOUR_SEPOLIA_BEACON_API_URL>",
   "rollup_contract_address": "0x79C0bB4EE51D7557E012f2f52db4A4ff85Ca3196",
@@ -217,7 +249,7 @@ Edit `${SD_DEPLOY_DIR}/conf/state_derivation.conf`. Set your L1 RPC URLs; contra
 
 ```json
 {
-  "snapshot_anchor_path": "../conf/snapshot_anchor.json",
+  "snapshot_anchor_path": "/opt/l2_deploy/conf/snapshot_anchor.json",
   "l1_rpc_url": "<YOUR_MAINNET_EXECUTION_RPC_URL>",
   "beacon_rpc_url": "<YOUR_MAINNET_BEACON_API_URL>",
   "rollup_contract_address": "0xe0a28b8918a62edb825055221a1df12c7c81bac1",
@@ -233,7 +265,7 @@ Edit `${SD_DEPLOY_DIR}/conf/state_derivation.conf`. Set your L1 RPC URLs; contra
 
 | Field | Description |
 | --- | --- |
-| `snapshot_anchor_path` | Path to `snapshot_anchor.json` (relative to `bin/`) |
+| `snapshot_anchor_path` | Path to `snapshot_anchor.json` inside the container. The absolute path shown above matches the Compose mount. |
 | `l1_rpc_url` | L1 execution JSON-RPC |
 | `beacon_rpc_url` | L1 Beacon REST API |
 | `rollup_contract_address` | L1 Rollup contract (see environment table) |
@@ -266,7 +298,7 @@ curl -s -X POST http://127.0.0.1:18100 \
   -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
 ```
 
-Height should be near the snapshot’s L2 block, then grow as derivation runs.
+Height should initially be near the snapshot’s L2 block and grow when newer finalized batches are available. It may remain unchanged while the SD node is waiting for the next finalized batch.
 
 ### SD logs
 
@@ -276,7 +308,25 @@ grep -i applier "${SD_DEPLOY_DIR}/log/aldaba.log" | tail -20
 grep -iE 'error|fail' "${SD_DEPLOY_DIR}/log/aldaba.log" | grep -i derivation | tail -20
 ```
 
-### Genesis state root
+### SD status and cursors
+
+Query the persisted SD status from the mounted ledger:
+
+```bash
+cd "${SD_DEPLOY_DIR}"
+
+docker compose run --rm --entrypoint /bin/sh sd-sequencer -lc \
+  'cd /opt/l2_deploy/client/bin && /opt/l2_deploy/bin/aldaba_cli state-derivation status --json'
+
+docker compose run --rm --entrypoint /bin/sh sd-sequencer -lc \
+  'cd /opt/l2_deploy/client/bin && /opt/l2_deploy/bin/aldaba_cli state-derivation cursor --json'
+```
+
+`fatal_state` must be `false`. Over time, `indexer.last_seen_l1_block` and `verifier.next_verify_batch_index` should advance as newer finalized batches become available. Batch counts provide additional evidence when the corresponding records are present.
+
+### Optional genesis block inspection
+
+The following command prints the local genesis state root for troubleshooting. It is not, by itself, proof that State Derivation is progressing:
 
 ```bash
 curl -s -X POST http://127.0.0.1:18100 \
