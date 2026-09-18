@@ -7,6 +7,7 @@ outline: deep
 
 | Release Date | Product Version | Build Version    | Docker Image                                                                           | Description                         |
 |--------------|-----------------|------------------|----------------------------------------------------------------------------------------|-------------------------------------|
+| 2026.09.02   | 0.15.0          | 0.15.0-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.15.0-rc1             | Adds BatchV3-compatible L1 message processing and V30-gated L1 message signature verification. Standard RPC nodes only require an image upgrade. |
 | 2026.05.12   | 0.13.0          | 0.13.0-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.13.0-rc1             | Optimized historical state query caching, greatly reducing memory usage and startup time|
 | 2026.04.03   | 0.12.1          | 0.12.1-rc2       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.12.1-rc2             | Fix an issue where, under a special EIP-7702 case, the RPC node could fork from the consensus node|
 | 2026.04.03   | 0.12.1          | 0.12.1-rc1       | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.12.1-rc1             | Support EIP-7702|
@@ -18,6 +19,16 @@ outline: deep
 | 2025.12.12   | 0.9.0           | 0.9.0-rc3        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc3              | Fix eth_call with invalid block; Support non-root deployment|
 | 2025.12.01   | 0.9.0           | 0.9.0-rc2        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc2              | Fix batchrpc, debug_traceTransaction|
 | 2025.11.21   | 0.9.0           | 0.9.0-rc1        | jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.9.0-rc1              | First release for external RPC node |
+
+### Current release image
+
+The current RPC node release is [`v0.15.0-rc1`](https://github.com/jovaynetwork/jovay-releases/releases/tag/v0.15.0-rc1):
+
+| Item | Value |
+| --- | --- |
+| Image | `jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.15.0-rc1` |
+| Digest | `sha256:612c692655744444f512ef084ff2365c1ec26594d67ade01b8163250442e5c3a` |
+| OS / Architecture | `linux/amd64` |
 
 ## RPC node deployment
 Jovay  RPC node can be deployed using a Docker image.
@@ -65,6 +76,8 @@ Ensure that your network can reach the Jovay Network. The endpoint is specified 
 #### Prepare workspace
 Create workspace dictionary.
 ```bash
+export Build_Version=0.15.0-rc1
+export Docker_Image=jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:${Build_Version}
 export Release=${Build_Version}
 export DEPLOY_DIR=${deploy_jovay_rpc_path}
 
@@ -284,75 +297,125 @@ wget -c http://dl-testnet.jovay.io/snapshot/jovay_rpc_deploy.sh
 ./jovay_rpc_deploy.sh
 ```
 
-## Upgrade RPC node
+## Upgrade RPC node to v0.15.0-rc1
 
-#### 1. Update the VERSION file if spec version will update
+This procedure applies to upgrades from `v0.14.x` to `v0.15.0-rc1`. If your
+node is older than `v0.14.x`, follow the required intermediate release
+instructions or contact the Jovay team before upgrading.
 
-The VERSION file will not be modified in the future. After version 0.11.0, all changes to the spec version will be managed through the system contract.
+The `v0.15.0-rc1` RPC node adds BatchV3-compatible L1 message processing and
+V30-gated L1 message signature verification. Upgrade all RPC nodes before the
+network operator activates V30 and BatchV3.
 
-**Jovay testnet**
+For a standard external RPC node, this is an image-only upgrade:
+
+- Preserve the existing `data/`, `log/`, and `conf/` mounts.
+- Do not replace the snapshot or delete chain data.
+- Do not update `conf/VERSION`; protocol versions are managed by the system contract.
+- Do not enable `state_derivation_mode` or configure the L1 message Relayer address locally.
+
+### 1. Record the current deployment
+
+The RPC service is temporarily unavailable while its container is recreated.
+For production deployments, remove the node from the load balancer or upstream
+traffic entry first, and upgrade nodes one at a time.
+
+```bash
+export DEPLOY_DIR=${deploy_jovay_rpc_path}
+export Build_Version=0.15.0-rc1
+export Docker_Image=jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:${Build_Version}
+
+cd "$DEPLOY_DIR"
+docker inspect --format '{{.Config.Image}}' jovay-rpc
+cp docker-compose.yml "docker-compose.yml.bak.$(date +%Y%m%d%H%M%S)"
+```
+
+Record the current image printed by `docker inspect`; it is required if a
+coordinated rollback becomes necessary.
+
+### 2. Pull and verify the release image
+
+```bash
+docker pull "$Docker_Image"
+
+docker buildx imagetools inspect "$Docker_Image"
+```
+
+Confirm that the image is `linux/amd64` and its digest is:
+
+```text
+sha256:612c692655744444f512ef084ff2365c1ec26594d67ade01b8163250442e5c3a
+```
+
+### 3. Update the image and recreate the container
+
+Update the `rpc-node` service image in `docker-compose.yml` to:
+
 ```yaml
-# get the latest version file
-url_version="http://dl-testnet.jovay.io/snapshot/VERSION_epoch26280"
-md5_version="994db44ba74a280efe44efdcd3f4422d"
-dst_version="$DEPLOY_DIR/conf/VERSION"
-wget $url_version -O VERSION
-# check md5 then put the version file to conf dir
-echo "$md5_version VERSION" | md5sum -c - && mv VERSION $dst_version
+services:
+  rpc-node:
+    image: jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc:0.15.0-rc1
 ```
 
-**Jovay mainnet**
-
-```yaml
-# get the latest version file
-url_version="http://dl.jovay.io/snapshot/VERSION_epoch16905"
-md5_version="3b8bfc464d24c101e0b407aeba200345"
-dst_version="$DEPLOY_DIR/conf/VERSION"
-wget $url_version -O VERSION
-# check md5 then put the version file to conf dir
-echo "$md5_version VERSION" | md5sum -c - && mv VERSION $dst_version
-```
-
-#### 2. Upgrade the image tag and Restart
-
-**Compared with previous versions, 0.13.0 adds new persisted data, so it must be started from the latest snapshot.**
-
-1. Stop node first
+On Linux, you can replace the existing `l2-rpc` image tag with:
 
 ```bash
-docker-compose down
+cd "$DEPLOY_DIR"
+sed -i 's#\(jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc\):[^[:space:]]*#\1:'"${Build_Version}"'#g' docker-compose.yml
+docker compose up -d
 ```
 
-2. Backup data/public and use the snapshot instead
+`docker compose up -d` recreates the container while preserving the mounted
+data, logs, and configuration.
+
+### 4. Verify the upgrade
 
 ```bash
-cd $DEPLOY_DIR
-mv data/public data/public.backup
+# Confirm the target image and container status
+docker inspect --format '{{.Config.Image}}' jovay-rpc
+docker ps --filter name=jovay-rpc
 
-# Jovay testnet network as follows
-wget -c http://dl-testnet.jovay.io/snapshot/20260507_42784027.tar.gz
-tar zxvf 20260507_42784027.tar.gz -C data
-
-# Jovay mainnet network as follows
-wget -c http://dl.jovay.io/snapshot/20260508_8477395.tar.gz
-tar zxvf 20260508_8477395.tar.gz -C data
+# Confirm successful startup and continued synchronization
+docker logs --tail 200 jovay-rpc
+tail -f "$DEPLOY_DIR/log/profile.log" | grep 'Tag: UpdateStableBlock'
 ```
 
-3. Upgrade and start
+The container has initialized when `App Initialize succeed` appears. Confirm
+that the stable block height continues to increase, then query JSON-RPC:
 
 ```bash
-cd $DEPLOY_DIR
-# use the configuration from the new image
-docker create --name temp_container ${Docker_Image}
-docker cp temp_container:/opt/l2_deploy/conf ./
-docker rm temp_container
+curl 127.0.0.1:18100/ \
+  -X POST \
+  -H 'Content-Type: application/json' \
+  --data '{"method":"eth_blockNumber","params":[],"id":1,"jsonrpc":"2.0"}'
 
-# upgrade the image tag to latest Build_Version
-sed -i 's#\(jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-rpc\):[^[:space:]]*#\1:${Build_Version}#g' docker-compose.yml
-docker-compose up -d
+grep -iE 'error|fail|fatal' "$DEPLOY_DIR/log/aldaba.log" | tail -50
 ```
 
-## RPC node mangement
+Repeat `eth_blockNumber` after a short interval and confirm that the height is
+increasing. Restore the node to the load balancer or upstream traffic only
+after these checks pass.
+
+### Rollback
+
+If the node cannot start or catch up, first confirm whether V30 and BatchV3
+have already been activated. Before activation, or during a rollback
+coordinated with the Jovay team, restore the previously recorded image in
+`docker-compose.yml` and recreate the container:
+
+```bash
+cd "$DEPLOY_DIR"
+docker compose up -d
+```
+
+Do not independently roll back to a pre-v0.15.0 image after V30 and BatchV3
+have been activated. The old image does not implement the required protocol
+rules. Contact the Jovay team and use a network-compatible image or a
+coordinated network rollback procedure. Do not delete `data/public` or
+`data/history_kvdbs` during this upgrade or rollback unless the Jovay team
+explicitly instructs you to do so.
+
+## RPC node management
 ### Stop node
 ```bash
 cd $DEPLOY_DIR
@@ -394,11 +457,6 @@ curl 127.0.0.1:18100/ \
 You can primarily monitor the node status through the following two log files:
 - `log/profile.log`: Profiling information of blocks and transactions.
 - `log/aldaba.log`: Default log file containing runtime information from all modules.
-
-## RPC node upgration
-In most cases, upgrading a Jovay RPC node only requires updating the container image tag in `docker-compose.yml` and restarting the container.
-
-If future releases introduce configuration changes or require additional steps, we will provide detailed upgrade instructions accordingly.
 
 ## RPC node monitoring
 We use the Prometheus and Grafana to monitor Jovay RPC Node metrics. but the full deployment and integration process has not yet been fully verified and will be documented later.
