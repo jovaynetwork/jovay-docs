@@ -20,7 +20,7 @@ The production **Jovay Sequencer** continues to sequence live traffic and post n
 
 This tutorial walks you through deploying an SD Sequencer with the published **`l2-sequencer`** Docker image.
 
-> ⚠️ **Image requirement:** State Derivation requires **`l2-sequencer` version `>= 0.14.0`**. Use a compatible tag from the [latest snapshot tables](./jovay-ledger-snapshot.md#-latest-jovay-ledger-snapshots).
+> ✅ **Recommended image:** Use product version **`0.15.0`**, published as [`jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1`](https://github.com/jovaynetwork/jovay-releases/releases/tag/v0.15.0-rc1). This exact tag has been validated end to end with the current Testnet snapshot. If a later snapshot lists a newer validated image, follow the [snapshot table](./jovay-ledger-snapshot.md#-latest-jovay-ledger-snapshots).
 
 ## 🎯 What You'll Accomplish
 
@@ -40,7 +40,7 @@ By following this guide, you will:
 | 🔗 Jovay network | [Jovay Testnet](../network-information.md#jovay-testnet) |
 | 🔗 Associated L1 | Sepolia |
 | 📦 Snapshot CDN | `https://dl-testnet.jovay.io/snapshot/` |
-| 🐳 SD image | `jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:<TAG>` (`<TAG>` **`>= 0.14.0`**) |
+| 🐳 Recommended SD image | `jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1` (product version `0.15.0`) |
 | 📬 L2 `RELAYER_ADDRESS` | `0xeb623ce3eb46b1d943ba56a09b17c6be9e5b3712` |
 | 📜 L1 Rollup contract | [`0x79C0bB4EE51D7557E012f2f52db4A4ff85Ca3196`](https://sepolia.etherscan.io/address/0x79C0bB4EE51D7557E012f2f52db4A4ff85Ca3196) |
 | 📮 L1 Mailbox contract | [`0x95fE4eD4327fB138Cd4Bd05a574378942648bA04`](https://sepolia.etherscan.io/address/0x95fE4eD4327fB138Cd4Bd05a574378942648bA04) |
@@ -52,7 +52,7 @@ By following this guide, you will:
 | 🔗 Jovay network | [Jovay Mainnet](../network-information.md#jovay-mainnet) |
 | 🔗 Associated L1 | Ethereum |
 | 📦 Snapshot CDN | `https://dl.jovay.io/snapshot/` |
-| 🐳 SD image | `jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:<TAG>` (`<TAG>` **`>= 0.14.0`**) |
+| 🐳 Recommended SD image | `jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1` (product version `0.15.0`) |
 | 📬 L2 `RELAYER_ADDRESS` | `0xae13ce4cd416cb4598865aa5ac8d13532bd3cd99` |
 | 📜 L1 Rollup contract | [`0xe0a28b8918a62edb825055221a1df12c7c81bac1`](https://etherscan.io/address/0xe0a28b8918a62edb825055221a1df12c7c81bac1) |
 | 📮 L1 Mailbox contract | [`0x9869a90fdac287519e48aff4cce329907a995162`](https://etherscan.io/address/0x9869a90fdac287519e48aff4cce329907a995162) |
@@ -68,14 +68,14 @@ Before getting started, make sure you have:
 - 🐳 [Docker](https://docs.docker.com/get-docker/) and Docker Compose installed
 - 📥 Latest snapshot artifacts from [Using Jovay Ledger Snapshots](./jovay-ledger-snapshot.md) (all three files for your network)
 - 🔗 **L1 execution RPC URL** and **Beacon API URL** for Sepolia (testnet) or Ethereum (mainnet)
-- 🏷️ An `l2-sequencer` image tag **`>= 0.14.0`**, matching your snapshot release
+- 🏷️ The recommended `l2-sequencer` image: **`0.15.0-rc1`** (product version `0.15.0`)
 - 💾 Sufficient disk space for both the compressed archive and extracted ledger. For the current Testnet release, keep at least **600 GiB free** on the target filesystem; future snapshots may require more.
 
 ### Shell variables
 
 ```bash
 export SD_DEPLOY_DIR=/mnt/l2_sd_sequencer # your working path
-export IMAGE=jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:<TAG>
+export IMAGE=jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1
 export SNAPSHOT_ID=<YYYYMMDD>_<BLOCK_HEIGHT>   # from the snapshot table
 export SNAPSHOT_DOWNLOAD_DIR=./jovay-snapshot    # where you saved downloads
 
@@ -130,7 +130,7 @@ Create `${SD_DEPLOY_DIR}/docker-compose.yml`.
 ```yaml
 services:
   sd-sequencer:
-    image: jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:<TAG>
+    image: ${IMAGE}
     container_name: sd_sequencer
     environment:
       - ADVERTISE_NODE_IP=127.0.0.1
@@ -164,7 +164,7 @@ services:
       - RELAYER_ADDRESS=0xae13ce4cd416cb4598865aa5ac8d13532bd3cd99
 ```
 
-> 💡 Replace `<TAG>` with your image version (**`>= 0.14.0`**). Export `SD_DEPLOY_DIR` in your shell before `docker compose up -d`.
+> 💡 Export both `IMAGE` and `SD_DEPLOY_DIR` in your shell before `docker compose up -d`. The commands above pin `IMAGE` to the recommended `0.15.0-rc1` tag so the deployment is reproducible.
 
 ### 5️⃣ First start — initialize databases
 

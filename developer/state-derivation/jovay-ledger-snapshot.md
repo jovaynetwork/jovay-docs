@@ -32,23 +32,23 @@ Before starting an SD Sequencer, download **all three** artifacts for your targe
 2. ✅ Latest `<YYYYMMDD>_<BLOCK_HEIGHT>.tar.gz`
 3. ✅ Matching `snapshot_anchor.json`
 
-> ⚠️ **Version requirement:** State Derivation requires **`l2-sequencer` version `>= 0.14.0`**. Use a compatible image tag when deploying an SD Sequencer.
+> ✅ **Recommended image:** Use product version **`0.15.0`**, published as [`jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1`](https://github.com/jovaynetwork/jovay-releases/releases/tag/v0.15.0-rc1). This exact tag has been validated end to end with the current Testnet snapshot.
 
 ## 📊 Latest Jovay Ledger Snapshots
 
 ### Testnet (Sepolia L1)
 
-| File | Min Sequencer version | L2 block height | File name | Checksums | Download |
+| File | Recommended Sequencer version | L2 block height | File name | Checksums | Download |
 | --- | --- | --- | --- | --- | --- |
-| 📜 **genesis.conf** | `>= 0.14.0` | — | `genesis.conf` | MD5: `1b6ad3d9fa67a596ca094e89bd2280ee`<br>SHA-256: `772cdd59b915787a5bca57f7bba0584333081f8749a7f702f5bba60819000fad` | [link](https://dl-testnet.jovay.io/snapshot/genesis.conf) |
-| 🗜️ **Ledger snapshot** | `>= 0.14.0` | `46787372` | `20260916_46787372.tar.gz` | MD5: `16212a19ffa5c6b1d871bb7c9f23a9c6`<br>SHA-256: `95f502b62e2ea7982cfe9006d4b087d840984db9bfed23c4a7fd3314d850e40e` | [link](https://dl-testnet.jovay.io/snapshot/20260916_46787372.tar.gz) |
-| ⚓ **snapshot_anchor.json** | `>= 0.14.0` | `46787372` | `snapshot_anchor.json` | MD5: `478e9f5175cb3ea659b0eceddc5a23d3`<br>SHA-256: `4beedfd0e2147a97eb34e847a06b74c7b62adf64952f3f41f11cfe2a08183ee1` | [link](https://dl-testnet.jovay.io/state-derivation/20260916_46787372/snapshot_anchor.json) |
+| 📜 **genesis.conf** | `0.15.0-rc1` | — | `genesis.conf` | MD5: `1b6ad3d9fa67a596ca094e89bd2280ee`<br>SHA-256: `772cdd59b915787a5bca57f7bba0584333081f8749a7f702f5bba60819000fad` | [link](https://dl-testnet.jovay.io/snapshot/genesis.conf) |
+| 🗜️ **Ledger snapshot** | `0.15.0-rc1` | `46787372` | `20260916_46787372.tar.gz` | MD5: `16212a19ffa5c6b1d871bb7c9f23a9c6`<br>SHA-256: `95f502b62e2ea7982cfe9006d4b087d840984db9bfed23c4a7fd3314d850e40e` | [link](https://dl-testnet.jovay.io/snapshot/20260916_46787372.tar.gz) |
+| ⚓ **snapshot_anchor.json** | `0.15.0-rc1` | `46787372` | `snapshot_anchor.json` | MD5: `478e9f5175cb3ea659b0eceddc5a23d3`<br>SHA-256: `4beedfd0e2147a97eb34e847a06b74c7b62adf64952f3f41f11cfe2a08183ee1` | [link](https://dl-testnet.jovay.io/state-derivation/20260916_46787372/snapshot_anchor.json) |
 
 ### Mainnet (Ethereum L1)
 
-| File | Min Sequencer version | L2 block height | File name | Checksums | Download |
+| File | Recommended Sequencer version | L2 block height | File name | Checksums | Download |
 | --- | --- | --- | --- | --- | --- |
-| 📜 **genesis.conf** | `>= 0.14.0` | — | `genesis.conf` | MD5: `502c910cbc21137c606621622fe67d28`<br>SHA-256: `d436f01b2e25d1946e63d885cb1dd3136da0e3d3beaf300f6f3f4482aff6b5d9` | [link](https://dl.jovay.io/snapshot/genesis.conf) |
+| 📜 **genesis.conf** | `0.15.0-rc1` | — | `genesis.conf` | MD5: `502c910cbc21137c606621622fe67d28`<br>SHA-256: `d436f01b2e25d1946e63d885cb1dd3136da0e3d3beaf300f6f3f4482aff6b5d9` | [link](https://dl.jovay.io/snapshot/genesis.conf) |
 | 🗜️ **Ledger snapshot** | — | — | Not available yet | — | Not available yet |
 | ⚓ **snapshot_anchor.json** | — | — | Not available yet | — | Not available yet |
 
