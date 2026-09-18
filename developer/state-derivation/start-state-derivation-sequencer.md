@@ -240,7 +240,7 @@ Edit `${SD_DEPLOY_DIR}/conf/state_derivation.conf`. Set your L1 RPC URLs; contra
   "indexer_block_tag": "finalized",
   "indexer_poll_interval_ms": 1000,
   "applier_poll_interval_ms": 1000,
-  "http_timeout_sec": 30,
+  "http_timeout_sec": 600,
   "max_blob_decompressed_size_mb": 128
 }
 ```
@@ -258,7 +258,7 @@ Edit `${SD_DEPLOY_DIR}/conf/state_derivation.conf`. Set your L1 RPC URLs; contra
   "indexer_block_tag": "finalized",
   "indexer_poll_interval_ms": 1000,
   "applier_poll_interval_ms": 1000,
-  "http_timeout_sec": 30,
+  "http_timeout_sec": 600,
   "max_blob_decompressed_size_mb": 128
 }
 ```
@@ -313,14 +313,15 @@ grep -iE 'error|fail' "${SD_DEPLOY_DIR}/log/aldaba.log" | grep -i derivation | t
 Query the persisted SD status from the mounted ledger:
 
 ```bash
-cd "${SD_DEPLOY_DIR}"
-
-docker compose run --rm --entrypoint /bin/sh sd-sequencer -lc \
+docker exec sd_sequencer sh -lc \
   'cd /opt/l2_deploy/client/bin && /opt/l2_deploy/bin/aldaba_cli state-derivation status --json'
 
-docker compose run --rm --entrypoint /bin/sh sd-sequencer -lc \
+docker exec sd_sequencer sh -lc \
   'cd /opt/l2_deploy/client/bin && /opt/l2_deploy/bin/aldaba_cli state-derivation cursor --json'
 ```
+
+Use `docker exec` against the running SD Sequencer. Do not use `docker compose run`
+for these commands because it starts another container against the same ledger data.
 
 `fatal_state` must be `false`. Over time, `indexer.last_seen_l1_block` and `verifier.next_verify_batch_index` should advance as newer finalized batches become available. Batch counts provide additional evidence when the corresponding records are present.
 
