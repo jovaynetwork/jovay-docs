@@ -22,7 +22,9 @@ Archive names follow **`YYYYMMDD_BLOCKHEIGHT.tar.gz`** (`YYYYMMDD` = publish dat
 
 > ⏱️ **Cadence:** Snapshots are published approximately every **14 days**.
 
-> 💾 **Capacity planning:** The current Testnet archive is about **126 GiB compressed** and expands to about **360 GiB**. Keep the archive and extracted ledger on the same filesystem only if it has at least **600 GiB free**, including room for database growth. Snapshot sizes will increase as the chain grows.
+> ⚠️ **Blob availability:** An SD Sequencer must fetch every rollup Blob published after the snapshot's L1 anchor. Ethereum consensus nodes are required to serve Blob sidecars for only [**4,096 epochs (about 18 days)**](https://eips.ethereum.org/EIPS/eip-4844#parameters). Always use the latest snapshot below; an older snapshot may no longer be usable with a standard Beacon provider even if its archive is still downloadable.
+
+> 💾 **Capacity planning:** The current Testnet archive is about **127 GiB compressed** and expands to about **360 GiB**. Keep the archive and extracted ledger on the same filesystem only if it has at least **600 GiB free**, including room for database growth. Snapshot sizes will increase as the chain grows.
 
 ## 🎯 What You Need From a Snapshot
 
@@ -32,7 +34,7 @@ Before starting an SD Sequencer, download **all three** artifacts for your targe
 2. ✅ Latest `<YYYYMMDD>_<BLOCK_HEIGHT>.tar.gz`
 3. ✅ Matching `snapshot_anchor.json`
 
-> ✅ **Recommended image:** Use product version **`0.15.0`**, published as [`jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1`](https://github.com/jovaynetwork/jovay-releases/releases/tag/v0.15.0-rc1). This exact tag has been validated end to end with the current Testnet snapshot.
+> ✅ **Recommended image:** Use product version **`0.15.0`**, published as [`jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1`](https://github.com/jovaynetwork/jovay-releases/releases/tag/v0.15.0-rc1). This exact tag has been validated end to end on Testnet and is recommended for the current snapshot.
 
 ## 📊 Latest Jovay Ledger Snapshots
 
@@ -41,8 +43,8 @@ Before starting an SD Sequencer, download **all three** artifacts for your targe
 | File | Recommended Sequencer version | L2 block height | File name | Checksums | Download |
 | --- | --- | --- | --- | --- | --- |
 | 📜 **genesis.conf** | `0.15.0-rc1` | — | `genesis.conf` | MD5: `1b6ad3d9fa67a596ca094e89bd2280ee`<br>SHA-256: `772cdd59b915787a5bca57f7bba0584333081f8749a7f702f5bba60819000fad` | [link](https://dl-testnet.jovay.io/snapshot/genesis.conf) |
-| 🗜️ **Ledger snapshot** | `0.15.0-rc1` | `46787372` | `20260916_46787372.tar.gz` | MD5: `16212a19ffa5c6b1d871bb7c9f23a9c6`<br>SHA-256: `95f502b62e2ea7982cfe9006d4b087d840984db9bfed23c4a7fd3314d850e40e` | [link](https://dl-testnet.jovay.io/snapshot/20260916_46787372.tar.gz) |
-| ⚓ **snapshot_anchor.json** | `0.15.0-rc1` | `46787372` | `snapshot_anchor.json` | MD5: `478e9f5175cb3ea659b0eceddc5a23d3`<br>SHA-256: `4beedfd0e2147a97eb34e847a06b74c7b62adf64952f3f41f11cfe2a08183ee1` | [link](https://dl-testnet.jovay.io/state-derivation/20260916_46787372/snapshot_anchor.json) |
+| 🗜️ **Ledger snapshot** | `0.15.0-rc1` | `47210434` | `20260930_47210434.tar.gz` | MD5: `dce47e551d9007456e6137a59a40b64a`<br>SHA-256: `04f3cf6a0b50aabd1390a5c19ce7a5190132a3b2d67345ca899b12db08ba6a07` | [link](https://dl-testnet.jovay.io/snapshot/20260930_47210434.tar.gz) |
+| ⚓ **snapshot_anchor.json** | `0.15.0-rc1` | `47210434` | `snapshot_anchor.json` | MD5: `b10536771973ec2a5fd8b37f7183ff4e`<br>SHA-256: `846d10a0f7241c996bb0052d844eca58eb6c01861389d19d46db399fab4d09db` | [link](https://dl-testnet.jovay.io/state-derivation/20260930_47210434/snapshot_anchor.json) |
 
 ### Mainnet (Ethereum L1)
 
