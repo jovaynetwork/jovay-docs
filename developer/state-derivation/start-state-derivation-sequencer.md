@@ -18,9 +18,11 @@ A **State Derivation (SD) Sequencer** does exactly that:
 
 The production **Jovay Sequencer** continues to sequence live traffic and post new batches to L1. The SD Sequencer independently verifies and catches up from DA—it does not replace the production node, but lets external developers rebuild a provably correct ledger without full historical sync.
 
-This tutorial walks you through deploying an SD Sequencer with the published **`l2-sequencer`** Docker image.
+This tutorial walks you through deploying an SD Sequencer on **Jovay Testnet (Sepolia L1)** with the published **`l2-sequencer`** Docker image. Mainnet parameters are provided separately in the environment tables and configuration notes.
 
-> ✅ **Recommended image:** Use product version **`0.15.0`**, published as [`jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1`](https://github.com/jovaynetwork/jovay-releases/releases/tag/v0.15.0-rc1). This exact tag has been validated end to end with the current Testnet snapshot. If a later snapshot lists a newer validated image, follow the [snapshot table](./jovay-ledger-snapshot.md#-latest-jovay-ledger-snapshots).
+> 📌 **Scope:** The snapshots referenced here are for **State Derivation Sequencers**, not standard RPC nodes. Do not use these SD snapshots with the RPC node deployment tutorial.
+
+> ✅ **Image version:** This guide uses product version **`0.15.0`**, published as [`jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1`](https://github.com/jovaynetwork/jovay-releases/releases/tag/v0.15.0-rc1). This exact tag has been validated end to end on Testnet, but not yet with the first Mainnet snapshot. Check the [snapshot table](./jovay-ledger-snapshot.md#📊-latest-jovay-ledger-snapshots) for network-specific freshness and validation status before deploying.
 
 ## 🎯 What You'll Accomplish
 
@@ -52,12 +54,15 @@ By following this guide, you will:
 | 🔗 Jovay network | [Jovay Mainnet](../network-information.md#jovay-mainnet) |
 | 🔗 Associated L1 | Ethereum |
 | 📦 Snapshot CDN | `https://dl.jovay.io/snapshot/` |
-| 🐳 Recommended SD image | `jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1` (product version `0.15.0`) |
+| 🗜️ Snapshot ID | `20261022_13641709` (published 2026-10-22) |
+| 📏 Snapshot L2 stable height | `13641709` |
+| ⚓ Snapshot L1 anchor | `26246837` (indexing starts from the following L1 block) |
+| 🐳 SD image used by this guide | `jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1` (Mainnet restore validation pending) |
 | 📬 L2 `RELAYER_ADDRESS` | `0xae13ce4cd416cb4598865aa5ac8d13532bd3cd99` |
 | 📜 L1 Rollup contract | [`0xe0a28b8918a62edb825055221a1df12c7c81bac1`](https://etherscan.io/address/0xe0a28b8918a62edb825055221a1df12c7c81bac1) |
 | 📮 L1 Mailbox contract | [`0x9869a90fdac287519e48aff4cce329907a995162`](https://etherscan.io/address/0x9869a90fdac287519e48aff4cce329907a995162) |
 
-> ⚠️ The Mainnet ledger snapshot and matching `snapshot_anchor.json` have not been published yet. The Mainnet values in this guide are provided for preparation only; do not start a Mainnet SD Sequencer until the [snapshot table](./jovay-ledger-snapshot.md#mainnet-ethereum-l1) contains a real release.
+> 📌 **Mainnet availability:** The first Mainnet ledger archive and matching anchor are now published in the [Mainnet snapshot table](./jovay-ledger-snapshot.md#mainnet-ethereum-l1). Their publication does not by itself confirm SD recovery: restoring this snapshot and deriving subsequent batches with the public image remains to be validated end to end.
 
 > 💡 You must provide your own **L1 execution RPC** (`l1_rpc_url`) and **Beacon REST API** (`beacon_rpc_url`) for the associated L1 chain. Use any provider with stable access and sufficient rate limits (Alchemy, Infura, self-hosted, etc.).
 
@@ -69,31 +74,52 @@ Before getting started, make sure you have:
 - 📥 Latest snapshot artifacts from [Using Jovay Ledger Snapshots](./jovay-ledger-snapshot.md) (all three files for your network)
 - 🔗 **L1 execution RPC URL** and **Beacon API URL** for Sepolia (testnet) or Ethereum (mainnet)
 - 🏷️ The recommended `l2-sequencer` image: **`0.15.0-rc1`** (product version `0.15.0`)
-- 💾 Sufficient disk space for both the compressed archive and extracted ledger. For the current Testnet release, keep at least **600 GiB free** on the target filesystem; future snapshots may require more.
+- 💾 Sufficient disk space for both the compressed archive and extracted ledger, plus growth and recovery overhead. For Testnet, keep at least **600 GiB free**. See [capacity planning](./jovay-ledger-snapshot.md#📖-introduction) before downloading.
 
 ### Shell variables
+
+The commands below use **Testnet**. Replace `YYYYMMDD_BLOCK_HEIGHT` with a fresh Testnet snapshot ID from the [snapshot table](./jovay-ledger-snapshot.md#testnet-sepolia-l1). Review its freshness notice before selecting a release; the listed September 30 snapshot may require historical Blob access.
 
 ```bash
 export SD_DEPLOY_DIR=/mnt/l2_sd_sequencer # your working path
 export IMAGE=jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1
-export SNAPSHOT_ID=<YYYYMMDD>_<BLOCK_HEIGHT>   # from the snapshot table
-export SNAPSHOT_DOWNLOAD_DIR=./jovay-snapshot    # where you saved downloads
+export SNAPSHOT_DOWNLOAD_DIR="${SD_DEPLOY_DIR}/downloads" # absolute path; remains valid after cd
+
+# Replace with a fresh Testnet snapshot ID from the snapshot table.
+export SNAPSHOT_ID=YYYYMMDD_BLOCK_HEIGHT
 
 # Verify capacity before downloading or extracting the snapshot
 df -h "$(dirname "${SD_DEPLOY_DIR}")"
 ```
 
+For **Mainnet**, use its snapshot ID, genesis, archive, and anchor from the [Mainnet snapshot table](./jovay-ledger-snapshot.md#mainnet-ethereum-l1), the CDN and `RELAYER_ADDRESS` in the Mainnet environment table above, and the Ethereum configuration in step 8️⃣. Use artifacts and configuration for the **same network** throughout the guide.
+
 ## 🔧 Step-by-Step Guide
 
 ### 1️⃣ Download snapshot artifacts
 
-Open [Latest Jovay Ledger Snapshots](./jovay-ledger-snapshot.md#-latest-jovay-ledger-snapshots) and download for your network:
+Open [Latest Jovay Ledger Snapshots](./jovay-ledger-snapshot.md#📊-latest-jovay-ledger-snapshots) and download for your network:
 
 - 📜 `genesis.conf`
 - 🗜️ `${SNAPSHOT_ID}.tar.gz`
 - ⚓ `snapshot_anchor.json`
 
-Verify all three downloads with `sha256sum` against the [snapshot tables](./jovay-ledger-snapshot.md#-latest-jovay-ledger-snapshots) before continuing:
+Save all three **Testnet** files under `${SNAPSHOT_DOWNLOAD_DIR}`:
+
+```bash
+mkdir -p "${SNAPSHOT_DOWNLOAD_DIR}"
+curl -fL --retry 3 --continue-at - \
+  -o "${SNAPSHOT_DOWNLOAD_DIR}/genesis.conf" \
+  https://dl-testnet.jovay.io/snapshot/genesis.conf
+curl -fL --retry 3 --continue-at - \
+  -o "${SNAPSHOT_DOWNLOAD_DIR}/${SNAPSHOT_ID}.tar.gz" \
+  "https://dl-testnet.jovay.io/snapshot/${SNAPSHOT_ID}.tar.gz"
+curl -fL --retry 3 --continue-at - \
+  -o "${SNAPSHOT_DOWNLOAD_DIR}/snapshot_anchor.json" \
+  "https://dl-testnet.jovay.io/state-derivation/${SNAPSHOT_ID}/snapshot_anchor.json"
+```
+
+Verify all three downloads with `sha256sum` against the [snapshot tables](./jovay-ledger-snapshot.md#📊-latest-jovay-ledger-snapshots) before continuing:
 
 ```bash
 cd "${SNAPSHOT_DOWNLOAD_DIR}"
@@ -125,7 +151,7 @@ All nodes on the same Jovay network must share the **same** genesis file.
 
 Create `${SD_DEPLOY_DIR}/docker-compose.yml`.
 
-**Testnet** (`RELAYER_ADDRESS` for Sepolia-backed testnet):
+**Testnet** (`RELAYER_ADDRESS` for Sepolia-backed Testnet):
 
 ```yaml
 services:
@@ -158,7 +184,7 @@ services:
       retries: 3
 ```
 
-**Mainnet** — same layout; only change `RELAYER_ADDRESS`:
+**Mainnet** — same layout; change `RELAYER_ADDRESS` to the Mainnet value:
 
 ```yaml
       - RELAYER_ADDRESS=0xae13ce4cd416cb4598865aa5ac8d13532bd3cd99
@@ -168,7 +194,7 @@ services:
 
 ### 5️⃣ First start — initialize databases
 
-On the **first** start, leave State Derivation **disabled**. The node creates required DB scaffolding under `data/public/`.
+On the **first** start, leave State Derivation **disabled**. The node creates required DB scaffolding and its own local metadata under `data/`. Keep that metadata when restoring the snapshot; do not copy it from the source node.
 
 ```bash
 cd "${SD_DEPLOY_DIR}"
@@ -216,6 +242,8 @@ tar -xzf "${SNAPSHOT_DOWNLOAD_DIR}/${SNAPSHOT_ID}.tar.gz" \
 
 > 📌 Only clear `data/public/*`, not the entire `data/` tree, to keep files created during step 5️⃣.
 
+The Mainnet snapshot combines all **11 database directories**, including `StateDB`, under one `public/` directory even though its source uses multiple disks. The single data mount in this guide is sufficient for that archive layout; do not split out `StateDB` or recreate the source's disk layout.
+
 ### 7️⃣ Enable State Derivation mode
 
 ```bash
@@ -225,7 +253,7 @@ sed -i 's#"/GlobalFlag/state_derivation_mode": "false"#"/GlobalFlag/state_deriva
 
 ### 8️⃣ Configure `state_derivation.conf`
 
-Edit `${SD_DEPLOY_DIR}/conf/state_derivation.conf`. Set your L1 RPC URLs; contract addresses are fixed per network (see [Environment Information](#-environment-information)).
+Edit `${SD_DEPLOY_DIR}/conf/state_derivation.conf`. Set your L1 RPC URLs; contract addresses are fixed per network (see [Environment Information](#🌐-environment-information)).
 
 **Testnet (Sepolia):**
 
@@ -350,7 +378,7 @@ curl -s -X POST http://127.0.0.1:18100 \
 
 **`SnapshotAnchor missing or zero l1_start_block_number`**
 
-- Re-download `snapshot_anchor.json` from the [latest snapshot tables](./jovay-ledger-snapshot.md#-latest-jovay-ledger-snapshots) for your network.
+- Re-download `snapshot_anchor.json` from the [latest snapshot tables](./jovay-ledger-snapshot.md#📊-latest-jovay-ledger-snapshots) for your network.
 
 **Genesis state root mismatch**
 
