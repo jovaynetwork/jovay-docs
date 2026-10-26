@@ -234,18 +234,28 @@ Follow these steps to bootstrap from latest snapshot:
 #### ✅ Download snapshot dataset
 > ⚠️ WARNING: Only use snapshots from offical channels. Verify checksums before deployment.
 
-```bash
-# Jovay testnet network as follows
-# File: 20260507_42784027.tar.gz (≈120GB)
-# MD5: 16e8c0e84a22f020e16b292a4ab6f889
-# Block Height: 42784027
-wget -c http://dl-testnet.jovay.io/snapshot/20260507_42784027.tar.gz
+These snapshots are for standard RPC nodes. For State Derivation Sequencers, use the [SD snapshots](../developer/state-derivation/jovay-ledger-snapshot.md).
 
-# Jovay mainnet network as follows
-# File: 20260508_8477395.tar.gz (≈3.7GB)
-# MD5: 482095d707ba3e41a4e7fc8b3c14e4bf
-# Block Height: 8477395 
-wget -c http://dl.jovay.io/snapshot/20260508_8477395.tar.gz
+Download and verify the snapshot for your network:
+
+**Jovay testnet**
+
+```bash
+# File: 20261022_47857436.tar.gz (≈134.3 GiB)
+# MD5: 5ba5ef22207db6d4a3a17b08b68e106a
+# Block Height: 47857436
+wget -c https://dl-testnet.jovay.io/snapshot/20261022_47857436.tar.gz
+echo '5ba5ef22207db6d4a3a17b08b68e106a  20261022_47857436.tar.gz' | md5sum -c -
+```
+
+**Jovay mainnet**
+
+```bash
+# File: 20261022_13640174.tar.gz (≈18.4 GiB)
+# MD5: 8d4115f3ff3bf22f501f219acab770e7
+# Block Height: 13640174
+wget -c https://dl.jovay.io/snapshot/20261022_13640174.tar.gz
+echo '8d4115f3ff3bf22f501f219acab770e7  20261022_13640174.tar.gz' | md5sum -c -
 ```
 
 - Note: Check for the latest version matching your network.
