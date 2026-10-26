@@ -42,6 +42,9 @@ By following this guide, you will:
 | 🔗 Jovay network | [Jovay Testnet](../network-information.md#jovay-testnet) |
 | 🔗 Associated L1 | Sepolia |
 | 📦 Snapshot CDN | `https://dl-testnet.jovay.io/snapshot/` |
+| 🗜️ Snapshot ID | `20261023_47889111` (published 2026-10-23) |
+| 📏 Snapshot L2 stable height | `47889111` |
+| ⚓ Snapshot L1 anchor | `11975757` (indexing starts from the following L1 block) |
 | 🐳 Recommended SD image | `jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1` (product version `0.15.0`) |
 | 📬 L2 `RELAYER_ADDRESS` | `0xeb623ce3eb46b1d943ba56a09b17c6be9e5b3712` |
 | 📜 L1 Rollup contract | [`0x79C0bB4EE51D7557E012f2f52db4A4ff85Ca3196`](https://sepolia.etherscan.io/address/0x79C0bB4EE51D7557E012f2f52db4A4ff85Ca3196) |
@@ -78,15 +81,15 @@ Before getting started, make sure you have:
 
 ### Shell variables
 
-The commands below use **Testnet**. Replace `YYYYMMDD_BLOCK_HEIGHT` with a fresh Testnet snapshot ID from the [snapshot table](./jovay-ledger-snapshot.md#testnet-sepolia-l1). Review its freshness notice before selecting a release; the listed September 30 snapshot may require historical Blob access.
+The commands below use **Testnet** snapshot **`20261023_47889111`**, published on **2026-10-23**. Before running them, check the [snapshot table](./jovay-ledger-snapshot.md#testnet-sepolia-l1) for a newer release and its validation status. Use that release's snapshot ID and matching anchor together; your Beacon provider must serve all required Blob data after its L1 anchor.
 
 ```bash
 export SD_DEPLOY_DIR=/mnt/l2_sd_sequencer # your working path
 export IMAGE=jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1
 export SNAPSHOT_DOWNLOAD_DIR="${SD_DEPLOY_DIR}/downloads" # absolute path; remains valid after cd
 
-# Replace with a fresh Testnet snapshot ID from the snapshot table.
-export SNAPSHOT_ID=YYYYMMDD_BLOCK_HEIGHT
+# Published Testnet example; use the latest release listed in the snapshot table.
+export SNAPSHOT_ID=20261023_47889111
 
 # Verify capacity before downloading or extracting the snapshot
 df -h "$(dirname "${SD_DEPLOY_DIR}")"
