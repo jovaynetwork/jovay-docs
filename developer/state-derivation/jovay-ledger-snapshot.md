@@ -28,7 +28,7 @@ Archive names follow **`YYYYMMDD_BLOCKHEIGHT.tar.gz`** (`YYYYMMDD` = publish dat
 
 > 💾 **Capacity planning:** The current Testnet archive is **137,185,269,406 bytes (about 127.8 GiB compressed)**. A previous Testnet ledger occupied approximately **360 GiB** uncompressed; allow for further growth. Keep the archive and extracted ledger on the same filesystem only if it has at least **600 GiB free**, including room for database growth. Snapshot sizes will increase as the chain grows.
 
-> 💾 **Mainnet capacity:** The first Mainnet archive is **19,666,758,797 bytes (about 18.32 GiB)**. The source `public/` databases occupied approximately **67 GiB** at creation. Budget for both the downloaded archive and restored databases, plus database growth and recovery overhead; the archive size alone is not the required disk capacity.
+> 💾 **Mainnet capacity:** The current Mainnet archive is **20,827,535,188 bytes (about 19.4 GiB compressed)**. Budget for the downloaded archive and restored databases, plus room for database growth and recovery.
 
 ## 🎯 What You Need From a Snapshot
 
@@ -56,15 +56,15 @@ The latest Testnet snapshot was published on **2026-10-23**. Its L2 stable heigh
 
 ### Mainnet (Ethereum L1)
 
-The first Mainnet snapshot was published on **2026-10-22**. Its L2 stable height is **`13641709`** and its matching L1 anchor is **`26246837`**.
+The latest Mainnet snapshot was published on **2026-11-19**. Its L2 stable height is **`14474115`** and its matching L1 anchor is **`26447170`**.
 
 | File | L2 block height | File name | Checksums | Download |
 | --- | --- | --- | --- | --- |
 | 📜 **genesis.conf** | — | `genesis.conf` | MD5: `502c910cbc21137c606621622fe67d28`<br>SHA-256: `d436f01b2e25d1946e63d885cb1dd3136da0e3d3beaf300f6f3f4482aff6b5d9` | [link](https://dl.jovay.io/snapshot/genesis.conf) |
-| 🗜️ **Ledger snapshot** | `13641709` | `20261022_13641709.tar.gz` | MD5: `5580f9453cb4a56ba4f626618cce7915`<br>SHA-256: `eea8fb5f83af3ab8e7e0390653903b6695e459165be6b01c30917db6b132bc23` | [link](https://dl.jovay.io/snapshot/20261022_13641709.tar.gz) |
-| ⚓ **snapshot_anchor.json** | `13641709` | `snapshot_anchor.json` | MD5: `cbe2485e6074fddc3789b31065a48357`<br>SHA-256: `2c4c918f37d6ef254041a128092106571511b17a55d9e833348be85aa15317c2` | [link](https://dl.jovay.io/state-derivation/20261022_13641709/snapshot_anchor.json) |
+| 🗜️ **Ledger snapshot** | `14474115` | `20261119_14474115.tar.gz` | MD5: `50ea28c847cfbda3914b02e7f921fcfd`<br>SHA-256: `2f0f44e688fb7f6f35f8fc5fdb3801f2ef2787b4dd988e6d612be95fdfcec1a4` | [link](https://dl.jovay.io/snapshot/20261119_14474115.tar.gz) |
+| ⚓ **snapshot_anchor.json** | `14474115` | `snapshot_anchor.json` | MD5: `218e70067c425d39c2c615160b3bbccc`<br>SHA-256: `03f129b53ad677e1c91fdd75bd8600eabd1db09632325a918d65f0c87065f19a` | [link](https://dl.jovay.io/state-derivation/20261119_14474115/snapshot_anchor.json) |
 
-> 📌 **Validation status:** Snapshot creation and upload succeeded, and public HTTPS availability has been checked. The checksums above are the publisher's release values; verify your complete downloads before use. Restoring this Mainnet snapshot and deriving subsequent batches with the public **`0.15.0-rc1`** image has **not yet been validated end to end**. Testnet validation of that image must not be read as Mainnet validation.
+> 📌 **Validation status.** Both files are available over HTTPS. The archive size matches the upload record, and the downloaded anchor matches its published checksums. Verify your complete downloads against the release checksums above. End-to-end validation of snapshot restore and batch derivation with the public **`0.15.0-rc1`** image is pending for this release.
 
 After downloading all three artifacts, verify each file's SHA-256 checksum against the table above. MD5 values are retained for compatibility and accidental-transfer checks, but SHA-256 is the primary integrity check:
 

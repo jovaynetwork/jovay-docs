@@ -22,7 +22,7 @@ This tutorial walks you through deploying an SD Sequencer on **Jovay Testnet (Se
 
 > 📌 **Scope:** The snapshots referenced here are for **State Derivation Sequencers**, not standard RPC nodes. Do not use these SD snapshots with the RPC node deployment tutorial.
 
-> ✅ **Image version:** This guide uses product version **`0.15.0`**, published as [`jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1`](https://github.com/jovaynetwork/jovay-releases/releases/tag/v0.15.0-rc1). This exact tag has been validated end to end on Testnet, but not yet with the first Mainnet snapshot. Check the [snapshot table](./jovay-ledger-snapshot.md#📊-latest-jovay-ledger-snapshots) for network-specific freshness and validation status before deploying.
+> ✅ **Image version:** This guide uses product version **`0.15.0`**, published as [`jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1`](https://github.com/jovaynetwork/jovay-releases/releases/tag/v0.15.0-rc1). This tag has been validated end to end on Testnet. Check the latest snapshot and its validation status for your network before deploying. [Snapshot table](./jovay-ledger-snapshot.md#📊-latest-jovay-ledger-snapshots)
 
 ## 🎯 What You'll Accomplish
 
@@ -57,15 +57,15 @@ By following this guide, you will:
 | 🔗 Jovay network | [Jovay Mainnet](../network-information.md#jovay-mainnet) |
 | 🔗 Associated L1 | Ethereum |
 | 📦 Snapshot CDN | `https://dl.jovay.io/snapshot/` |
-| 🗜️ Snapshot ID | `20261022_13641709` (published 2026-10-22) |
-| 📏 Snapshot L2 stable height | `13641709` |
-| ⚓ Snapshot L1 anchor | `26246837` (indexing starts from the following L1 block) |
+| 🗜️ Snapshot ID | `20261119_14474115` (published 2026-11-19) |
+| 📏 Snapshot L2 stable height | `14474115` |
+| ⚓ Snapshot L1 anchor | `26447170` (indexing starts from the following L1 block) |
 | 🐳 SD image used by this guide | `jovay-release-registry.cn-hongkong.cr.aliyuncs.com/jovay/l2-sequencer:0.15.0-rc1` (Mainnet restore validation pending) |
 | 📬 L2 `RELAYER_ADDRESS` | `0xae13ce4cd416cb4598865aa5ac8d13532bd3cd99` |
 | 📜 L1 Rollup contract | [`0xe0a28b8918a62edb825055221a1df12c7c81bac1`](https://etherscan.io/address/0xe0a28b8918a62edb825055221a1df12c7c81bac1) |
 | 📮 L1 Mailbox contract | [`0x9869a90fdac287519e48aff4cce329907a995162`](https://etherscan.io/address/0x9869a90fdac287519e48aff4cce329907a995162) |
 
-> 📌 **Mainnet availability:** The first Mainnet ledger archive and matching anchor are now published in the [Mainnet snapshot table](./jovay-ledger-snapshot.md#mainnet-ethereum-l1). Their publication does not by itself confirm SD recovery: restoring this snapshot and deriving subsequent batches with the public image remains to be validated end to end.
+> 📌 **Mainnet availability.** Use the current Mainnet archive and its matching anchor. End-to-end restore and batch derivation with this release are pending validation. [Mainnet snapshot table](./jovay-ledger-snapshot.md#mainnet-ethereum-l1)
 
 > 💡 You must provide your own **L1 execution RPC** (`l1_rpc_url`) and **Beacon REST API** (`beacon_rpc_url`) for the associated L1 chain. Use any provider with stable access and sufficient rate limits (Alchemy, Infura, self-hosted, etc.).
 
