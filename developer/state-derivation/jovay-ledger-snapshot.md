@@ -26,7 +26,7 @@ Archive names follow **`YYYYMMDD_BLOCKHEIGHT.tar.gz`** (`YYYYMMDD` = publish dat
 
 > ⚠️ **Blob availability:** An SD Sequencer must fetch every rollup Blob published after the snapshot's L1 anchor. Ethereum consensus nodes are required to serve Blob sidecars for only [**4,096 epochs (about 18 days)**](https://eips.ethereum.org/EIPS/eip-4844#parameters). Always use the latest snapshot below; an older snapshot may no longer be usable with a standard Beacon provider even if its archive is still downloadable.
 
-> 💾 **Capacity planning:** The current Testnet archive is **137,185,269,406 bytes (about 127.8 GiB compressed)**. A previous Testnet ledger occupied approximately **360 GiB** uncompressed; allow for further growth. Keep the archive and extracted ledger on the same filesystem only if it has at least **600 GiB free**, including room for database growth. Snapshot sizes will increase as the chain grows.
+> 💾 **Capacity planning:** The current Testnet archive is **137,989,947,641 bytes (about 128.5 GiB compressed)**. A previous Testnet ledger occupied approximately **360 GiB** uncompressed; allow for further growth. Keep the archive and extracted ledger on the same filesystem only if it has at least **600 GiB free**, including room for database growth. Snapshot sizes will increase as the chain grows.
 
 > 💾 **Mainnet capacity:** The current Mainnet archive is **20,827,535,188 bytes (about 19.4 GiB compressed)**. Budget for the downloaded archive and restored databases, plus room for database growth and recovery.
 
@@ -44,13 +44,13 @@ Before starting an SD Sequencer, download **all three** artifacts for your targe
 
 ### Testnet (Sepolia L1)
 
-The latest Testnet snapshot was published on **2026-10-23**. Its L2 stable height is **`47889111`** and its matching L1 anchor is **`11975757`**. Before starting SD, confirm that your Beacon provider can still serve all required Blob data after this anchor; publication does not guarantee ongoing Blob availability.
+The latest Testnet snapshot was published on **2026-11-20**. Its L2 stable height is **`48704973`** and its matching L1 anchor is **`12173529`**. Before starting SD, confirm that your Beacon provider can still serve all required Blob data after this anchor; publication does not guarantee ongoing Blob availability.
 
 | File | Recommended Sequencer version | L2 block height | File name | Checksums | Download |
 | --- | --- | --- | --- | --- | --- |
 | 📜 **genesis.conf** | `0.15.0-rc1` | — | `genesis.conf` | MD5: `1b6ad3d9fa67a596ca094e89bd2280ee`<br>SHA-256: `772cdd59b915787a5bca57f7bba0584333081f8749a7f702f5bba60819000fad` | [link](https://dl-testnet.jovay.io/snapshot/genesis.conf) |
-| 🗜️ **Ledger snapshot** | `0.15.0-rc1` | `47889111` | `20261023_47889111.tar.gz` | MD5: `8373cd61d0104767c7a7bcfc1ab81c1e`<br>SHA-256: `fdc5e044adec86ec22b894ae0d5f1db46dd59bd7ad78d6ccc41633486ad9541a` | [link](https://dl-testnet.jovay.io/snapshot/20261023_47889111.tar.gz) |
-| ⚓ **snapshot_anchor.json** | `0.15.0-rc1` | `47889111` | `snapshot_anchor.json` | MD5: `e18ecb3c4b7cce99bc00d61872eb0735`<br>SHA-256: `6cdfa84a06eab19ca17c2ea54c47c7a8f5a67298b704c7fbc26a3fea5cfab7e0` | [link](https://dl-testnet.jovay.io/state-derivation/20261023_47889111/snapshot_anchor.json) |
+| 🗜️ **Ledger snapshot** | `0.15.0-rc1` | `48704973` | `20261120_48704973.tar.gz` | MD5: `a5ab5a06e4d20e7a4408226171f59edb`<br>SHA-256: `8feb7b7c0a466d909c0c2afad4326213e8ad5c390102505f50e5d21b40b723ba` | [link](https://dl-testnet.jovay.io/snapshot/20261120_48704973.tar.gz) |
+| ⚓ **snapshot_anchor.json** | `0.15.0-rc1` | `48704973` | `snapshot_anchor.json` | MD5: `5030cda8497f9dd30a0f13cae6b5f879`<br>SHA-256: `24c1bfc81d1f1a0822afbc56ddcc2f6a08530e5eb1182335681a6445ce11ab95` | [link](https://dl-testnet.jovay.io/state-derivation/20261120_48704973/snapshot_anchor.json) |
 
 > 📌 **Validation status:** Snapshot creation, upload, and public HTTPS checks succeeded. The archive checksums above are the publisher's release values; verify your complete download before use. This specific snapshot has not yet been revalidated end to end by restoring an SD Sequencer and deriving subsequent batches with the public **`0.15.0-rc1`** image.
 
@@ -106,11 +106,11 @@ Snapshots from a multi-disk source use the same layout: the database directories
 
 ## ⚓ `snapshot_anchor.json` Format
 
-For example, the Testnet snapshot `20261023_47889111` has the following matching file:
+For example, the Testnet snapshot `20261120_48704973` has the following matching file:
 
 ```json
 {
-  "l1_start_block_number": 11975757
+  "l1_start_block_number": 12173529
 }
 ```
 
